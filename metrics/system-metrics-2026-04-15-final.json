@@ -1,0 +1,103 @@
+{
+  "version": "4.2.0",
+  "updated": "2026-04-15T03:09:00+08:00",
+  "description": "元灵系统完整指标报告",
+  "system": {
+    "nodeVersion": "v24.14.0",
+    "platform": "linux",
+    "heapUsedMB": 4,
+    "heapTotalMB": 6,
+    "rssMB": 34
+  },
+  "infrastructure": {
+    "cacheSystem": {
+      "size": 2,
+      "hitRate": 0.667,
+      "hits": 2,
+      "misses": 1,
+      "status": "operational"
+    },
+    "tokenEstimator": {
+      "testTextLength": 27,
+      "estimatedTokens": 7,
+      "ratio": 0.26
+    },
+    "contextReset": {
+      "threshold": 0.55,
+      "status": "operational"
+    },
+    "learningValidator": {
+      "strategy": "simple",
+      "status": "operational"
+    },
+    "performanceMonitor": {
+      "status": "operational"
+    }
+  },
+  "learningSystem": {
+    "knowledgeGraph": {
+      "totalEntities": 150,
+      "totalRelations": 30,
+      "avgConfidence": 0.8,
+      "status": "operational"
+    },
+    "metaCognition": {
+      "overallScore": 50.0,
+      "boundariesCount": 3,
+      "uncertaintiesCount": 1,
+      "status": "operational"
+    },
+    "inferenceEngine": {
+      "rulesCount": 3,
+      "ruleTypes": ["deductive", "inductive", "abductive"],
+      "status": "operational"
+    },
+    "onlineLearner": {
+      "totalEvents": 0,
+      "processedEvents": 0,
+      "status": "operational"
+    },
+    "multimodalFusion": {
+      "status": "operational"
+    },
+    "causalReasoner": {
+      "status": "operational"
+    },
+    "autonomousLearner": {
+      "goalsCount": 0,
+      "status": "operational"
+    },
+    "knowledgeTransfer": {
+      "domainsCount": 0,
+      "status": "operational"
+    }
+  },
+  "compensationComponents": {
+    "one-way-valve": { "status": "active", "score": 9.2 },
+    "learning-validator": { "status": "active", "score": 8.5 },
+    "memory-center": { "status": "active", "score": 9.0 },
+    "environment-awareness": { "status": "active", "score": 9.0 },
+    "context-reset": { "status": "active", "score": 8.5 },
+    "cache-system": { "status": "active", "score": 9.0 },
+    "token-estimator": { "status": "active", "score": 9.0 },
+    "structured-logger": { "status": "active", "score": 8.5 },
+    "performance-monitor": { "status": "active", "score": 7.5 },
+    "sprint-contract": { "status": "active", "score": 7.0 },
+    "stream-support": { "status": "active", "score": 8.5 },
+    "multi-model-routing": { "status": "active", "score": 7.5 }
+  },
+  "codeQuality": {
+    "typescriptErrors": 0,
+    "compiledFiles": 29,
+    "distSize": "4.0M",
+    "status": "clean"
+  },
+  "summary": {
+    "totalComponents": 31,
+    "activeComponents": 12,
+    "learningSystemComponents": 8,
+    "systemStatus": "operational",
+    "overallHealth": "excellent",
+    "typeScriptErrors": 0
+  }
+}

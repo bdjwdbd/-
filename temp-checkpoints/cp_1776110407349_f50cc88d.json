@@ -1,0 +1,19 @@
+{
+  "id": "cp_1776110407349_f50cc88d",
+  "sessionId": "session-1",
+  "timestamp": 1776110407351,
+  "status": "running",
+  "progress": 0,
+  "currentStep": "init",
+  "completedSteps": [],
+  "pendingSteps": [],
+  "context": {
+    "goal": "测试任务目标"
+  },
+  "variables": {},
+  "metadata": {
+    "createdAt": 1776110407351,
+    "updatedAt": 1776110407351,
+    "version": "1.0"
+  }
+}

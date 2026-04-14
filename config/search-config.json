@@ -1,0 +1,101 @@
+{
+  "version": "1.0.0",
+  "description": "元灵系统搜索配置 - LLM Memory Integration 融合",
+  "progressive": {
+    "P0": {
+      "name": "核心优化",
+      "modules": ["router", "weights", "rrf", "dedup"],
+      "enabled": true
+    },
+    "P1": {
+      "name": "查询增强",
+      "modules": ["understand", "rewriter"],
+      "enabled": true
+    },
+    "P2": {
+      "name": "学习优化",
+      "modules": ["feedback", "history"],
+      "enabled": true
+    },
+    "P3": {
+      "name": "结果增强",
+      "modules": ["explainer", "summarizer"],
+      "enabled": true
+    }
+  },
+  "router": {
+    "fastThreshold": 0.3,
+    "fullThreshold": 0.7,
+    "enableLLM": true,
+    "maxFastTime": 2000,
+    "maxBalancedTime": 5000
+  },
+  "weights": {
+    "defaultWeights": {
+      "vector": 0.6,
+      "fts": 0.3,
+      "llm": 0.1
+    },
+    "minVectorWeight": 0.3,
+    "maxVectorWeight": 0.8,
+    "minFTSWeight": 0.1,
+    "maxFTSWeight": 0.5,
+    "learningRate": 0.05
+  },
+  "rrf": {
+    "k": 60,
+    "vectorWeight": 0.6,
+    "ftsWeight": 0.3,
+    "llmWeight": 0.1,
+    "maxResults": 20
+  },
+  "dedup": {
+    "contentSimilarityThreshold": 0.85,
+    "vectorSimilarityThreshold": 0.95,
+    "minContentLength": 10
+  },
+  "understand": {
+    "enableEntityExtraction": true,
+    "enableIntentClassification": true,
+    "minConfidence": 0.5
+  },
+  "rewriter": {
+    "enableSpellingCorrection": true,
+    "enableSynonymExpansion": true,
+    "enableSemanticExpansion": true,
+    "maxExpansions": 5
+  },
+  "history": {
+    "maxHistory": 10000,
+    "cacheThreshold": 3,
+    "ttl": 3600000
+  },
+  "explainer": {
+    "maxExplanationLength": 200,
+    "maxReasons": 3,
+    "enableLLM": true
+  },
+  "summarizer": {
+    "maxSummaryLength": 300,
+    "maxKeyPoints": 5,
+    "enableLLM": true
+  },
+  "vector_search": {
+    "top_k": 20,
+    "max_distance": 0.8,
+    "score_threshold": 0.2
+  },
+  "cache": {
+    "ttl": 3600,
+    "compression": true,
+    "enabled": true,
+    "max_size": 1000
+  },
+  "performance_targets": {
+    "cache_hit": "< 10ms",
+    "fast_mode": "< 2s",
+    "balanced_mode": "< 5s",
+    "full_mode": "< 15s",
+    "accuracy": "> 80%"
+  }
+}

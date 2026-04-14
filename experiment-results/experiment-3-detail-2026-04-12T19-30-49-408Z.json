@@ -1,0 +1,802 @@
+[
+  {
+    "requestId": "req-290",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 67,
+    "cost": 1
+  },
+  {
+    "requestId": "req-273",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 130,
+    "cost": 1
+  },
+  {
+    "requestId": "req-828",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 120,
+    "cost": 1
+  },
+  {
+    "requestId": "req-494",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 62,
+    "cost": 1
+  },
+  {
+    "requestId": "req-114",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 135,
+    "cost": 1
+  },
+  {
+    "requestId": "req-970",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 71,
+    "cost": 1
+  },
+  {
+    "requestId": "req-481",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 65,
+    "cost": 1
+  },
+  {
+    "requestId": "req-268",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 125,
+    "cost": 1
+  },
+  {
+    "requestId": "req-891",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 143,
+    "cost": 1
+  },
+  {
+    "requestId": "req-788",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 84,
+    "cost": 1
+  },
+  {
+    "requestId": "req-317",
+    "hit": true,
+    "correct": true,
+    "staleness": 0.084,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-876",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 120,
+    "cost": 1
+  },
+  {
+    "requestId": "req-310",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 56,
+    "cost": 1
+  },
+  {
+    "requestId": "req-859",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 87,
+    "cost": 1
+  },
+  {
+    "requestId": "req-232",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 124,
+    "cost": 1
+  },
+  {
+    "requestId": "req-880",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 141,
+    "cost": 1
+  },
+  {
+    "requestId": "req-327",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 132,
+    "cost": 1
+  },
+  {
+    "requestId": "req-898",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 111,
+    "cost": 1
+  },
+  {
+    "requestId": "req-980",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 132,
+    "cost": 1
+  },
+  {
+    "requestId": "req-335",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 105,
+    "cost": 1
+  },
+  {
+    "requestId": "req-942",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 116,
+    "cost": 1
+  },
+  {
+    "requestId": "req-576",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 59,
+    "cost": 1
+  },
+  {
+    "requestId": "req-689",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 133,
+    "cost": 1
+  },
+  {
+    "requestId": "req-685",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 70,
+    "cost": 1
+  },
+  {
+    "requestId": "req-746",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 87,
+    "cost": 1
+  },
+  {
+    "requestId": "req-966",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 90,
+    "cost": 1
+  },
+  {
+    "requestId": "req-949",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 67,
+    "cost": 1
+  },
+  {
+    "requestId": "req-738",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 123,
+    "cost": 1
+  },
+  {
+    "requestId": "req-836",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 77,
+    "cost": 1
+  },
+  {
+    "requestId": "req-132",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 78,
+    "cost": 1
+  },
+  {
+    "requestId": "req-582",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 70,
+    "cost": 1
+  },
+  {
+    "requestId": "req-818",
+    "hit": true,
+    "correct": true,
+    "staleness": 2.664,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-594",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 85,
+    "cost": 1
+  },
+  {
+    "requestId": "req-257",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 56,
+    "cost": 1
+  },
+  {
+    "requestId": "req-824",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 108,
+    "cost": 1
+  },
+  {
+    "requestId": "req-941",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 123,
+    "cost": 1
+  },
+  {
+    "requestId": "req-660",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 106,
+    "cost": 1
+  },
+  {
+    "requestId": "req-910",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 148,
+    "cost": 1
+  },
+  {
+    "requestId": "req-963",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 71,
+    "cost": 1
+  },
+  {
+    "requestId": "req-770",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 81,
+    "cost": 1
+  },
+  {
+    "requestId": "req-413",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 117,
+    "cost": 1
+  },
+  {
+    "requestId": "req-345",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 115,
+    "cost": 1
+  },
+  {
+    "requestId": "req-578",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 112,
+    "cost": 1
+  },
+  {
+    "requestId": "req-208",
+    "hit": true,
+    "correct": true,
+    "staleness": 1.271,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-51",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 110,
+    "cost": 1
+  },
+  {
+    "requestId": "req-992",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 53,
+    "cost": 1
+  },
+  {
+    "requestId": "req-134",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 127,
+    "cost": 1
+  },
+  {
+    "requestId": "req-557",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 148,
+    "cost": 1
+  },
+  {
+    "requestId": "req-502",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 76,
+    "cost": 1
+  },
+  {
+    "requestId": "req-215",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 110,
+    "cost": 1
+  },
+  {
+    "requestId": "req-255",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 57,
+    "cost": 1
+  },
+  {
+    "requestId": "req-362",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 89,
+    "cost": 1
+  },
+  {
+    "requestId": "req-171",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 119,
+    "cost": 1
+  },
+  {
+    "requestId": "req-479",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 123,
+    "cost": 1
+  },
+  {
+    "requestId": "req-923",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 132,
+    "cost": 1
+  },
+  {
+    "requestId": "req-339",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 143,
+    "cost": 1
+  },
+  {
+    "requestId": "req-498",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 132,
+    "cost": 1
+  },
+  {
+    "requestId": "req-786",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 122,
+    "cost": 1
+  },
+  {
+    "requestId": "req-270",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 98,
+    "cost": 1
+  },
+  {
+    "requestId": "req-571",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 91,
+    "cost": 1
+  },
+  {
+    "requestId": "req-912",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 58,
+    "cost": 1
+  },
+  {
+    "requestId": "req-465",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 147,
+    "cost": 1
+  },
+  {
+    "requestId": "req-463",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 68,
+    "cost": 1
+  },
+  {
+    "requestId": "req-614",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 55,
+    "cost": 1
+  },
+  {
+    "requestId": "req-440",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 53,
+    "cost": 1
+  },
+  {
+    "requestId": "req-100",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 89,
+    "cost": 1
+  },
+  {
+    "requestId": "req-886",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 97,
+    "cost": 1
+  },
+  {
+    "requestId": "req-865",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 124,
+    "cost": 1
+  },
+  {
+    "requestId": "req-534",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 133,
+    "cost": 1
+  },
+  {
+    "requestId": "req-480",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 130,
+    "cost": 1
+  },
+  {
+    "requestId": "req-364",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 82,
+    "cost": 1
+  },
+  {
+    "requestId": "req-387",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 68,
+    "cost": 1
+  },
+  {
+    "requestId": "req-229",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 84,
+    "cost": 1
+  },
+  {
+    "requestId": "req-198",
+    "hit": true,
+    "correct": true,
+    "staleness": 6.021,
+    "latency": 1,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-422",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 138,
+    "cost": 1
+  },
+  {
+    "requestId": "req-442",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 50,
+    "cost": 1
+  },
+  {
+    "requestId": "req-790",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 91,
+    "cost": 1
+  },
+  {
+    "requestId": "req-688",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 113,
+    "cost": 1
+  },
+  {
+    "requestId": "req-218",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 109,
+    "cost": 1
+  },
+  {
+    "requestId": "req-712",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 60,
+    "cost": 1
+  },
+  {
+    "requestId": "req-206",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 57,
+    "cost": 1
+  },
+  {
+    "requestId": "req-194",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 136,
+    "cost": 1
+  },
+  {
+    "requestId": "req-448",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 60,
+    "cost": 1
+  },
+  {
+    "requestId": "req-893",
+    "hit": true,
+    "correct": true,
+    "staleness": 4.926,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-841",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 110,
+    "cost": 1
+  },
+  {
+    "requestId": "req-624",
+    "hit": true,
+    "correct": true,
+    "staleness": 5.762,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-735",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 146,
+    "cost": 1
+  },
+  {
+    "requestId": "req-367",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 57,
+    "cost": 1
+  },
+  {
+    "requestId": "req-961",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 66,
+    "cost": 1
+  },
+  {
+    "requestId": "req-698",
+    "hit": true,
+    "correct": true,
+    "staleness": 5.461,
+    "latency": 0,
+    "cost": 0.1
+  },
+  {
+    "requestId": "req-918",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 100,
+    "cost": 1
+  },
+  {
+    "requestId": "req-667",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 145,
+    "cost": 1
+  },
+  {
+    "requestId": "req-145",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 76,
+    "cost": 1
+  },
+  {
+    "requestId": "req-732",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 67,
+    "cost": 1
+  },
+  {
+    "requestId": "req-140",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 117,
+    "cost": 1
+  },
+  {
+    "requestId": "req-979",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 73,
+    "cost": 1
+  },
+  {
+    "requestId": "req-964",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 132,
+    "cost": 1
+  },
+  {
+    "requestId": "req-338",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 88,
+    "cost": 1
+  },
+  {
+    "requestId": "req-752",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 92,
+    "cost": 1
+  },
+  {
+    "requestId": "req-373",
+    "hit": false,
+    "correct": true,
+    "staleness": 0,
+    "latency": 115,
+    "cost": 1
+  }
+]

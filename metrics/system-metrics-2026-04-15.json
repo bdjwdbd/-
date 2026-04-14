@@ -1,0 +1,87 @@
+{
+  "version": "4.2.0",
+  "updated": "2026-04-15T02:38:00+08:00",
+  "description": "元灵系统运行指标报告",
+  "system": {
+    "nodeVersion": "v24.14.0",
+    "platform": "linux",
+    "memoryUsageMB": 5,
+    "uptime": 0.04
+  },
+  "infrastructure": {
+    "cacheSystem": {
+      "hitRate": 0,
+      "cacheSize": 0,
+      "status": "initialized"
+    },
+    "performanceMonitor": {
+      "status": "initialized"
+    },
+    "tokenEstimator": {
+      "testTextLength": 27,
+      "estimatedTokens": 7,
+      "ratio": 0.26
+    }
+  },
+  "learningSystem": {
+    "knowledgeGraph": {
+      "totalEntities": 3,
+      "totalRelations": 2,
+      "avgConfidence": 0.9,
+      "entitiesByType": {
+        "project": 1,
+        "concept": 1,
+        "tool": 1
+      }
+    },
+    "metaCognition": {
+      "overallConfidence": "NaN",
+      "boundariesCount": 3,
+      "uncertaintiesCount": 1
+    },
+    "inferenceEngine": {
+      "rulesCount": 3,
+      "ruleTypes": ["deductive", "inductive", "abductive"]
+    },
+    "onlineLearner": {
+      "totalEvents": 0,
+      "processedEvents": 0,
+      "knowledgeAdded": 0
+    },
+    "multimodalFusion": {
+      "status": "initialized",
+      "supportedModalities": ["text", "image", "audio", "video"]
+    },
+    "causalReasoner": {
+      "status": "initialized"
+    },
+    "autonomousLearner": {
+      "goalsCount": 0
+    },
+    "knowledgeTransfer": {
+      "domainsCount": 0,
+      "transferHistoryCount": 0
+    }
+  },
+  "componentHealth": {
+    "one-way-valve": { "status": "active", "score": 9.2 },
+    "learning-validator": { "status": "active", "score": 8.5 },
+    "memory-center": { "status": "active", "score": 9.0 },
+    "environment-awareness": { "status": "active", "score": 9.0 },
+    "context-reset": { "status": "active", "score": 8.5, "threshold": "55%" },
+    "cache-system": { "status": "active", "score": 9.0 },
+    "token-estimator": { "status": "active", "score": 9.0 },
+    "structured-logger": { "status": "active", "score": 8.5 },
+    "performance-monitor": { "status": "active", "score": 7.5 },
+    "sprint-contract": { "status": "active", "score": 7.0 },
+    "stream-support": { "status": "active", "score": 8.5 },
+    "multi-model-routing": { "status": "active", "score": 7.5 }
+  },
+  "summary": {
+    "totalComponents": 31,
+    "activeComponents": 12,
+    "learningSystemComponents": 8,
+    "systemStatus": "operational",
+    "overallHealth": "good"
+  }
+}

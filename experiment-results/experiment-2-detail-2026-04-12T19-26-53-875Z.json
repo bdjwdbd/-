@@ -1,0 +1,1713 @@
+[
+  {
+    "taskId": "code-0",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7026649421661801,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-1",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5220845161587999,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-2",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7322205702778452,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-3",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6836073805504025,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-4",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5837286897464881,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-5",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7584219716335708,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-6",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7098557723948831,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-7",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6014495962150097,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-8",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6385160599069348,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-9",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6859949663982063,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-10",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5646590067987083,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-11",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7496087470912468,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-12",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7569581798009123,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-13",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5507587452070412,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-14",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7667726734209617,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-0",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6690629033314726,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-1",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.523702215193418,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-2",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6915384736420477,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-3",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5226404761748642,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-4",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7466193606018988,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-5",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.598288265266389,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-6",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6836348056776073,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-7",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5555467741537713,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-8",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7260797074093296,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-9",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6013770509818372,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-10",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7155840727368683,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-11",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5798153813356276,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-12",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7696374842469582,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-13",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5168616981750096,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-14",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7365482053898526,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-0",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7098177878511377,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-1",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6140966159200996,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-2",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7549761106633135,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-3",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5971444090900561,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-4",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6671083671575493,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-5",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5419595991342512,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-6",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6940117434141003,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-7",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6177428867218674,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-8",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6330840509997645,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-9",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5792686928894955,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-0",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6749456556876771,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-1",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5030849617062041,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-2",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7289889255646711,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-3",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5477447406516964,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-4",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6838096293998149,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-5",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6210706153415289,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-6",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.7337796569672167,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-7",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5004345936416659,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-8",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.6421079544429564,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-9",
+    "validationType": "none",
+    "passed": true,
+    "qualityScore": 0.5359592867829872,
+    "issuesFound": [],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-0",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7300682764881071,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-1",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7015631056814526,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-2",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7602620956018917,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-3",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.745430670989494,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-4",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8204811968701557,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-5",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8801971474388883,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-6",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7335891870458202,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-7",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.780979823967576,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-8",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.850532312656926,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-9",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8409895705635343,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-10",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.867006627638635,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-11",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.915799777014801,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-12",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7123231241367656,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-13",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8099517003330996,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-14",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8327196340200864,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-0",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8501421156213347,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-1",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8524885782008202,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-2",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8363979260575983,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-3",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8187784809651605,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-4",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7127301720542848,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-5",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7728164565729555,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-6",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7537661127963389,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-7",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7009003445921462,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-8",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8865886017716591,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-9",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.742473497229988,
+    "issuesFound": [
+      "文档不够详细"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-10",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7073473412430389,
+    "issuesFound": [
+      "缺少错误处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-11",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8301023874319136,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-12",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8830457807692473,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-13",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8463166293401367,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-14",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7373157932051014,
+    "issuesFound": [
+      "缺少错误处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-0",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8360987264531274,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-1",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8219375927119045,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-2",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7123360092858314,
+    "issuesFound": [
+      "缺少错误处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-3",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7709027133314759,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-4",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7068895811175163,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-5",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7860265645557305,
+    "issuesFound": [],
+    "iterationsRequired": 3,
+    "totalCost": 1.6,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-6",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8575830931313206,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-7",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.754124539470861,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-8",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7568159862991751,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-9",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7616408995074407,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-0",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7099680265519932,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-1",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7419511404813642,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-2",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7667758031986897,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-3",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8713238546823705,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-4",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.9220576873155404,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-5",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7083522836899263,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-6",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.774315795986745,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 1,
+    "totalCost": 1,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-7",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7526450295183069,
+    "issuesFound": [
+      "文档不够详细"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-8",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.8672788320679299,
+    "issuesFound": [],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-9",
+    "validationType": "simple",
+    "passed": true,
+    "qualityScore": 0.7401522222629313,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 2,
+    "totalCost": 1.3,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-0",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-1",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "缺少错误处理",
+      "正确性 未达标 (要求: 0.8)",
+      "淘汰策略 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-2",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-3",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-4",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足",
+      "正确性 未达标 (要求: 0.8)",
+      "淘汰策略 未达标 (要求: 0.8)",
+      "边界处理 未达标 (要求: 0.6)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-5",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-6",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-7",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "性能可以优化",
+      "文档不够详细",
+      "正确性 未达标 (要求: 0.8)",
+      "淘汰策略 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-8",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-9",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-10",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足",
+      "正确性 未达标 (要求: 0.8)",
+      "淘汰策略 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-11",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-12",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-13",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细",
+      "正确性 未达标 (要求: 0.8)",
+      "淘汰策略 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "code-14",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-0",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档与实现不符"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-1",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理",
+      "缺少错误处理",
+      "完整性 未达标 (要求: 0.8)",
+      "准确性 未达标 (要求: 0.8)",
+      "易用性 未达标 (要求: 0.6)",
+      "整体质量低于严格标准 (0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-2",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-3",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足",
+      "缺少边界情况处理",
+      "完整性 未达标 (要求: 0.8)",
+      "准确性 未达标 (要求: 0.8)",
+      "易用性 未达标 (要求: 0.6)",
+      "代码风格不一致"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-4",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少错误处理",
+      "内容质量 未达标 (要求: 0.8)",
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-5",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "性能可以优化",
+      "完整性 未达标 (要求: 0.8)",
+      "准确性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-6",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-7",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理",
+      "文档不够详细",
+      "完整性 未达标 (要求: 0.8)",
+      "准确性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-8",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "内容质量 未达标 (要求: 0.8)",
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-9",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "缺少错误处理"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-10",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细",
+      "内容质量 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-11",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细",
+      "完整性 未达标 (要求: 0.8)",
+      "准确性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-12",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-13",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细",
+      "性能可以优化",
+      "完整性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "text-14",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少错误处理",
+      "内容质量 未达标 (要求: 0.8)",
+      "整体质量低于严格标准 (0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-0",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-1",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少错误处理",
+      "代码注释不完整",
+      "全面性 未达标 (要求: 0.8)",
+      "深度 未达标 (要求: 0.8)",
+      "全面性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-2",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-3",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "文档不够详细",
+      "测试覆盖不足",
+      "全面性 未达标 (要求: 0.8)",
+      "深度 未达标 (要求: 0.8)",
+      "建议 未达标 (要求: 0.6)",
+      "整体质量低于严格标准 (0.8)",
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-4",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 4,
+    "totalCost": 3.8999999999999995,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-5",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少错误处理",
+      "全面性 未达标 (要求: 0.8)",
+      "深度 未达标 (要求: 0.8)",
+      "整体质量低于严格标准 (0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-6",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-7",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理",
+      "文档不够详细",
+      "全面性 未达标 (要求: 0.8)",
+      "深度 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-8",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "analysis-9",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "性能可以优化",
+      "代码注释不完整",
+      "全面性 未达标 (要求: 0.8)",
+      "潜在的安全风险"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-0",
+    "validationType": "adversarial",
+    "passed": true,
+    "qualityScore": 1,
+    "issuesFound": [],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-1",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足",
+      "性能可以优化",
+      "可行性 未达标 (要求: 0.8)",
+      "风险控制 未达标 (要求: 0.8)",
+      "时间规划 未达标 (要求: 0.6)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-2",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "文档与实现不符"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-3",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整",
+      "可行性 未达标 (要求: 0.8)",
+      "风险控制 未达标 (要求: 0.8)",
+      "可行性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-4",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "性能可以优化"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-5",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理",
+      "文档不够详细",
+      "可行性 未达标 (要求: 0.8)",
+      "风险控制 未达标 (要求: 0.8)",
+      "时间规划 未达标 (要求: 0.6)",
+      "文档与实现不符"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-6",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-7",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "代码注释不完整"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-8",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "测试覆盖不足",
+      "可行性 未达标 (要求: 0.8)",
+      "完整性 未达标 (要求: 0.8)",
+      "整体质量低于严格标准 (0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  },
+  {
+    "taskId": "planning-9",
+    "validationType": "adversarial",
+    "passed": false,
+    "qualityScore": 1,
+    "issuesFound": [
+      "缺少边界情况处理",
+      "代码注释不完整",
+      "可行性 未达标 (要求: 0.8)",
+      "风险控制 未达标 (要求: 0.8)",
+      "时间规划 未达标 (要求: 0.6)",
+      "可行性 未达标 (要求: 0.8)"
+    ],
+    "iterationsRequired": 5,
+    "totalCost": 4.699999999999999,
+    "timeMs": 0
+  }
+]

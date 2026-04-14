@@ -1,0 +1,81 @@
+{
+  "id": "snapshot-1776069676156",
+  "timestamp": "2026-04-13T08:41:16.156Z",
+  "configHash": "unknown",
+  "scores": [
+    {
+      "dimension": "response_speed",
+      "score": 100,
+      "details": "平均响应时间: 26.80ms",
+      "timestamp": "2026-04-13T08:41:16.153Z"
+    },
+    {
+      "dimension": "understanding_accuracy",
+      "score": 100,
+      "details": "正确识别: 10/10",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "task_completion",
+      "score": 60,
+      "details": "完成任务: 3/5",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "memory_recall",
+      "score": 0,
+      "details": "向量数: 0, 记忆文件: 0",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "code_quality",
+      "score": 50,
+      "details": "源码目录不存在",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "error_recovery",
+      "score": 40,
+      "details": "检查点: 无, 恢复机制: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "security",
+      "score": 50,
+      "details": "安全守卫: 无, 执行验证: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "resource_efficiency",
+      "score": 53.68,
+      "details": "堆内存: 114.7MB / 247.5MB (46.3%)",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "extensibility",
+      "score": 0,
+      "details": "模块数: 0",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "maintainability",
+      "score": 40,
+      "details": "架构文档: 无, 补偿追踪: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "documentation",
+      "score": 30,
+      "details": "文档目录不存在",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "test_coverage",
+      "score": 20,
+      "details": "测试目录不存在",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    }
+  ],
+  "overallScore": 53.4208,
+  "version": "1.0.0"
+}

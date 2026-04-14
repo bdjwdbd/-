@@ -1,0 +1,148 @@
+{
+  "results": [
+    {
+      "sampleId": "correct-1",
+      "category": "correct",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-correct-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    },
+    {
+      "sampleId": "syntax-1",
+      "category": "syntax_error",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-syntax-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    },
+    {
+      "sampleId": "logic-1",
+      "category": "logic_error",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-logic-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    },
+    {
+      "sampleId": "edge-1",
+      "category": "edge_case",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-edge-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    },
+    {
+      "sampleId": "security-1",
+      "category": "security",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-security-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    },
+    {
+      "sampleId": "performance-1",
+      "category": "performance",
+      "syntaxCheck": "fail",
+      "typeCheck": "skip",
+      "testResults": [],
+      "staticAnalysis": [],
+      "overallVerdict": "incorrect",
+      "issues": [
+        {
+          "type": "syntax",
+          "severity": "critical",
+          "description": "Command failed: npx tsc --noEmit --skipLibCheck experiment-results/temp-code-validation/sample-performance-1.ts\n",
+          "detected": true,
+          "detectionMethod": "syntax_check"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalSamples": 6,
+    "correctSamples": 0,
+    "incorrectSamples": 6,
+    "partialSamples": 0,
+    "detectionRate": 0.2,
+    "falsePositiveRate": 1,
+    "falseNegativeRate": 4,
+    "categoryBreakdown": {
+      "correct": {
+        "total": 1,
+        "detected": 1
+      },
+      "syntax_error": {
+        "total": 1,
+        "detected": 1
+      },
+      "logic_error": {
+        "total": 1,
+        "detected": 1
+      },
+      "edge_case": {
+        "total": 1,
+        "detected": 1
+      },
+      "security": {
+        "total": 1,
+        "detected": 1
+      },
+      "performance": {
+        "total": 1,
+        "detected": 1
+      }
+    },
+    "conclusion": "❌ 假设 H-004 成立：模型生成的代码问题难以被自动检测"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "systemMetrics": [
+    {
+      "timestamp": 1776111204554,
+      "health": 100,
+      "avgLatency": 1783.3333333333333,
+      "cacheHitRate": 0.38,
+      "tokenEfficiency": 0.85,
+      "taskCompletionRate": 0.95,
+      "uptime": 0,
+      "requestCount": 3,
+      "errorCount": 1
+    }
+  ],
+  "componentMetrics": {
+    "one-way-valve": [
+      {
+        "componentId": "one-way-valve",
+        "timestamp": 1776111204555,
+        "completionRate": 0.98,
+        "totalChecks": 100,
+        "passedChecks": 98
+      }
+    ],
+    "cache-system": [
+      {
+        "componentId": "cache-system",
+        "timestamp": 1776111204555,
+        "hitRate": 0.38,
+        "hits": 384,
+        "misses": 616
+      }
+    ]
+  },
+  "alerts": []
+}

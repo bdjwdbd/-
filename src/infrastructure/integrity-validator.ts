@@ -1,0 +1,259 @@
+/**
+ * 文件完整性验证器
+ * 
+ * 融合自 llm-memory-integration v5.2.17
+ * 
+ * 功能：
+ * 1. checksums 验证
+ * 2. 文件完整性检查
+ * 3. SLSA 合规检查
+ */
+
+import { StructuredLogger } from './index';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as crypto from 'crypto';
+
+// ============ 类型定义 ============
+
+export interface ChecksumEntry {
+  file: string;
+  algorithm: string;
+  hash: string;
+}
+
+export interface VerificationResult {
+  file: string;
+  valid: boolean;
+  expected: string;
+  actual: string;
+}
+
+export interface IntegrityReport {
+  totalFiles: number;
+  validFiles: number;
+  invalidFiles: number;
+  missingFiles: number;
+  results: VerificationResult[];
+  slsaCompliant: boolean;
+}
+
+// ============ 文件完整性验证器 ============
+
+export class IntegrityValidator {
+  private logger: StructuredLogger;
+  private checksumsFile: string;
+  private checksums: Map<string, ChecksumEntry> = new Map();
+  
+  constructor(
+    logger: StructuredLogger,
+    checksumsFile: string = './checksums.txt'
+  ) {
+    this.logger = logger;
+    this.checksumsFile = checksumsFile;
+    this.loadChecksums();
+  }
+  
+  /**
+   * 验证所有文件
+   */
+  verifyAll(): IntegrityReport {
+    const results: VerificationResult[] = [];
+    let validFiles = 0;
+    let invalidFiles = 0;
+    let missingFiles = 0;
+    
+    for (const [file, entry] of this.checksums) {
+      const result = this.verifyFile(file);
+      results.push(result);
+      
+      if (result.valid) {
+        validFiles++;
+      } else if (result.actual === 'FILE_NOT_FOUND') {
+        missingFiles++;
+      } else {
+        invalidFiles++;
+      }
+    }
+    
+    const report: IntegrityReport = {
+      totalFiles: this.checksums.size,
+      validFiles,
+      invalidFiles,
+      missingFiles,
+      results,
+      slsaCompliant: invalidFiles === 0 && missingFiles === 0,
+    };
+    
+    this.logger.info('IntegrityValidator', 
+      `验证完成: ${validFiles}/${this.checksums.size} 有效, SLSA 合规: ${report.slsaCompliant}`
+    );
+    
+    return report;
+  }
+  
+  /**
+   * 验证单个文件
+   */
+  verifyFile(filePath: string): VerificationResult {
+    const entry = this.checksums.get(filePath);
+    
+    if (!entry) {
+      return {
+        file: filePath,
+        valid: false,
+        expected: '',
+        actual: 'NO_CHECKSUM_ENTRY',
+      };
+    }
+    
+    if (!fs.existsSync(filePath)) {
+      return {
+        file: filePath,
+        valid: false,
+        expected: entry.hash,
+        actual: 'FILE_NOT_FOUND',
+      };
+    }
+    
+    const actualHash = this.calculateHash(filePath, entry.algorithm);
+    const valid = actualHash === entry.hash;
+    
+    return {
+      file: filePath,
+      valid,
+      expected: entry.hash,
+      actual: actualHash,
+    };
+  }
+  
+  /**
+   * 生成 checksums 文件
+   */
+  generateChecksums(files: string[], algorithm: string = 'sha256'): void {
+    const entries: ChecksumEntry[] = [];
+    
+    for (const file of files) {
+      if (fs.existsSync(file)) {
+        const hash = this.calculateHash(file, algorithm);
+        entries.push({ file, algorithm, hash });
+        this.checksums.set(file, { file, algorithm, hash });
+      }
+    }
+    
+    this.saveChecksums(entries);
+    this.logger.info('IntegrityValidator', `生成 checksums: ${entries.length} 个文件`);
+  }
+  
+  /**
+   * 添加文件到 checksums
+   */
+  addFile(filePath: string, algorithm: string = 'sha256'): void {
+    if (fs.existsSync(filePath)) {
+      const hash = this.calculateHash(filePath, algorithm);
+      this.checksums.set(filePath, { file: filePath, algorithm, hash });
+      this.saveChecksums(Array.from(this.checksums.values()));
+    }
+  }
+  
+  /**
+   * 计算文件哈希
+   */
+  private calculateHash(filePath: string, algorithm: string): string {
+    try {
+      const content = fs.readFileSync(filePath);
+      return crypto.createHash(algorithm).update(content).digest('hex');
+    } catch (error) {
+      return '';
+    }
+  }
+  
+  /**
+   * 加载 checksums
+   */
+  private loadChecksums(): void {
+    if (!fs.existsSync(this.checksumsFile)) {
+      return;
+    }
+    
+    try {
+      const content = fs.readFileSync(this.checksumsFile, 'utf-8');
+      const lines = content.split('\n');
+      
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+        
+        // 格式: hash  file (两个空格)
+        const match = trimmed.match(/^([a-f0-9]+)\s{2}(.+)$/);
+        if (match) {
+          const [, hash, file] = match;
+          this.checksums.set(file, {
+            file,
+            algorithm: hash.length === 64 ? 'sha256' : 'sha1',
+            hash,
+          });
+        }
+      }
+      
+      this.logger.info('IntegrityValidator', `加载 checksums: ${this.checksums.size} 个`);
+    } catch (error) {
+      this.logger.warn('IntegrityValidator', `加载 checksums 失败: ${error}`);
+    }
+  }
+  
+  /**
+   * 保存 checksums
+   */
+  private saveChecksums(entries: ChecksumEntry[]): void {
+    const lines = entries.map(e => `${e.hash}  ${e.file}`);
+    lines.unshift('# Generated by IntegrityValidator');
+    lines.unshift(`# Date: ${new Date().toISOString()}`);
+    
+    fs.writeFileSync(this.checksumsFile, lines.join('\n'));
+  }
+  
+  /**
+   * SLSA 合规检查
+   */
+  checkSLSACompliance(): {
+    compliant: boolean;
+    level: number;
+    issues: string[];
+  } {
+    const issues: string[] = [];
+    let level = 3;
+    
+    // Level 1: 构建过程文档化
+    if (!fs.existsSync('BUILD.md')) {
+      issues.push('缺少 BUILD.md 构建文档');
+      level = Math.min(level, 0);
+    }
+    
+    // Level 2: 构建过程可重现
+    const report = this.verifyAll();
+    if (!report.slsaCompliant) {
+      issues.push('文件完整性验证失败');
+      level = Math.min(level, 1);
+    }
+    
+    // Level 3: 构建来源可信
+    if (!fs.existsSync('provenance.json')) {
+      issues.push('缺少 provenance.json 来源证明');
+      level = Math.min(level, 2);
+    }
+    
+    return {
+      compliant: issues.length === 0,
+      level,
+      issues,
+    };
+  }
+  
+  /**
+   * 获取 checksums 数量
+   */
+  getChecksumCount(): number {
+    return this.checksums.size;
+  }
+}

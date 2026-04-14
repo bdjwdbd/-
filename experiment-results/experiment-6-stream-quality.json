@@ -1,0 +1,74 @@
+{
+  "qualityScores": [
+    {
+      "taskId": "task-1",
+      "streamScore": 0.721318756010075,
+      "nonStreamScore": 0.6854729856531887,
+      "difference": 0.0358457703568863,
+      "criteria": {
+        "coherence": 0.9,
+        "completeness": 0.647,
+        "accuracy": 0.8382750240402997,
+        "relevance": 0.5
+      }
+    },
+    {
+      "taskId": "task-2",
+      "streamScore": 0.6476837181197866,
+      "nonStreamScore": 0.6580724042683502,
+      "difference": -0.010388686148563586,
+      "criteria": {
+        "coherence": 0.6,
+        "completeness": 0.665,
+        "accuracy": 0.8257348724791463,
+        "relevance": 0.5
+      }
+    },
+    {
+      "taskId": "task-3",
+      "streamScore": 0.6558162889264284,
+      "nonStreamScore": 0.6799329439955681,
+      "difference": -0.024116655069139736,
+      "criteria": {
+        "coherence": 0.6,
+        "completeness": 0.6859999999999999,
+        "accuracy": 0.8372651557057135,
+        "relevance": 0.5
+      }
+    },
+    {
+      "taskId": "task-4",
+      "streamScore": 0.6598641352153622,
+      "nonStreamScore": 0.6659659448161938,
+      "difference": -0.006101809600831509,
+      "criteria": {
+        "coherence": 0.6,
+        "completeness": 0.665,
+        "accuracy": 0.8744565408614489,
+        "relevance": 0.5
+      }
+    },
+    {
+      "taskId": "task-5",
+      "streamScore": 0.6838830155697007,
+      "nonStreamScore": 0.6747972423436737,
+      "difference": 0.009085773226026994,
+      "criteria": {
+        "coherence": 0.6,
+        "completeness": 0.6859999999999999,
+        "accuracy": 0.9495320622788028,
+        "relevance": 0.5
+      }
+    }
+  ],
+  "result": {
+    "totalTasks": 5,
+    "streamAvgScore": 0.6737131827682706,
+    "nonStreamAvgScore": 0.6728483042153949,
+    "scoreDifference": 0.0008648785528757585,
+    "streamAvgLatency": 20.2,
+    "nonStreamAvgLatency": 192.6,
+    "firstChunkLatency": 0,
+    "conclusion": "✅ 假设 H-005 不成立：流式输出不会显著降低质量"
+  }
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "validationType": "none",
+    "totalTasks": 50,
+    "passedCount": 50,
+    "passRate": 1,
+    "avgQualityScore": 0.644507499522244,
+    "avgIterations": 1,
+    "avgCost": 1,
+    "avgTimeMs": 0,
+    "issuesPerTask": 0
+  },
+  {
+    "validationType": "simple",
+    "totalTasks": 50,
+    "passedCount": 50,
+    "passRate": 1,
+    "avgQualityScore": 0.7906456169983828,
+    "avgIterations": 1.84,
+    "avgCost": 1.2519999999999996,
+    "avgTimeMs": 0,
+    "issuesPerTask": 0.52
+  },
+  {
+    "validationType": "adversarial",
+    "totalTasks": 50,
+    "passedCount": 11,
+    "passRate": 0.22,
+    "avgQualityScore": 1,
+    "avgIterations": 4.86,
+    "avgCost": 4.5879999999999965,
+    "avgTimeMs": 0,
+    "issuesPerTask": 2.4
+  }
+]

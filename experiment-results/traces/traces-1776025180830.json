@@ -1,0 +1,65 @@
+{
+  "serviceName": "yuanling-system",
+  "traces": [
+    {
+      "traceId": "88afab96b1e4d15bff50ae482350d4d3",
+      "rootSpanId": "131987209b4f8e1c",
+      "spans": [
+        {
+          "context": {
+            "traceId": "88afab96b1e4d15bff50ae482350d4d3",
+            "spanId": "131987209b4f8e1c",
+            "baggage": {}
+          },
+          "operationName": "process_request",
+          "startTime": 1776025180688,
+          "status": "ok",
+          "tags": {
+            "http.method": "POST",
+            "http.url": "/api/chat"
+          },
+          "logs": [],
+          "component": "api-gateway",
+          "kind": "server",
+          "endTime": 1776025180795,
+          "duration": 107
+        }
+      ],
+      "startTime": 1776025180688,
+      "endTime": 1776025180795,
+      "duration": 107,
+      "status": "ok",
+      "metadata": {}
+    },
+    {
+      "traceId": "78435396320318deaa3d3ca2486ba773",
+      "rootSpanId": "761cc7875b9bbff9",
+      "spans": [
+        {
+          "context": {
+            "traceId": "78435396320318deaa3d3ca2486ba773",
+            "spanId": "761cc7875b9bbff9",
+            "baggage": {}
+          },
+          "operationName": "llm_call",
+          "startTime": 1776025180796,
+          "status": "ok",
+          "tags": {
+            "model": "claude-3"
+          },
+          "logs": [],
+          "component": "llm-service",
+          "kind": "server",
+          "endTime": 1776025180826,
+          "duration": 30
+        }
+      ],
+      "startTime": 1776025180796,
+      "endTime": 1776025180826,
+      "duration": 30,
+      "status": "ok",
+      "metadata": {}
+    }
+  ],
+  "exportedAt": "2026-04-12T20:19:40.830Z"
+}

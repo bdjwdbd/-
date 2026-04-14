@@ -1,0 +1,106 @@
+{
+  "version": "4.2.0",
+  "updated": "2026-04-15",
+  "description": "元灵系统组件注册表",
+  "components": [
+    {
+      "id": "one-way-valve",
+      "name": "单向阀门",
+      "layer": "L4",
+      "hypothesis": "模型会提前交卷、虚标完成",
+      "status": "active",
+      "removeCondition": "模型能可靠地自我验证完成度 (>95%)"
+    },
+    {
+      "id": "learning-validator",
+      "name": "学习验证",
+      "layer": "L4",
+      "hypothesis": "模型会盲目自信、无法客观评估自己",
+      "status": "active",
+      "removeCondition": "模型能通过自评与他评一致性测试"
+    },
+    {
+      "id": "memory-center",
+      "name": "记忆中心",
+      "layer": "L2",
+      "hypothesis": "模型会失忆、上下文会丢失",
+      "status": "active",
+      "removeCondition": "模型原生支持无限上下文"
+    },
+    {
+      "id": "environment-awareness",
+      "name": "环境感知",
+      "layer": "L6",
+      "hypothesis": "模型会有环境盲区、不知道自己在哪",
+      "status": "active",
+      "removeCondition": "模型能主动感知环境"
+    },
+    {
+      "id": "context-reset",
+      "name": "上下文重置",
+      "layer": "L2",
+      "hypothesis": "模型上下文会溢出、超过 55% 性能下降",
+      "status": "active",
+      "removeCondition": "模型支持 1M+ 有效上下文",
+      "config": {
+        "threshold": 0.55
+      }
+    },
+    {
+      "id": "cache-system",
+      "name": "缓存系统",
+      "layer": "L6",
+      "hypothesis": "重复请求浪费资源、成本高",
+      "status": "active",
+      "removeCondition": "LLM 调用成本降低 90%+"
+    },
+    {
+      "id": "token-estimator",
+      "name": "Token估算器",
+      "layer": "L6",
+      "hypothesis": "无法精确控制上下文大小",
+      "status": "active",
+      "removeCondition": "模型原生返回 token 数"
+    },
+    {
+      "id": "structured-logger",
+      "name": "结构化日志",
+      "layer": "L6",
+      "hypothesis": "无法追踪问题、调试困难",
+      "status": "active",
+      "removeCondition": "模型能自我诊断问题"
+    },
+    {
+      "id": "performance-monitor",
+      "name": "性能监控",
+      "layer": "L6",
+      "hypothesis": "无法发现性能瓶颈",
+      "status": "active",
+      "removeCondition": "系统自优化能力"
+    },
+    {
+      "id": "sprint-contract",
+      "name": "Sprint Contract",
+      "layer": "L1",
+      "hypothesis": "模型不会定义'什么叫完成'",
+      "status": "active",
+      "removeCondition": "模型能自主设定验收标准"
+    },
+    {
+      "id": "stream-support",
+      "name": "流式支持",
+      "layer": "L3",
+      "hypothesis": "用户等待时间长、体验差",
+      "status": "active",
+      "removeCondition": "所有场景都支持流式"
+    },
+    {
+      "id": "multi-model-routing",
+      "name": "多模型路由",
+      "layer": "L1",
+      "hypothesis": "单一模型无法平衡成本与质量",
+      "status": "active",
+      "removeCondition": "出现全能模型"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "sessionId": "test-session",
+  "messages": [
+    {
+      "role": "user",
+      "content": "帮我读取 package.json"
+    },
+    {
+      "role": "assistant",
+      "content": "我已完成任务。",
+      "toolCalls": []
+    }
+  ],
+  "savedAt": "2026-04-12T14:13:22.798Z"
+}

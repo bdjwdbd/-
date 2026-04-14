@@ -1,0 +1,1 @@
+export { EntropyGovernance } from "./governance";

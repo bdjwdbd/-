@@ -1,0 +1,1543 @@
+{
+  "results": [
+    {
+      "scenario": "低并发",
+      "agentCount": 2,
+      "taskCount": 4,
+      "metrics": {
+        "completionRate": 1,
+        "avgLatency": 140,
+        "conflictCount": 1,
+        "deadlockCount": 0,
+        "resourceWaitTime": 0,
+        "messageCount": 1
+      },
+      "events": [
+        {
+          "timestamp": 1776026099672,
+          "agentId": "agent-1",
+          "event": "registered",
+          "details": {
+            "name": "Agent 1"
+          }
+        },
+        {
+          "timestamp": 1776026099672,
+          "agentId": "agent-2",
+          "event": "registered",
+          "details": {
+            "name": "Agent 2"
+          }
+        },
+        {
+          "timestamp": 1776026099672,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099672-opv2a85iq",
+            "description": "Task 1"
+          }
+        },
+        {
+          "timestamp": 1776026099673,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099672-rika1jxd6",
+            "description": "Task 2"
+          }
+        },
+        {
+          "timestamp": 1776026099673,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099673-txbbtq5w2",
+            "description": "Task 3"
+          }
+        },
+        {
+          "timestamp": 1776026099673,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099673-3hy9cntzm",
+            "description": "Task 4"
+          }
+        },
+        {
+          "timestamp": 1776026099673,
+          "agentId": "agent-1",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026099673,
+          "agentId": "agent-2",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026099696,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 23.26541064569322
+          }
+        },
+        {
+          "timestamp": 1776026099696,
+          "agentId": "agent-1",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026099696,
+          "agentId": "agent-1",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-2"
+          }
+        },
+        {
+          "timestamp": 1776026099745,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 68.56369561696565
+          }
+        },
+        {
+          "timestamp": 1776026099745,
+          "agentId": "agent-2",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026099745,
+          "agentId": "agent-2",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-1",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026099745,
+          "agentId": "agent-2",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026099873,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 76.83458091374884
+          }
+        },
+        {
+          "timestamp": 1776026099873,
+          "agentId": "agent-1",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026099873,
+          "agentId": "agent-1",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026099953,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 80.89736030294851
+          }
+        },
+        {
+          "timestamp": 1776026099953,
+          "agentId": "agent-1",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026099953,
+          "agentId": "agent-1",
+          "event": "completed",
+          "details": {}
+        }
+      ],
+      "conclusion": "并发执行正常，无严重问题"
+    },
+    {
+      "scenario": "中并发",
+      "agentCount": 5,
+      "taskCount": 10,
+      "metrics": {
+        "completionRate": 1,
+        "avgLatency": 46.8,
+        "conflictCount": 2,
+        "deadlockCount": 0,
+        "resourceWaitTime": 0,
+        "messageCount": 2
+      },
+      "events": [
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-1",
+          "event": "registered",
+          "details": {
+            "name": "Agent 1"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-2",
+          "event": "registered",
+          "details": {
+            "name": "Agent 2"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-3",
+          "event": "registered",
+          "details": {
+            "name": "Agent 3"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-4",
+          "event": "registered",
+          "details": {
+            "name": "Agent 4"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-5",
+          "event": "registered",
+          "details": {
+            "name": "Agent 5"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-yp8q7bm4x",
+            "description": "Task 1"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-ykkcgpp68",
+            "description": "Task 2"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-bzswlt7i2",
+            "description": "Task 3"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-kqj4myqh4",
+            "description": "Task 4"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-ca54getdp",
+            "description": "Task 5"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-fj6ejw8wv",
+            "description": "Task 6"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-uua4m4etq",
+            "description": "Task 7"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-dxqqbf3dy",
+            "description": "Task 8"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-60ycfl676",
+            "description": "Task 9"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026099954-u2v7br586",
+            "description": "Task 10"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-1",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-2",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-5",
+            "heldBy": "agent-1"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-3",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-4",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026099954,
+          "agentId": "agent-5",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-3"
+          }
+        },
+        {
+          "timestamp": 1776026099992,
+          "agentId": "agent-4",
+          "event": "working",
+          "details": {
+            "duration": 38.43253191299299
+          }
+        },
+        {
+          "timestamp": 1776026099992,
+          "agentId": "agent-4",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026099992,
+          "agentId": "agent-4",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100005,
+          "agentId": "agent-3",
+          "event": "working",
+          "details": {
+            "duration": 52.67259673805055
+          }
+        },
+        {
+          "timestamp": 1776026100005,
+          "agentId": "agent-3",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100005,
+          "agentId": "agent-3",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-5",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100005,
+          "agentId": "agent-3",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100041,
+          "agentId": "agent-4",
+          "event": "working",
+          "details": {
+            "duration": 49.08917436132199
+          }
+        },
+        {
+          "timestamp": 1776026100041,
+          "agentId": "agent-4",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100041,
+          "agentId": "agent-4",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100048,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 95.08863811253319
+          }
+        },
+        {
+          "timestamp": 1776026100048,
+          "agentId": "agent-1",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100048,
+          "agentId": "agent-1",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-2",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100048,
+          "agentId": "agent-1",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100057,
+          "agentId": "agent-5",
+          "event": "working",
+          "details": {
+            "duration": 3.5198193825474844
+          }
+        },
+        {
+          "timestamp": 1776026100057,
+          "agentId": "agent-5",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100057,
+          "agentId": "agent-5",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100062,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 9.43944988664056
+          }
+        },
+        {
+          "timestamp": 1776026100062,
+          "agentId": "agent-2",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100062,
+          "agentId": "agent-2",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100140,
+          "agentId": "agent-5",
+          "event": "working",
+          "details": {
+            "duration": 84.87346830154245
+          }
+        },
+        {
+          "timestamp": 1776026100140,
+          "agentId": "agent-5",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100140,
+          "agentId": "agent-5",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100157,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 95.95926548766582
+          }
+        },
+        {
+          "timestamp": 1776026100157,
+          "agentId": "agent-2",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100157,
+          "agentId": "agent-2",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100177,
+          "agentId": "agent-5",
+          "event": "working",
+          "details": {
+            "duration": 37.056096695975015
+          }
+        },
+        {
+          "timestamp": 1776026100177,
+          "agentId": "agent-5",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100177,
+          "agentId": "agent-5",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100188,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 31.471022029990635
+          }
+        },
+        {
+          "timestamp": 1776026100188,
+          "agentId": "agent-2",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100188,
+          "agentId": "agent-2",
+          "event": "completed",
+          "details": {}
+        }
+      ],
+      "conclusion": "并发执行正常，无严重问题"
+    },
+    {
+      "scenario": "高并发",
+      "agentCount": 10,
+      "taskCount": 20,
+      "metrics": {
+        "completionRate": 1,
+        "avgLatency": 30.9,
+        "conflictCount": 7,
+        "deadlockCount": 0,
+        "resourceWaitTime": 0,
+        "messageCount": 7
+      },
+      "events": [
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-1",
+          "event": "registered",
+          "details": {
+            "name": "Agent 1"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-2",
+          "event": "registered",
+          "details": {
+            "name": "Agent 2"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-3",
+          "event": "registered",
+          "details": {
+            "name": "Agent 3"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-4",
+          "event": "registered",
+          "details": {
+            "name": "Agent 4"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-5",
+          "event": "registered",
+          "details": {
+            "name": "Agent 5"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-6",
+          "event": "registered",
+          "details": {
+            "name": "Agent 6"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-7",
+          "event": "registered",
+          "details": {
+            "name": "Agent 7"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-8",
+          "event": "registered",
+          "details": {
+            "name": "Agent 8"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-9",
+          "event": "registered",
+          "details": {
+            "name": "Agent 9"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-10",
+          "event": "registered",
+          "details": {
+            "name": "Agent 10"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-w5bkmj9e2",
+            "description": "Task 1"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-la6drbj79",
+            "description": "Task 2"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-5if65q6bq",
+            "description": "Task 3"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-6kqar1zk3",
+            "description": "Task 4"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-cen5cefv8",
+            "description": "Task 5"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-m2dkk5som",
+            "description": "Task 6"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-xtdj0gy2d",
+            "description": "Task 7"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-9lk3lwvzp",
+            "description": "Task 8"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-rfaeyz1la",
+            "description": "Task 9"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-a4cxryw4v",
+            "description": "Task 10"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-05s1yfltd",
+            "description": "Task 11"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-5ewj8d6qm",
+            "description": "Task 12"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-i8z72o1pn",
+            "description": "Task 13"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-lwdhllhux",
+            "description": "Task 14"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-02bsn48eh",
+            "description": "Task 15"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-u1piudzbj",
+            "description": "Task 16"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-o4a306v3t",
+            "description": "Task 17"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-oh76ra4mv",
+            "description": "Task 18"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-pfjee0rgh",
+            "description": "Task 19"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "system",
+          "event": "task_added",
+          "details": {
+            "taskId": "task-1776026100189-w0kcgjapz",
+            "description": "Task 20"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-1",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-2",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-3",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-4",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-3"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-5",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-5",
+            "heldBy": "agent-1"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-6",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-5",
+            "heldBy": "agent-1"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-7",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-2",
+            "heldBy": "agent-2"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-8",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-9",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100189,
+          "agentId": "agent-10",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-3",
+            "heldBy": "agent-8"
+          }
+        },
+        {
+          "timestamp": 1776026100208,
+          "agentId": "agent-9",
+          "event": "working",
+          "details": {
+            "duration": 19.693551823471367
+          }
+        },
+        {
+          "timestamp": 1776026100208,
+          "agentId": "agent-9",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100208,
+          "agentId": "agent-9",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100223,
+          "agentId": "agent-3",
+          "event": "working",
+          "details": {
+            "duration": 35.80573560481406
+          }
+        },
+        {
+          "timestamp": 1776026100223,
+          "agentId": "agent-3",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100223,
+          "agentId": "agent-3",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-4",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100223,
+          "agentId": "agent-3",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100255,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 67.79109731831002
+          }
+        },
+        {
+          "timestamp": 1776026100255,
+          "agentId": "agent-2",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100255,
+          "agentId": "agent-2",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-7",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100255,
+          "agentId": "agent-2",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100259,
+          "agentId": "agent-8",
+          "event": "working",
+          "details": {
+            "duration": 71.4203137502494
+          }
+        },
+        {
+          "timestamp": 1776026100259,
+          "agentId": "agent-8",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100259,
+          "agentId": "agent-8",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-10",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100259,
+          "agentId": "agent-8",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100284,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 95.40607050668177
+          }
+        },
+        {
+          "timestamp": 1776026100284,
+          "agentId": "agent-1",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100284,
+          "agentId": "agent-1",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-5",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100284,
+          "agentId": "agent-1",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-3",
+          "event": "working",
+          "details": {
+            "duration": 76.3024113305923
+          }
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-3",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-3",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-1",
+          "event": "working",
+          "details": {
+            "duration": 16.98651691423413
+          }
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-1",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100300,
+          "agentId": "agent-1",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100312,
+          "agentId": "agent-6",
+          "event": "working",
+          "details": {
+            "duration": 23.97723224356011
+          }
+        },
+        {
+          "timestamp": 1776026100312,
+          "agentId": "agent-6",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100312,
+          "agentId": "agent-6",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100313,
+          "agentId": "agent-6",
+          "event": "working",
+          "details": {
+            "duration": 1.001387874200721
+          }
+        },
+        {
+          "timestamp": 1776026100313,
+          "agentId": "agent-6",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100313,
+          "agentId": "agent-6",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100324,
+          "agentId": "agent-4",
+          "event": "working",
+          "details": {
+            "duration": 36.28884477521501
+          }
+        },
+        {
+          "timestamp": 1776026100324,
+          "agentId": "agent-4",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100324,
+          "agentId": "agent-4",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100329,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 74.9286346461364
+          }
+        },
+        {
+          "timestamp": 1776026100329,
+          "agentId": "agent-2",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100329,
+          "agentId": "agent-2",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-4"
+          }
+        },
+        {
+          "timestamp": 1776026100341,
+          "agentId": "agent-6",
+          "event": "working",
+          "details": {
+            "duration": 28.849872361479022
+          }
+        },
+        {
+          "timestamp": 1776026100341,
+          "agentId": "agent-6",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100341,
+          "agentId": "agent-6",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-6",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100341,
+          "agentId": "agent-6",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100368,
+          "agentId": "agent-7",
+          "event": "working",
+          "details": {
+            "duration": 80.1638395873343
+          }
+        },
+        {
+          "timestamp": 1776026100368,
+          "agentId": "agent-7",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-2"
+          }
+        },
+        {
+          "timestamp": 1776026100368,
+          "agentId": "agent-7",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-5",
+          "event": "working",
+          "details": {
+            "duration": 82.66947593434683
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-5",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-5",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-10",
+          "event": "working",
+          "details": {
+            "duration": 82.61302460571744
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-10",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-3"
+          }
+        },
+        {
+          "timestamp": 1776026100370,
+          "agentId": "agent-10",
+          "event": "waiting_for_resource",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-4"
+          }
+        },
+        {
+          "timestamp": 1776026100394,
+          "agentId": "agent-4",
+          "event": "working",
+          "details": {
+            "duration": 69.7336770584032
+          }
+        },
+        {
+          "timestamp": 1776026100394,
+          "agentId": "agent-4",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100394,
+          "agentId": "agent-4",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-2",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100394,
+          "agentId": "agent-4",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100421,
+          "agentId": "agent-7",
+          "event": "working",
+          "details": {
+            "duration": 52.215278147622456
+          }
+        },
+        {
+          "timestamp": 1776026100421,
+          "agentId": "agent-7",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-4"
+          }
+        },
+        {
+          "timestamp": 1776026100421,
+          "agentId": "agent-7",
+          "event": "acquired_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-5",
+          "event": "working",
+          "details": {
+            "duration": 84.97330663479255
+          }
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-5",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-5"
+          }
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-5",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-2",
+          "event": "working",
+          "details": {
+            "duration": 26.887142559257992
+          }
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-2",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-7"
+          }
+        },
+        {
+          "timestamp": 1776026100456,
+          "agentId": "agent-2",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100483,
+          "agentId": "agent-10",
+          "event": "working",
+          "details": {
+            "duration": 12.533459915900224
+          }
+        },
+        {
+          "timestamp": 1776026100483,
+          "agentId": "agent-10",
+          "event": "release_failed",
+          "details": {
+            "resourceId": "file-1",
+            "heldBy": "agent-7"
+          }
+        },
+        {
+          "timestamp": 1776026100483,
+          "agentId": "agent-10",
+          "event": "completed",
+          "details": {}
+        },
+        {
+          "timestamp": 1776026100498,
+          "agentId": "agent-7",
+          "event": "working",
+          "details": {
+            "duration": 78.79260087596975
+          }
+        },
+        {
+          "timestamp": 1776026100498,
+          "agentId": "agent-7",
+          "event": "released_lock",
+          "details": {
+            "resourceId": "file-1"
+          }
+        },
+        {
+          "timestamp": 1776026100498,
+          "agentId": "agent-7",
+          "event": "message_sent",
+          "details": {
+            "to": "agent-10",
+            "type": "lock"
+          }
+        },
+        {
+          "timestamp": 1776026100498,
+          "agentId": "agent-7",
+          "event": "completed",
+          "details": {}
+        }
+      ],
+      "conclusion": "并发执行正常，无严重问题"
+    }
+  ],
+  "summary": {
+    "totalConflicts": 10,
+    "totalDeadlocks": 0,
+    "conclusion": "H-003 部分成立"
+  }
+}

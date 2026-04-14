@@ -1,0 +1,105 @@
+{
+  "components": [
+    [
+      "contextreset-mnw7592j",
+      {
+        "name": "ContextReset",
+        "hypothesis": "模型上下文超过 40% 性能下降",
+        "removalConditions": [
+          "模型上下文管理能力 > 95%"
+        ],
+        "dependencies": [],
+        "id": "contextreset-mnw7592j",
+        "addedAt": "2026-04-12T20:08:43.819Z",
+        "status": "active",
+        "healthScore": 100,
+        "usageCount": 3,
+        "errorCount": 0,
+        "lastUsed": "2026-04-12T20:08:43.825Z",
+        "lastValidated": "2026-04-12T20:08:43.829Z",
+        "validationResults": [
+          {
+            "modelVersion": "gpt-4-turbo",
+            "passed": true,
+            "metrics": {
+              "accuracy": 0.8502622524186687,
+              "latency": 164.060941987654
+            },
+            "timestamp": "2026-04-12T20:08:43.829Z"
+          }
+        ]
+      }
+    ],
+    [
+      "learningvalidator-mnw7592n",
+      {
+        "name": "LearningValidator",
+        "hypothesis": "模型无法客观评估自己的输出",
+        "removalConditions": [
+          "模型自我评估能力 > 90%"
+        ],
+        "dependencies": [],
+        "id": "learningvalidator-mnw7592n",
+        "addedAt": "2026-04-12T20:08:43.823Z",
+        "status": "active",
+        "healthScore": 100,
+        "usageCount": 3,
+        "errorCount": 0,
+        "lastUsed": "2026-04-12T20:08:43.827Z",
+        "lastValidated": "2026-04-12T20:08:43.830Z",
+        "validationResults": [
+          {
+            "modelVersion": "gpt-4-turbo",
+            "passed": true,
+            "metrics": {
+              "accuracy": 0.921658190409153,
+              "latency": 192.6732328056931
+            },
+            "timestamp": "2026-04-12T20:08:43.830Z"
+          }
+        ]
+      }
+    ],
+    [
+      "cachesystem-mnw7592n",
+      {
+        "name": "CacheSystem",
+        "hypothesis": "重复请求浪费资源",
+        "removalConditions": [
+          "模型调用成本降低 > 90%"
+        ],
+        "dependencies": [],
+        "id": "cachesystem-mnw7592n",
+        "addedAt": "2026-04-12T20:08:43.823Z",
+        "status": "active",
+        "healthScore": 100,
+        "usageCount": 3,
+        "errorCount": 0,
+        "lastUsed": "2026-04-12T20:08:43.829Z",
+        "lastValidated": "2026-04-12T20:08:43.830Z",
+        "validationResults": [
+          {
+            "modelVersion": "gpt-4-turbo",
+            "passed": true,
+            "metrics": {
+              "accuracy": 0.8961589479988206,
+              "latency": 172.2733518118024
+            },
+            "timestamp": "2026-04-12T20:08:43.830Z"
+          }
+        ]
+      }
+    ]
+  ],
+  "modelCapabilities": [
+    [
+      "上下文管理",
+      85
+    ],
+    [
+      "自我评估",
+      75
+    ]
+  ],
+  "migrationHistory": []
+}

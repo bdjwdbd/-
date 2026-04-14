@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元灵系统状态报告</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    header { text-align: center; margin-bottom: 30px; }
+    header h1 { color: #1976D2; margin-bottom: 10px; }
+    .timestamp { color: #666; font-size: 14px; }
+    
+    .status { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      gap: 20px; 
+      margin-bottom: 30px; 
+    }
+    .status-badge { 
+      padding: 10px 20px; 
+      border-radius: 20px; 
+      font-weight: bold; 
+    }
+    .status-badge.healthy { background: #E8F5E9; color: #2E7D32; }
+    .status-badge.warning { background: #FFF3E0; color: #EF6C00; }
+    .status-badge.error { background: #FFEBEE; color: #C62828; }
+    
+    .metrics { margin-bottom: 30px; }
+    .metrics h2 { margin-bottom: 15px; color: #1976D2; }
+    .metrics-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+      gap: 15px; 
+    }
+    .metric-card { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 10px; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .metric-card.good { border-left: 4px solid #4CAF50; }
+    .metric-card.warning { border-left: 4px solid #FF9800; }
+    .metric-card.critical { border-left: 4px solid #F44336; }
+    .metric-name { font-size: 14px; color: #666; margin-bottom: 5px; }
+    .metric-value { font-size: 24px; font-weight: bold; color: #333; }
+    
+    .charts { margin-bottom: 30px; }
+    .charts h2 { margin-bottom: 15px; color: #1976D2; }
+    .chart-container { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 10px; 
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .chart-container h3 { margin-bottom: 15px; color: #333; }
+    .chart-container canvas { max-height: 300px; }
+    
+    .tables { margin-bottom: 30px; }
+    .tables h2 { margin-bottom: 15px; color: #1976D2; }
+    .table-container { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 10px; 
+      margin-bottom: 20px;
+      overflow-x: auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .table-container h3 { margin-bottom: 15px; color: #333; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #f5f5f5; font-weight: 600; }
+    tr:hover { background: #fafafa; }
+    
+    .alerts { margin-bottom: 30px; }
+    .alerts h2 { margin-bottom: 15px; color: #1976D2; }
+    .alert { 
+      padding: 15px; 
+      border-radius: 8px; 
+      margin-bottom: 10px; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px;
+    }
+    .alert.info { background: #E3F2FD; color: #1565C0; }
+    .alert.warning { background: #FFF3E0; color: #EF6C00; }
+    .alert.error { background: #FFEBEE; color: #C62828; }
+    .alert-level { font-weight: bold; }
+    
+    footer { 
+      text-align: center; 
+      padding: 20px; 
+      color: #666; 
+      border-top: 1px solid #eee; 
+      margin-top: 30px;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>元灵系统状态报告</h1>
+      <p class="timestamp">生成时间: 2026/4/13 06:25:57</p>
+    </header>
+    
+    <section class="status">
+      <div class="status-badge healthy">
+        ✅ 系统状态: 健康
+      </div>
+      <div class="uptime">运行时间: 1秒</div>
+    </section>
+    
+    <section class="metrics">
+      <h2>关键指标</h2>
+      <div class="metrics-grid">
+        
+          <div class="metric-card good">
+            <div class="metric-name">代码行数</div>
+            <div class="metric-value">65000 行</div>
+            
+          </div>
+        
+          <div class="metric-card good">
+            <div class="metric-name">测试用例</div>
+            <div class="metric-value">40 个</div>
+            
+          </div>
+        
+          <div class="metric-card good">
+            <div class="metric-name">测试通过率</div>
+            <div class="metric-value">100 %</div>
+            
+          </div>
+        
+          <div class="metric-card good">
+            <div class="metric-name">代码质量</div>
+            <div class="metric-value">8.7 分</div>
+            
+          </div>
+        
+          <div class="metric-card good">
+            <div class="metric-name">组件数量</div>
+            <div class="metric-value">15 个</div>
+            
+          </div>
+        
+          <div class="metric-card good">
+            <div class="metric-name">验证假设</div>
+            <div class="metric-value">6 个</div>
+            
+          </div>
+        
+      </div>
+    </section>
+    
+    
+    <section class="charts">
+      <h2>图表</h2>
+      
+        <div class="chart-container">
+          <h3>系统健康度</h3>
+          <canvas id="chart-0"></canvas>
+        </div>
+      
+        <div class="chart-container">
+          <h3>组件分布</h3>
+          <canvas id="chart-1"></canvas>
+        </div>
+      
+        <div class="chart-container">
+          <h3>性能指标</h3>
+          <canvas id="chart-2"></canvas>
+        </div>
+      
+    </section>
+    
+    
+    
+    <section class="tables">
+      <h2>数据表格</h2>
+      
+        <div class="table-container">
+          <h3>假设验证结果</h3>
+          <table>
+            <thead>
+              <tr><th>假设ID</th><th>内容</th><th>状态</th><th>结论</th></tr>
+            </thead>
+            <tbody>
+              
+                <tr><td>H-001</td><td>上下文40%阈值</td><td>✅ 已验证</td><td>部分成立</td></tr>
+              
+                <tr><td>H-002</td><td>对抗验证有效</td><td>✅ 已验证</td><td>成立但ROI低</td></tr>
+              
+                <tr><td>H-003</td><td>并发Agent无政府</td><td>✅ 已验证</td><td>部分成立</td></tr>
+              
+                <tr><td>H-004</td><td>代码正确性难检测</td><td>✅ 已验证</td><td>部分成立</td></tr>
+              
+                <tr><td>H-005</td><td>流式降低质量</td><td>✅ 已验证</td><td>不成立</td></tr>
+              
+                <tr><td>H-006</td><td>缓存会过时</td><td>✅ 已验证</td><td>不成立</td></tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="table-container">
+          <h3>六层架构</h3>
+          <table>
+            <thead>
+              <tr><th>层级</th><th>名称</th><th>核心组件</th><th>状态</th></tr>
+            </thead>
+            <tbody>
+              
+                <tr><td>L1</td><td>灵枢层</td><td>DecisionCenter, MemoryCenter</td><td>✅</td></tr>
+              
+                <tr><td>L2</td><td>灵脉层</td><td>ExecutionEngine, OneWayValve</td><td>✅</td></tr>
+              
+                <tr><td>L3</td><td>灵躯层</td><td>ToolExecutor, ToolFramework</td><td>✅</td></tr>
+              
+                <tr><td>L4</td><td>灵盾层</td><td>HardConstraints, SecurityGuard</td><td>✅</td></tr>
+              
+                <tr><td>L5</td><td>灵韵层</td><td>FeedbackCenter, AutoTuner</td><td>✅</td></tr>
+              
+                <tr><td>L6</td><td>灵识层</td><td>EnvironmentAwareness</td><td>✅</td></tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+    </section>
+    
+    
+    
+    
+    <footer>
+      <p>元灵系统 v2.1.0 | 生成于 2026/4/13 06:25:57</p>
+    </footer>
+  </div>
+  
+  <script>
+    
+          new Chart(document.getElementById('chart-0'), {
+            type: 'bar',
+            data: {
+              labels: ["功能完整性","代码质量","测试覆盖","架构清晰","可维护性"],
+              datasets: [{
+                label: '分数',
+                data: [9.8,8.5,8,8.5,8.5],
+                backgroundColor: ["#4CAF50","#2196F3","#FF9800","#9C27B0","#00BCD4"],
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              plugins: {
+                legend: { display: false }
+              },
+              scales: {
+                x: { min: 0, max: 10 }
+              }
+            }
+          });
+        
+
+          new Chart(document.getElementById('chart-1'), {
+            type: 'pie',
+            data: {
+              labels: ["灵枢层","灵脉层","灵躯层","灵盾层","灵韵层","灵识层"],
+              datasets: [{
+                data: [4,5,2,3,3,3],
+                backgroundColor: ["#E91E63","#3F51B5","#009688","#FF5722","#795548","#607D8B"],
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { position: 'bottom' }
+              }
+            }
+          });
+        
+
+          new Chart(document.getElementById('chart-2'), {
+            type: 'bar',
+            data: {
+              labels: ["Token估算","缓存读写","决策中心","记忆存储","内容分析"],
+              datasets: [{
+                label: '性能指标',
+                data: [0.08,0.02,0.01,0.01,0.02],
+                backgroundColor: ["#4CAF50","#2196F3","#FF9800","#9C27B0","#00BCD4"],
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { display: false }
+              },
+              scales: {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+        
+  </script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+{
+  "id": "report-1776069676207",
+  "timestamp": "2026-04-13T08:41:16.207Z",
+  "trigger": "manual",
+  "changes": [
+    {
+      "id": "doc-1776069675885",
+      "timestamp": "2026-04-13T08:41:15.885Z",
+      "type": "documentation",
+      "description": "文档更新: 8 个文件",
+      "files": [
+        "docs/ARCHITECTURE_FUSION.md",
+        "docs/GPU_HARDWARE_GUIDE.md",
+        "docs/GPU_SUPPORT.md",
+        "docs/LING-SI-IMPLEMENTATION.md",
+        "docs/LING-SI-USAGE.md",
+        "docs/LLM_MEMORY_FUSION.md",
+        "docs/LLM_MEMORY_INTEGRATION.md",
+        "docs/USAGE_GUIDE.md"
+      ],
+      "impact": [
+        "documentation"
+      ]
+    }
+  ],
+  "hasChanges": true,
+  "currentSnapshot": {
+    "id": "snapshot-1776069676156",
+    "timestamp": "2026-04-13T08:41:16.156Z",
+    "configHash": "unknown",
+    "scores": [
+      {
+        "dimension": "response_speed",
+        "score": 100,
+        "details": "平均响应时间: 26.80ms",
+        "timestamp": "2026-04-13T08:41:16.153Z"
+      },
+      {
+        "dimension": "understanding_accuracy",
+        "score": 100,
+        "details": "正确识别: 10/10",
+        "timestamp": "2026-04-13T08:41:16.154Z"
+      },
+      {
+        "dimension": "task_completion",
+        "score": 60,
+        "details": "完成任务: 3/5",
+        "timestamp": "2026-04-13T08:41:16.154Z"
+      },
+      {
+        "dimension": "memory_recall",
+        "score": 0,
+        "details": "向量数: 0, 记忆文件: 0",
+        "timestamp": "2026-04-13T08:41:16.154Z"
+      },
+      {
+        "dimension": "code_quality",
+        "score": 50,
+        "details": "源码目录不存在",
+        "timestamp": "2026-04-13T08:41:16.154Z"
+      },
+      {
+        "dimension": "error_recovery",
+        "score": 40,
+        "details": "检查点: 无, 恢复机制: 无",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "security",
+        "score": 50,
+        "details": "安全守卫: 无, 执行验证: 无",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "resource_efficiency",
+        "score": 53.68,
+        "details": "堆内存: 114.7MB / 247.5MB (46.3%)",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "extensibility",
+        "score": 0,
+        "details": "模块数: 0",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "maintainability",
+        "score": 40,
+        "details": "架构文档: 无, 补偿追踪: 无",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "documentation",
+        "score": 30,
+        "details": "文档目录不存在",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      },
+      {
+        "dimension": "test_coverage",
+        "score": 20,
+        "details": "测试目录不存在",
+        "timestamp": "2026-04-13T08:41:16.155Z"
+      }
+    ],
+    "overallScore": 53.4208,
+    "version": "1.0.0"
+  },
+  "improvements": [],
+  "regressions": [],
+  "unchanged": [
+    {
+      "dimension": "response_speed",
+      "score": 100,
+      "details": "平均响应时间: 26.80ms",
+      "timestamp": "2026-04-13T08:41:16.153Z"
+    },
+    {
+      "dimension": "understanding_accuracy",
+      "score": 100,
+      "details": "正确识别: 10/10",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "task_completion",
+      "score": 60,
+      "details": "完成任务: 3/5",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "memory_recall",
+      "score": 0,
+      "details": "向量数: 0, 记忆文件: 0",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "code_quality",
+      "score": 50,
+      "details": "源码目录不存在",
+      "timestamp": "2026-04-13T08:41:16.154Z"
+    },
+    {
+      "dimension": "error_recovery",
+      "score": 40,
+      "details": "检查点: 无, 恢复机制: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "security",
+      "score": 50,
+      "details": "安全守卫: 无, 执行验证: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "resource_efficiency",
+      "score": 53.68,
+      "details": "堆内存: 114.7MB / 247.5MB (46.3%)",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "extensibility",
+      "score": 0,
+      "details": "模块数: 0",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "maintainability",
+      "score": 40,
+      "details": "架构文档: 无, 补偿追踪: 无",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "documentation",
+      "score": 30,
+      "details": "文档目录不存在",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    },
+    {
+      "dimension": "test_coverage",
+      "score": 20,
+      "details": "测试目录不存在",
+      "timestamp": "2026-04-13T08:41:16.155Z"
+    }
+  ],
+  "shortfalls": [
+    {
+      "dimension": "memory_recall",
+      "currentScore": 0,
+      "targetScore": 80,
+      "gap": 80,
+      "priority": "critical",
+      "suggestion": "优化向量索引，增加记忆条目"
+    },
+    {
+      "dimension": "code_quality",
+      "currentScore": 50,
+      "targetScore": 85,
+      "gap": 35,
+      "priority": "critical",
+      "suggestion": "减少 any 类型使用，增加类型定义"
+    },
+    {
+      "dimension": "error_recovery",
+      "currentScore": 40,
+      "targetScore": 75,
+      "gap": 35,
+      "priority": "critical",
+      "suggestion": "实现检查点机制，增加自动恢复逻辑"
+    },
+    {
+      "dimension": "security",
+      "currentScore": 50,
+      "targetScore": 95,
+      "gap": 45,
+      "priority": "critical",
+      "suggestion": "增强输入验证，完善权限检查"
+    },
+    {
+      "dimension": "extensibility",
+      "currentScore": 0,
+      "targetScore": 75,
+      "gap": 75,
+      "priority": "critical",
+      "suggestion": "模块化重构，定义清晰的接口"
+    },
+    {
+      "dimension": "maintainability",
+      "currentScore": 40,
+      "targetScore": 80,
+      "gap": 40,
+      "priority": "critical",
+      "suggestion": "完善文档，增加代码注释"
+    },
+    {
+      "dimension": "documentation",
+      "currentScore": 30,
+      "targetScore": 85,
+      "gap": 55,
+      "priority": "critical",
+      "suggestion": "补充 API 文档，增加使用示例"
+    },
+    {
+      "dimension": "test_coverage",
+      "currentScore": 20,
+      "targetScore": 80,
+      "gap": 60,
+      "priority": "critical",
+      "suggestion": "增加单元测试，提高覆盖率"
+    },
+    {
+      "dimension": "task_completion",
+      "currentScore": 60,
+      "targetScore": 85,
+      "gap": 25,
+      "priority": "high",
+      "suggestion": "完善工具调用逻辑，增加错误处理"
+    },
+    {
+      "dimension": "resource_efficiency",
+      "currentScore": 53.68,
+      "targetScore": 80,
+      "gap": 26.32,
+      "priority": "high",
+      "suggestion": "优化内存使用，实现懒加载"
+    }
+  ],
+  "overallChange": 0,
+  "recommendations": [
+    {
+      "id": "rec-memory_recall",
+      "dimension": "memory_recall",
+      "priority": "critical",
+      "title": "提升记忆召回率",
+      "description": "优化向量索引，增加记忆条目",
+      "effort": "large",
+      "impact": 8
+    },
+    {
+      "id": "rec-extensibility",
+      "dimension": "extensibility",
+      "priority": "critical",
+      "title": "提升可扩展性",
+      "description": "模块化重构，定义清晰的接口",
+      "effort": "large",
+      "impact": 3.75
+    },
+    {
+      "id": "rec-security",
+      "dimension": "security",
+      "priority": "critical",
+      "title": "提升安全防护",
+      "description": "增强输入验证，完善权限检查",
+      "effort": "large",
+      "impact": 3.6
+    },
+    {
+      "id": "rec-code_quality",
+      "dimension": "code_quality",
+      "priority": "critical",
+      "title": "提升代码质量",
+      "description": "减少 any 类型使用，增加类型定义",
+      "effort": "large",
+      "impact": 3.5
+    },
+    {
+      "id": "rec-error_recovery",
+      "dimension": "error_recovery",
+      "priority": "critical",
+      "title": "提升错误恢复率",
+      "description": "实现检查点机制，增加自动恢复逻辑",
+      "effort": "large",
+      "impact": 2.8000000000000003
+    }
+  ]
+}

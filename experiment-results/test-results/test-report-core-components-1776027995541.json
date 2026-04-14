@@ -1,0 +1,81 @@
+{
+  "suiteId": "core-components",
+  "totalTests": 5,
+  "passed": 5,
+  "failed": 0,
+  "skipped": 0,
+  "duration": 2694,
+  "passRate": 1,
+  "results": [
+    {
+      "testCaseId": "test-1",
+      "status": "passed",
+      "duration": 14,
+      "startTime": "2026-04-12T21:06:32.847Z",
+      "endTime": "2026-04-12T21:06:33.902Z",
+      "logs": [
+        "执行单元测试",
+        "重试 1/2...",
+        "执行单元测试"
+      ],
+      "error": "单元测试断言失败",
+      "stackTrace": "Error: 单元测试断言失败\n    at IntegrationTester.executeUnitTest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:309:13)\n    at async IntegrationTester.executeTest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:285:9)\n    at async IntegrationTester.runTest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:243:9)\n    at async IntegrationTester.runSuite (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:164:24)\n    at async demo (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:543:18)"
+    },
+    {
+      "testCaseId": "test-2",
+      "status": "passed",
+      "duration": 103,
+      "startTime": "2026-04-12T21:06:33.903Z",
+      "endTime": "2026-04-12T21:06:34.006Z",
+      "logs": [
+        "执行集成测试",
+        "验证组件交互"
+      ]
+    },
+    {
+      "testCaseId": "test-3",
+      "status": "passed",
+      "duration": 158,
+      "startTime": "2026-04-12T21:06:34.006Z",
+      "endTime": "2026-04-12T21:06:35.333Z",
+      "logs": [
+        "执行端到端测试",
+        "模拟用户操作",
+        "验证系统响应",
+        "重试 1/2...",
+        "执行端到端测试",
+        "模拟用户操作",
+        "验证系统响应"
+      ],
+      "error": "端到端流程失败",
+      "stackTrace": "Error: 端到端流程失败\n    at IntegrationTester.executeE2ETest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:334:13)\n    at async IntegrationTester.executeTest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:291:9)\n    at async IntegrationTester.runTest (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:243:9)\n    at async IntegrationTester.runSuite (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:164:24)\n    at async demo (/home/sandbox/.openclaw/workspace/humanoid-agent/src/integration-tester.ts:543:18)"
+    },
+    {
+      "testCaseId": "test-4",
+      "status": "passed",
+      "duration": 148,
+      "startTime": "2026-04-12T21:06:35.333Z",
+      "endTime": "2026-04-12T21:06:35.481Z",
+      "logs": [
+        "执行性能测试"
+      ],
+      "metrics": {
+        "latency": 147,
+        "throughput": 6.802721088435374,
+        "memoryUsage": 50.6331155221249
+      }
+    },
+    {
+      "testCaseId": "test-5",
+      "status": "passed",
+      "duration": 60,
+      "startTime": "2026-04-12T21:06:35.481Z",
+      "endTime": "2026-04-12T21:06:35.541Z",
+      "logs": [
+        "执行回归测试",
+        "验证历史问题"
+      ]
+    }
+  ],
+  "timestamp": "2026-04-12T21:06:35.541Z"
+}

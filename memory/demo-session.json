@@ -1,0 +1,15 @@
+{
+  "sessionId": "demo-session",
+  "messages": [
+    {
+      "role": "user",
+      "content": "帮我查看当前目录的文件"
+    },
+    {
+      "role": "assistant",
+      "content": "我已完成任务。",
+      "toolCalls": []
+    }
+  ],
+  "savedAt": "2026-04-12T15:26:25.883Z"
+}

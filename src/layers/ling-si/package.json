@@ -1,0 +1,47 @@
+{
+  "name": "@yuanling/ling-si",
+  "version": "1.0.0",
+  "description": "灵思层（L0）- 基于 Thinking Claude 协议的思考协议实现",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-node src/layers/ling-si/__tests__/full-test-suite.ts",
+    "demo": "ts-node src/layers/ling-si/__demos__/full-demo.ts",
+    "verify": "ts-node src/layers/ling-si/__tests__/integration-verify.ts",
+    "cli": "ts-node src/layers/ling-si/cli.ts",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "thinking",
+    "ai",
+    "agent",
+    "claude",
+    "reasoning",
+    "yuanling"
+  ],
+  "author": "Yuanling System",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuanling/ling-si"
+  },
+  "bugs": {
+    "url": "https://github.com/yuanling/ling-si/issues"
+  },
+  "homepage": "https://docs.openclaw.ai/ling-si"
+}

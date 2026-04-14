@@ -1,0 +1,14 @@
+{
+  "totalRequests": 1000,
+  "hitCount": 384,
+  "missCount": 616,
+  "hitRate": 0.384,
+  "correctCount": 1000,
+  "correctRate": 1,
+  "avgLatencyHit": 0.013020833333333334,
+  "avgLatencyMiss": 100.18506493506493,
+  "avgCost": 0.616,
+  "costSavings": 0.384,
+  "staleCount": 0,
+  "staleRate": 0
+}

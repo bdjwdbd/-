@@ -1,0 +1,50 @@
+[
+  {
+    "contextUsage": 0.2,
+    "totalTests": 100,
+    "completedCount": 96,
+    "completionRate": 0.96,
+    "avgAccuracy": 0.9301624550995886,
+    "avgLatency": 0.02,
+    "avgTokenCount": 27763.723278732254,
+    "avgErrorCount": 0.04,
+    "avgHallucinationScore": 0.001,
+    "avgLoopCount": 3.56
+  },
+  {
+    "contextUsage": 0.4,
+    "totalTests": 100,
+    "completedCount": 98,
+    "completionRate": 0.98,
+    "avgAccuracy": 0.9448765333599245,
+    "avgLatency": 0.02,
+    "avgTokenCount": 53569.820954969495,
+    "avgErrorCount": 0.05,
+    "avgHallucinationScore": 0.0030000000000000005,
+    "avgLoopCount": 3.86
+  },
+  {
+    "contextUsage": 0.6,
+    "totalTests": 100,
+    "completedCount": 97,
+    "completionRate": 0.97,
+    "avgAccuracy": 0.8936422814871732,
+    "avgLatency": 0.01,
+    "avgTokenCount": 80911.00447927469,
+    "avgErrorCount": 0.19,
+    "avgHallucinationScore": 0.008,
+    "avgLoopCount": 5.69
+  },
+  {
+    "contextUsage": 0.8,
+    "totalTests": 100,
+    "completedCount": 89,
+    "completionRate": 0.89,
+    "avgAccuracy": 0.7399601032426847,
+    "avgLatency": 0.03,
+    "avgTokenCount": 107141.65289164275,
+    "avgErrorCount": 0.41,
+    "avgHallucinationScore": 0.02600000000000001,
+    "avgLoopCount": 6.8
+  }
+]

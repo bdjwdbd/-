@@ -1,0 +1,56 @@
+{
+  "version": "4.2.0",
+  "updated": "2026-04-15",
+  "description": "元灵系统技能注册表",
+  "skills": [
+    {
+      "id": "xiaoyi-web-search",
+      "name": "小艺联网搜索",
+      "layer": "L3",
+      "description": "中文优化的联网搜索",
+      "status": "active"
+    },
+    {
+      "id": "xiaoyi-image-understanding",
+      "name": "小艺图像理解",
+      "layer": "L3",
+      "description": "图像分析和理解",
+      "status": "active"
+    },
+    {
+      "id": "xiaoyi-doc-convert",
+      "name": "小艺文档转换",
+      "layer": "L3",
+      "description": "文档格式转换",
+      "status": "active"
+    },
+    {
+      "id": "xiaoyi-ppt",
+      "name": "小艺PPT生成",
+      "layer": "L3",
+      "description": "PPT生成和编辑",
+      "status": "active"
+    },
+    {
+      "id": "xiaoyi-file-upload",
+      "name": "小艺文件上传",
+      "layer": "L3",
+      "description": "文件上传服务",
+      "status": "active"
+    },
+    {
+      "id": "send_file_to_user",
+      "name": "文件回传",
+      "layer": "L3",
+      "description": "文件回传给用户",
+      "status": "active"
+    },
+    {
+      "id": "today-task",
+      "name": "任务推送",
+      "layer": "L3",
+      "description": "任务结果推送到负一屏",
+      "status": "active"
+    }
+  ]
+}

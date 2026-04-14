@@ -1,0 +1,24 @@
+{
+  "name": "@yuanling/native",
+  "version": "1.0.0",
+  "description": "元灵系统原生加速模块",
+  "main": "index.js",
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "build:debug": "node-gyp rebuild --debug",
+    "clean": "node-gyp clean",
+    "test": "node test/test.js"
+  },
+  "keywords": ["simd", "avx512", "vnni", "gpu", "cuda"],
+  "author": "YuanLing Team",
+  "license": "MIT",
+  "dependencies": {
+    "node-addon-api": "^7.0.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

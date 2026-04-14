@@ -1,0 +1,509 @@
+{
+  "adaptiveWeights": {
+    "cost": 0.33,
+    "quality": 0.34,
+    "latency": 0.33
+  },
+  "stats": {
+    "totalRequests": 5,
+    "modelUsage": {
+      "claude-instant": 2,
+      "claude-3.5-sonnet": 1,
+      "gpt-4o": 2
+    },
+    "avgCost": 0.00003324,
+    "avgLatency": 860,
+    "avgQuality": 82.8,
+    "costSavings": -0.000022199999999999994
+  },
+  "history": [
+    {
+      "requestId": "task-1",
+      "selectedModel": {
+        "id": "claude-instant",
+        "name": "Claude Instant",
+        "provider": "anthropic",
+        "tier": "economy",
+        "capabilities": [
+          "chat",
+          "code"
+        ],
+        "costPerToken": 0.0008,
+        "qualityScore": 70,
+        "avgLatency": 400,
+        "maxTokens": 4096,
+        "contextWindow": 100000,
+        "supportsStreaming": true,
+        "supportsVision": false,
+        "supportsFunctionCalling": false
+      },
+      "alternatives": [
+        {
+          "model": {
+            "id": "gpt-3.5-turbo",
+            "name": "GPT-3.5 Turbo",
+            "provider": "openai",
+            "tier": "economy",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling"
+            ],
+            "costPerToken": 0.0005,
+            "qualityScore": 65,
+            "avgLatency": 500,
+            "maxTokens": 4096,
+            "contextWindow": 16385,
+            "supportsStreaming": true,
+            "supportsVision": false,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.904
+        },
+        {
+          "model": {
+            "id": "claude-3.5-sonnet",
+            "name": "Claude 3.5 Sonnet",
+            "provider": "anthropic",
+            "tier": "flagship",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision",
+              "artifacts"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 94,
+            "avgLatency": 1500,
+            "maxTokens": 8192,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.892
+        },
+        {
+          "model": {
+            "id": "gpt-4o",
+            "name": "GPT-4o",
+            "provider": "openai",
+            "tier": "premium",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling",
+              "vision",
+              "audio"
+            ],
+            "costPerToken": 0.005,
+            "qualityScore": 90,
+            "avgLatency": 1000,
+            "maxTokens": 4096,
+            "contextWindow": 128000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8800000000000001
+        }
+      ],
+      "reasoning": "选择 Claude Instant（economy 层级） | 综合得分: 0.914 | 成本优先: $0.0008/1K tokens",
+      "estimatedCost": 0.0000024000000000000003,
+      "estimatedLatency": 400,
+      "confidence": 0.5207999999999999,
+      "timestamp": "2026-04-12T20:55:37.047Z"
+    },
+    {
+      "requestId": "task-2",
+      "selectedModel": {
+        "id": "claude-3.5-sonnet",
+        "name": "Claude 3.5 Sonnet",
+        "provider": "anthropic",
+        "tier": "flagship",
+        "capabilities": [
+          "chat",
+          "code",
+          "vision",
+          "artifacts"
+        ],
+        "costPerToken": 0.003,
+        "qualityScore": 94,
+        "avgLatency": 1500,
+        "maxTokens": 8192,
+        "contextWindow": 200000,
+        "supportsStreaming": true,
+        "supportsVision": true,
+        "supportsFunctionCalling": true
+      },
+      "alternatives": [
+        {
+          "model": {
+            "id": "gpt-4o",
+            "name": "GPT-4o",
+            "provider": "openai",
+            "tier": "premium",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling",
+              "vision",
+              "audio"
+            ],
+            "costPerToken": 0.005,
+            "qualityScore": 90,
+            "avgLatency": 1000,
+            "maxTokens": 4096,
+            "contextWindow": 128000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8800000000000001
+        },
+        {
+          "model": {
+            "id": "claude-3-sonnet",
+            "name": "Claude 3 Sonnet",
+            "provider": "anthropic",
+            "tier": "standard",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 82,
+            "avgLatency": 1200,
+            "maxTokens": 4096,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": false
+          },
+          "score": 0.832
+        },
+        {
+          "model": {
+            "id": "claude-3-opus",
+            "name": "Claude 3 Opus",
+            "provider": "anthropic",
+            "tier": "premium",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision"
+            ],
+            "costPerToken": 0.015,
+            "qualityScore": 92,
+            "avgLatency": 2000,
+            "maxTokens": 4096,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": false
+          },
+          "score": 0.812
+        }
+      ],
+      "reasoning": "选择 Claude 3.5 Sonnet（flagship 层级） | 综合得分: 0.892 | 质量优先: 94/100",
+      "estimatedCost": 0.000054,
+      "estimatedLatency": 1500,
+      "confidence": 0.5239999999999998,
+      "timestamp": "2026-04-12T20:55:37.047Z"
+    },
+    {
+      "requestId": "task-3",
+      "selectedModel": {
+        "id": "claude-instant",
+        "name": "Claude Instant",
+        "provider": "anthropic",
+        "tier": "economy",
+        "capabilities": [
+          "chat",
+          "code"
+        ],
+        "costPerToken": 0.0008,
+        "qualityScore": 70,
+        "avgLatency": 400,
+        "maxTokens": 4096,
+        "contextWindow": 100000,
+        "supportsStreaming": true,
+        "supportsVision": false,
+        "supportsFunctionCalling": false
+      },
+      "alternatives": [
+        {
+          "model": {
+            "id": "gpt-3.5-turbo",
+            "name": "GPT-3.5 Turbo",
+            "provider": "openai",
+            "tier": "economy",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling"
+            ],
+            "costPerToken": 0.0005,
+            "qualityScore": 65,
+            "avgLatency": 500,
+            "maxTokens": 4096,
+            "contextWindow": 16385,
+            "supportsStreaming": true,
+            "supportsVision": false,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8680000000000001
+        },
+        {
+          "model": {
+            "id": "gpt-4o",
+            "name": "GPT-4o",
+            "provider": "openai",
+            "tier": "premium",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling",
+              "vision",
+              "audio"
+            ],
+            "costPerToken": 0.005,
+            "qualityScore": 90,
+            "avgLatency": 1000,
+            "maxTokens": 4096,
+            "contextWindow": 128000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8400000000000001
+        },
+        {
+          "model": {
+            "id": "claude-3-sonnet",
+            "name": "Claude 3 Sonnet",
+            "provider": "anthropic",
+            "tier": "standard",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 82,
+            "avgLatency": 1200,
+            "maxTokens": 4096,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": false
+          },
+          "score": 0.8079999999999999
+        }
+      ],
+      "reasoning": "选择 Claude Instant（economy 层级） | 综合得分: 0.889 | 延迟优先: 400ms",
+      "estimatedCost": 0.000004800000000000001,
+      "estimatedLatency": 400,
+      "confidence": 0.5415999999999999,
+      "timestamp": "2026-04-12T20:55:37.047Z"
+    },
+    {
+      "requestId": "task-4",
+      "selectedModel": {
+        "id": "gpt-4o",
+        "name": "GPT-4o",
+        "provider": "openai",
+        "tier": "premium",
+        "capabilities": [
+          "chat",
+          "code",
+          "function-calling",
+          "vision",
+          "audio"
+        ],
+        "costPerToken": 0.005,
+        "qualityScore": 90,
+        "avgLatency": 1000,
+        "maxTokens": 4096,
+        "contextWindow": 128000,
+        "supportsStreaming": true,
+        "supportsVision": true,
+        "supportsFunctionCalling": true
+      },
+      "alternatives": [
+        {
+          "model": {
+            "id": "claude-instant",
+            "name": "Claude Instant",
+            "provider": "anthropic",
+            "tier": "economy",
+            "capabilities": [
+              "chat",
+              "code"
+            ],
+            "costPerToken": 0.0008,
+            "qualityScore": 70,
+            "avgLatency": 400,
+            "maxTokens": 4096,
+            "contextWindow": 100000,
+            "supportsStreaming": true,
+            "supportsVision": false,
+            "supportsFunctionCalling": false
+          },
+          "score": 0.86632
+        },
+        {
+          "model": {
+            "id": "claude-3.5-sonnet",
+            "name": "Claude 3.5 Sonnet",
+            "provider": "anthropic",
+            "tier": "flagship",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision",
+              "artifacts"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 94,
+            "avgLatency": 1500,
+            "maxTokens": 8192,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8607999999999999
+        },
+        {
+          "model": {
+            "id": "gpt-3.5-turbo",
+            "name": "GPT-3.5 Turbo",
+            "provider": "openai",
+            "tier": "economy",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling"
+            ],
+            "costPerToken": 0.0005,
+            "qualityScore": 65,
+            "avgLatency": 500,
+            "maxTokens": 4096,
+            "contextWindow": 16385,
+            "supportsStreaming": true,
+            "supportsVision": false,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8447000000000001
+        }
+      ],
+      "reasoning": "选择 GPT-4o（premium 层级） | 综合得分: 0.867 | 平衡模式: 成本=33%, 质量=34%, 延迟=33%",
+      "estimatedCost": 0.000075,
+      "estimatedLatency": 1000,
+      "confidence": 0.5013600000000002,
+      "timestamp": "2026-04-12T20:55:37.047Z"
+    },
+    {
+      "requestId": "task-5",
+      "selectedModel": {
+        "id": "gpt-4o",
+        "name": "GPT-4o",
+        "provider": "openai",
+        "tier": "premium",
+        "capabilities": [
+          "chat",
+          "code",
+          "function-calling",
+          "vision",
+          "audio"
+        ],
+        "costPerToken": 0.005,
+        "qualityScore": 90,
+        "avgLatency": 1000,
+        "maxTokens": 4096,
+        "contextWindow": 128000,
+        "supportsStreaming": true,
+        "supportsVision": true,
+        "supportsFunctionCalling": true
+      },
+      "alternatives": [
+        {
+          "model": {
+            "id": "claude-3.5-sonnet",
+            "name": "Claude 3.5 Sonnet",
+            "provider": "anthropic",
+            "tier": "flagship",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision",
+              "artifacts"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 94,
+            "avgLatency": 1500,
+            "maxTokens": 8192,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.8607999999999999
+        },
+        {
+          "model": {
+            "id": "claude-3-sonnet",
+            "name": "Claude 3 Sonnet",
+            "provider": "anthropic",
+            "tier": "standard",
+            "capabilities": [
+              "chat",
+              "code",
+              "vision"
+            ],
+            "costPerToken": 0.003,
+            "qualityScore": 82,
+            "avgLatency": 1200,
+            "maxTokens": 4096,
+            "contextWindow": 200000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": false
+          },
+          "score": 0.8398
+        },
+        {
+          "model": {
+            "id": "gpt-4-turbo",
+            "name": "GPT-4 Turbo",
+            "provider": "openai",
+            "tier": "standard",
+            "capabilities": [
+              "chat",
+              "code",
+              "function-calling",
+              "vision"
+            ],
+            "costPerToken": 0.01,
+            "qualityScore": 85,
+            "avgLatency": 1500,
+            "maxTokens": 4096,
+            "contextWindow": 128000,
+            "supportsStreaming": true,
+            "supportsVision": true,
+            "supportsFunctionCalling": true
+          },
+          "score": 0.784
+        }
+      ],
+      "reasoning": "选择 GPT-4o（premium 层级） | 综合得分: 0.867 | 平衡模式: 成本=33%, 质量=34%, 延迟=33%",
+      "estimatedCost": 0.00003,
+      "estimatedLatency": 1000,
+      "confidence": 0.5124000000000004,
+      "timestamp": "2026-04-12T20:55:37.048Z"
+    }
+  ],
+  "savedAt": "2026-04-12T20:55:37.055Z"
+}

@@ -1,0 +1,17 @@
+{
+  "systemMetrics": [
+    {
+      "timestamp": 1776111340041,
+      "health": 100,
+      "avgLatency": 396.6,
+      "cacheHitRate": 0.35,
+      "tokenEfficiency": 0.82,
+      "taskCompletionRate": 1,
+      "uptime": 4,
+      "requestCount": 5,
+      "errorCount": 0
+    }
+  ],
+  "componentMetrics": {},
+  "alerts": []
+}

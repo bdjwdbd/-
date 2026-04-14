@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAG 可视化报告</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { color: #333; margin-bottom: 20px; }
+    h2 { color: #666; margin: 20px 0 10px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+    .stat { text-align: center; padding: 15px; background: #f9f9f9; border-radius: 8px; }
+    .stat-value { font-size: 2em; font-weight: bold; color: #333; }
+    .stat-label { color: #666; font-size: 0.9em; }
+    .mermaid { background: white; padding: 20px; border-radius: 8px; }
+    .levels { display: flex; flex-direction: column; gap: 10px; }
+    .level { display: flex; align-items: center; gap: 10px; }
+    .level-num { 
+      background: #333; color: white; 
+      width: 30px; height: 30px; 
+      border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold;
+    }
+    .level-tasks { display: flex; gap: 10px; flex-wrap: wrap; }
+    .task-badge {
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+    }
+    .task-badge.pending { background: #f9f; }
+    .task-badge.running { background: #ff9; }
+    .task-badge.completed { background: #9f9; }
+    .task-badge.failed { background: #f99; }
+    .task-badge.blocked { background: #ccc; }
+    .cycle-warning {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .cycle-warning h3 { color: #856404; margin-bottom: 10px; }
+    .cycle-path { font-family: monospace; background: #fff; padding: 10px; border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background: #f5f5f5; font-weight: 600; }
+    tr:hover { background: #f9f9f9; }
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: 500;
+    }
+    .status-badge.pending { background: #f9f; color: #333; }
+    .status-badge.running { background: #ff9; color: #333; }
+    .status-badge.completed { background: #9f9; color: #333; }
+    .status-badge.failed { background: #f99; color: #333; }
+    .status-badge.blocked { background: #ccc; color: #333; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 DAG 可视化报告</h1>
+    
+    
+    
+    <div class="card">
+      <h2>统计概览</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value">8</div>
+          <div class="stat-label">总任务数</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">9</div>
+          <div class="stat-label">依赖关系</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">6</div>
+          <div class="stat-label">执行层级</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">2</div>
+          <div class="stat-label">已完成</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">1</div>
+          <div class="stat-label">执行中</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">0</div>
+          <div class="stat-label">失败</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h2>执行流程图</h2>
+      <div class="mermaid">
+```mermaid
+flowchart TD
+    %% 执行状态图
+
+    task1["读取配置 (150ms)"]:::completed
+    task2["验证输入 (80ms)"]:::completed
+    task3["初始化数据库 (~500ms)"]:::running
+    task4["加载模型 (~2000ms)"]:::pending
+    task5["预处理数据 (~800ms)"]:::pending
+    task6["执行推理 (~1500ms)"]:::pending
+    task7["后处理结果 (~200ms)"]:::pending
+    task8["保存输出 (~100ms)"]:::pending
+
+    task1 ==> task2
+    task1 ==> task3
+    task2 --> task4
+    task2 --> task5
+    task3 --> task5
+    task4 --> task6
+    task5 --> task6
+    task6 --> task7
+    task7 --> task8
+
+    %% 样式定义
+    classDef pending fill:#f9f,stroke:#333
+    classDef running fill:#ff9,stroke:#f00,stroke-width:3px,stroke-dasharray: 5 5
+    classDef completed fill:#9f9,stroke:#333
+    classDef failed fill:#f99,stroke:#f00,stroke-width:2px
+    classDef blocked fill:#ccc,stroke:#333
+```
+      </div>
+    </div>
+    
+    <div class="card">
+      <h2>并行执行层级</h2>
+      <div class="levels">
+        
+        <div class="level">
+          <div class="level-num">1</div>
+          <div class="level-tasks">
+            <span class="task-badge completed">读取配置</span>
+          </div>
+        </div>
+        
+        <div class="level">
+          <div class="level-num">2</div>
+          <div class="level-tasks">
+            <span class="task-badge completed">验证输入</span><span class="task-badge running">初始化数据库</span>
+          </div>
+        </div>
+        
+        <div class="level">
+          <div class="level-num">3</div>
+          <div class="level-tasks">
+            <span class="task-badge pending">加载模型</span><span class="task-badge pending">预处理数据</span>
+          </div>
+        </div>
+        
+        <div class="level">
+          <div class="level-num">4</div>
+          <div class="level-tasks">
+            <span class="task-badge pending">执行推理</span>
+          </div>
+        </div>
+        
+        <div class="level">
+          <div class="level-num">5</div>
+          <div class="level-tasks">
+            <span class="task-badge pending">后处理结果</span>
+          </div>
+        </div>
+        
+        <div class="level">
+          <div class="level-num">6</div>
+          <div class="level-tasks">
+            <span class="task-badge pending">保存输出</span>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="card">
+      <h2>任务详情</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>状态</th>
+            <th>依赖</th>
+            <th>预估时间</th>
+            <th>实际时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td><code>task1</code></td>
+            <td>读取配置</td>
+            <td><span class="status-badge completed">completed</span></td>
+            <td>-</td>
+            <td>-</td>
+            <td>150ms</td>
+          </tr>
+          
+          <tr>
+            <td><code>task2</code></td>
+            <td>验证输入</td>
+            <td><span class="status-badge completed">completed</span></td>
+            <td>task1</td>
+            <td>-</td>
+            <td>80ms</td>
+          </tr>
+          
+          <tr>
+            <td><code>task3</code></td>
+            <td>初始化数据库</td>
+            <td><span class="status-badge running">running</span></td>
+            <td>task1</td>
+            <td>500ms</td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><code>task4</code></td>
+            <td>加载模型</td>
+            <td><span class="status-badge pending">pending</span></td>
+            <td>task2</td>
+            <td>2000ms</td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><code>task5</code></td>
+            <td>预处理数据</td>
+            <td><span class="status-badge pending">pending</span></td>
+            <td>task2, task3</td>
+            <td>800ms</td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><code>task6</code></td>
+            <td>执行推理</td>
+            <td><span class="status-badge pending">pending</span></td>
+            <td>task4, task5</td>
+            <td>1500ms</td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><code>task7</code></td>
+            <td>后处理结果</td>
+            <td><span class="status-badge pending">pending</span></td>
+            <td>task6</td>
+            <td>200ms</td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><code>task8</code></td>
+            <td>保存输出</td>
+            <td><span class="status-badge pending">pending</span></td>
+            <td>task7</td>
+            <td>100ms</td>
+            <td>-</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</body>
+</html>

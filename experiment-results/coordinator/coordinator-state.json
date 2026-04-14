@@ -1,0 +1,193 @@
+{
+  "agents": [
+    [
+      "agent-1",
+      {
+        "id": "agent-1",
+        "name": "数据分析 Agent",
+        "status": "running",
+        "capabilities": [
+          "analysis",
+          "read"
+        ],
+        "currentTaskId": "task-1776026465938-y3fegru7i",
+        "lockedResources": {},
+        "messageQueue": [
+          {
+            "id": "msg-1776026465939-pzodmzq04",
+            "from": "coordinator",
+            "to": "agent-1",
+            "type": "task_assign",
+            "payload": {
+              "taskId": "task-1776026465938-y3fegru7i"
+            },
+            "timestamp": "2026-04-12T20:41:05.939Z",
+            "read": false
+          }
+        ],
+        "metadata": {},
+        "createdAt": "2026-04-12T20:41:05.938Z",
+        "lastHeartbeat": "2026-04-12T20:41:05.938Z"
+      }
+    ],
+    [
+      "agent-2",
+      {
+        "id": "agent-2",
+        "name": "执行 Agent",
+        "status": "running",
+        "capabilities": [
+          "execute",
+          "write"
+        ],
+        "currentTaskId": "task-1776026465939-92amy5any",
+        "lockedResources": {},
+        "messageQueue": [
+          {
+            "id": "msg-1776026465939-p0791r09g",
+            "from": "coordinator",
+            "to": "agent-2",
+            "type": "task_assign",
+            "payload": {
+              "taskId": "task-1776026465939-92amy5any"
+            },
+            "timestamp": "2026-04-12T20:41:05.939Z",
+            "read": true
+          },
+          {
+            "id": "msg-1776026465940-tsx8y6qfs",
+            "from": "coordinator",
+            "to": "agent-2",
+            "type": "resource_available",
+            "payload": {
+              "resourceId": "file-1"
+            },
+            "timestamp": "2026-04-12T20:41:05.940Z",
+            "read": false
+          }
+        ],
+        "metadata": {},
+        "createdAt": "2026-04-12T20:41:05.938Z",
+        "lastHeartbeat": "2026-04-12T20:41:05.938Z"
+      }
+    ],
+    [
+      "agent-3",
+      {
+        "id": "agent-3",
+        "name": "监控 Agent",
+        "status": "idle",
+        "capabilities": [
+          "monitor"
+        ],
+        "lockedResources": {},
+        "messageQueue": [],
+        "metadata": {},
+        "createdAt": "2026-04-12T20:41:05.938Z",
+        "lastHeartbeat": "2026-04-12T20:41:05.938Z"
+      }
+    ]
+  ],
+  "tasks": [
+    [
+      "task-1776026465938-y3fegru7i",
+      {
+        "id": "task-1776026465938-y3fegru7i",
+        "description": "读取数据文件",
+        "status": "assigned",
+        "priority": "high",
+        "requiredCapabilities": [
+          "read"
+        ],
+        "requiredResources": [
+          "file-1"
+        ],
+        "dependencies": [],
+        "assignedAgentId": "agent-1",
+        "createdAt": "2026-04-12T20:41:05.939Z",
+        "metadata": {}
+      }
+    ],
+    [
+      "task-1776026465939-26zkih2eq",
+      {
+        "id": "task-1776026465939-26zkih2eq",
+        "description": "分析数据",
+        "status": "pending",
+        "priority": "normal",
+        "requiredCapabilities": [
+          "analysis"
+        ],
+        "requiredResources": [],
+        "dependencies": [
+          "task-1776026465938-y3fegru7i"
+        ],
+        "createdAt": "2026-04-12T20:41:05.939Z",
+        "metadata": {}
+      }
+    ],
+    [
+      "task-1776026465939-92amy5any",
+      {
+        "id": "task-1776026465939-92amy5any",
+        "description": "执行操作",
+        "status": "assigned",
+        "priority": "low",
+        "requiredCapabilities": [
+          "execute"
+        ],
+        "requiredResources": [
+          "tool-1"
+        ],
+        "dependencies": [],
+        "assignedAgentId": "agent-2",
+        "createdAt": "2026-04-12T20:41:05.939Z",
+        "metadata": {}
+      }
+    ]
+  ],
+  "resources": [
+    [
+      "file-1",
+      {
+        "id": "file-1",
+        "name": "数据文件",
+        "type": "file",
+        "status": "available",
+        "lockTimeout": 30000,
+        "waitQueue": [],
+        "metadata": {}
+      }
+    ],
+    [
+      "api-1",
+      {
+        "id": "api-1",
+        "name": "LLM API",
+        "type": "api",
+        "status": "available",
+        "lockTimeout": 30000,
+        "waitQueue": [],
+        "metadata": {}
+      }
+    ],
+    [
+      "tool-1",
+      {
+        "id": "tool-1",
+        "name": "执行工具",
+        "type": "tool",
+        "status": "available",
+        "lockTimeout": 30000,
+        "waitQueue": [],
+        "metadata": {}
+      }
+    ]
+  ],
+  "stats": {
+    "messagesProcessed": 3,
+    "deadlocksDetected": 0,
+    "deadlocksResolved": 0
+  },
+  "savedAt": "2026-04-12T20:41:05.942Z"
+}
