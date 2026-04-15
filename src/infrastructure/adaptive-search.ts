@@ -7,7 +7,7 @@
  * 3. 大数据量 (>10万): 原生模块（如果可用）
  */
 
-import { ParallelSearch } from './parallel-search';
+import { HighPerfVectorEngineV3 } from './high-perf-vector-engine-v3';
 
 // ============================================================
 // 类型定义
@@ -53,7 +53,7 @@ class SimpleVectorSearch {
 }
 
 // 加速器类型（降级实现）
-type Accelerator = SimpleVectorSearch | ParallelSearch;
+type Accelerator = SimpleVectorSearch | HighPerfVectorEngineV3;
 
 // ============================================================
 // 默认配置
@@ -152,8 +152,12 @@ export class AdaptiveVectorSearch {
    * 中数据量搜索
    */
   private async mediumSearch(query: Float32Array, k: number): Promise<SearchResult[]> {
-    const search = new ParallelSearch({ numWorkers: this.config.numWorkers });
-    return search.search(query, this.vectors, k);
+    const search = new HighPerfVectorEngineV3({ threads: this.config.numWorkers });
+    await search.initialize();
+    search.buildIndex(this.vectors);
+    const results = await search.search(query, k);
+    await search.shutdown();
+    return results.map(r => ({ index: r.id, score: r.score }));
   }
 
   /**

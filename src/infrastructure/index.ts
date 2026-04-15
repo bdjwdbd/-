@@ -439,7 +439,6 @@ export { VectorOps, getVectorOps, cosineSimilarity, euclideanDistance, topKSearc
 export { ANNIndex, BruteForceANN, HNSWIndex, IVFIndex, createANNIndex, type ANNAlgorithm, type DistanceMetric, type ANNConfig, type ANNResult } from './ann-index';
 export { OPQQuantizer, createOPQQuantizer, type OPQConfig, type OPQIndex } from './opq-quantization';
 export { WALOptimizer, createWALOptimizer, type WALConfig, type WALEntry, type Checkpoint } from './wal-optimizer';
-export { ParallelSearch, type ParallelSearchOptions, type SearchResult as ParallelSearchResult } from './parallel-search';
 export { AdaptiveVectorSearch, createAdaptiveSearch, type AdaptiveSearchConfig } from './adaptive-search';
 export { GPUAccelerator, createGPUAccelerator, type GPUConfig, type GPUSearchResult } from './gpu-accelerator';
 export { LoggerManager, getLogger, initLogger, startTimer, PerformanceTimer, type LoggerConfig, type LogLevel } from './logger';
@@ -641,111 +640,7 @@ export {
   type BenchmarkResult,
 } from './hnsw-auto-tuner';
 
-// 并行向量引擎（替代 AVX-512）
-export {
-  ParallelVectorEngine,
-  getParallelVectorEngine,
-  initParallelVectorEngine,
-  type ParallelEngineConfig,
-  type VectorTask,
-  type VectorResult,
-} from './parallel-vector-engine';
-
-// 统一向量引擎（多级降级）
-export {
-  UnifiedVectorEngine,
-  getUnifiedVectorEngine,
-  initUnifiedVectorEngine,
-  type EngineLevel,
-  type UnifiedEngineConfig,
-  type EngineCapabilities,
-} from './unified-vector-engine';
-
-// INT8 量化器
-export {
-  Int8Quantizer,
-  createQuantizedIndex,
-  quantizeVector,
-  type QuantizedVector,
-  type QuantizedIndex,
-} from './int8-quantizer';
-
-// INT4 量化器
-export {
-  Int4Quantizer,
-  createInt4Index,
-  quantizeToInt4,
-  type Int4Vector,
-  type Int4Index,
-} from './int4-quantizer';
-
-// 内存优化索引
-export {
-  MemoryOptimizedIndexBuilder,
-  createMemoryOptimizedIndex,
-  batchCosineSimilarity,
-  type MemoryOptimizedConfig,
-  type MemoryOptimizedIndex,
-} from './memory-optimized-index';
-
-// 批量搜索引擎
-export {
-  BatchSearchEngine,
-  getBatchSearchEngine,
-  initBatchSearchEngine,
-  type BatchSearchResult,
-  type BatchSearchConfig,
-} from './batch-search-engine';
-
-// 工作窃取线程池
-export {
-  WorkStealingPool,
-  getWorkStealingPool,
-  type Task as WorkStealingTask,
-  type TaskResult,
-  type WorkStealingConfig,
-} from './work-stealing-pool';
-
-// 超级向量引擎（时刻超越 AVX-512）
-export {
-  SuperVectorEngine,
-  getSuperVectorEngine,
-  initSuperVectorEngine,
-  type SuperEngineLevel,
-  type SuperEngineConfig,
-  type SuperEngineCapabilities,
-} from './super-vector-engine';
-
-// 超级向量引擎 Pro（达到硬件上限）
-export {
-  SuperVectorEnginePro,
-  getSuperVectorEnginePro,
-  initSuperVectorEnginePro,
-  type ProEngineLevel,
-  type ProEngineConfig,
-  type ProEngineCapabilities,
-} from './super-vector-engine-pro';
-
-// 超级向量引擎 Pro Max（全面优化）
-export {
-  SuperVectorEngineProMax,
-  getSuperVectorEngineProMax,
-  initSuperVectorEngineProMax,
-  type ProMaxEngineLevel,
-  type ProMaxEngineConfig,
-  type ProMaxEngineCapabilities,
-} from './super-vector-engine-pro-max';
-
-// 高性能向量搜索引擎 v2（正确优化）
-export {
-  HighPerfVectorEngine,
-  getHighPerfVectorEngine,
-  initHighPerfVectorEngine,
-  type HighPerfConfig,
-  type HighPerfIndex,
-} from './high-perf-vector-engine';
-
-// 高性能向量搜索引擎 v3（INT8 + 批量搜索）
+// 高性能向量搜索引擎 v3（INT8 + 批量搜索）- 最佳性能
 export {
   HighPerfVectorEngineV3,
   getHighPerfVectorEngineV3,
@@ -753,22 +648,6 @@ export {
   type HighPerfV3Config,
   type Int8Index,
 } from './high-perf-vector-engine-v3';
-
-// 高性能向量搜索引擎 v4（Worker 预加载）
-export {
-  HighPerfVectorEngineV4,
-  getHighPerfVectorEngineV4,
-  initHighPerfVectorEngineV4,
-  type HighPerfV4Config,
-} from './high-perf-vector-engine-v4';
-
-// 高性能向量搜索引擎 v5（INT4 + 批量处理）
-export {
-  HighPerfVectorEngineV5,
-  getHighPerfVectorEngineV5,
-  initHighPerfVectorEngineV5,
-  type HighPerfV5Config,
-} from './high-perf-vector-engine-v5';
 
 // 完整性验证和原生模块加载
 export {
