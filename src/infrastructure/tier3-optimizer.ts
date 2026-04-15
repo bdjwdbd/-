@@ -14,8 +14,8 @@ import { IVFIndex, IVFConfig } from './ivf-index';
 // 原生模块条件导入
 // ============================================================
 
-let simd: any = null;
-let parallel: any = null;
+let simd: unknown = null;
+let parallel: unknown = null;
 
 try {
     simd = require('../../native/build/Release/yuanling_native.node');

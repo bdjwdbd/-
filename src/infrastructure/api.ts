@@ -14,9 +14,9 @@ import { EmbeddingClient, QWEN3_EMBEDDING_CONFIG } from './embedding-config';
 // 原生模块条件导入
 // ============================================================
 
-let simd: any = null;
-let parallel: any = null;
-let int8: any = null;
+let simd: unknown = null;
+let parallel: unknown = null;
+let int8: unknown = null;
 
 try {
     simd = require('../../native/build/Release/yuanling_native.node');

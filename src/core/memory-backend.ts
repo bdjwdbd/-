@@ -26,7 +26,7 @@ export interface Memory {
   priority: MemoryPriority;
   importance: number;
   tags: string[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   createdAt: Date;
   lastAccessed: Date;
   accessCount: number;

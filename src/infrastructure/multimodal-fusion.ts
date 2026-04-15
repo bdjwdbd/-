@@ -19,7 +19,7 @@ export interface MultimodalContent {
   type: ModalityType;
   data: any;
   embedding?: number[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   timestamp: number;
 }
 

@@ -19,7 +19,7 @@ interface ClusterNode {
   status: 'online' | 'offline' | 'busy' | 'error';
   load: number; // 0-100
   lastHeartbeat: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface LoadBalancerConfig {

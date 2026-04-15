@@ -45,8 +45,8 @@ interface ContentAnalysis {
 
 interface ParsedCommand {
   action: string;
-  params: Record<string, any>;
-  options: Record<string, any>;
+  params: Record<string, unknown>;
+  options: Record<string, unknown>;
   raw: string;
 }
 
@@ -330,8 +330,8 @@ export class CommandParser {
     }
     
     const action = parts[0];
-    const params: Record<string, any> = {};
-    const options: Record<string, any> = {};
+    const params: Record<string, unknown> = {};
+    const options: Record<string, unknown> = {};
     
     let i = 1;
     while (i < parts.length) {

@@ -46,7 +46,7 @@ interface RoutingRequest {
   budget?: number;           // 最大成本（美元）
   maxLatency?: number;       // 最大延迟（ms）
   requiredCapabilities?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface RoutingDecision {

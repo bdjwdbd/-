@@ -175,7 +175,7 @@ export class VisualizationPanel {
     return this.generateDashboard(data);
   }
   
-  generateTestReport(testResults: any[]): string {
+  generateTestReport(testResults: unknown[]): string {
     const passed = testResults.filter(t => t.passed).length;
     const failed = testResults.length - passed;
     
@@ -226,7 +226,7 @@ export class VisualizationPanel {
     return this.generateDashboard(data);
   }
   
-  generatePerformanceReport(benchmarkResults: any[]): string {
+  generatePerformanceReport(benchmarkResults: unknown[]): string {
     const data: DashboardData = {
       title: "性能基准报告",
       timestamp: new Date(),
@@ -458,7 +458,7 @@ export class VisualizationPanel {
   // 辅助方法
   // ============================================================
   
-  private calculateAvg(items: any[], field: string): number {
+  private calculateAvg(items: unknown[], field: string): number {
     if (items.length === 0) return 0;
     return items.reduce((sum, item) => sum + (item[field] || 0), 0) / items.length;
   }

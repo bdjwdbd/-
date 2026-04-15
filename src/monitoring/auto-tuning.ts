@@ -23,7 +23,7 @@ interface HyperParameter {
 
 interface Trial {
   id: string;
-  params: Record<string, any>;
+  params: Record<string, unknown>;
   score: number | null;
   status: 'pending' | 'running' | 'completed' | 'failed';
   startTime: number | null;
@@ -40,7 +40,7 @@ interface OptimizationConfig {
 }
 
 interface OptimizationResult {
-  bestParams: Record<string, any>;
+  bestParams: Record<string, unknown>;
   bestScore: number;
   totalTrials: number;
   duration: number;
@@ -87,8 +87,8 @@ export class HyperparameterOptimizer {
   /**
    * 生成参数组合
    */
-  generateParams(method: 'random' | 'grid' | 'bayesian' = 'random'): Record<string, any> {
-    const params: Record<string, any> = {};
+  generateParams(method: 'random' | 'grid' | 'bayesian' = 'random'): Record<string, unknown> {
+    const params: Record<string, unknown> = {};
 
     for (const [name, param] of this.parameters) {
       switch (param.type) {
@@ -143,7 +143,7 @@ export class HyperparameterOptimizer {
   /**
    * 创建试验
    */
-  createTrial(params?: Record<string, any>): Trial {
+  createTrial(params?: Record<string, unknown>): Trial {
     const id = `trial-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
     const trial: Trial = {
@@ -214,7 +214,7 @@ export class HyperparameterOptimizer {
    * 运行优化
    */
   async optimize(
-    objectiveFn: (params: Record<string, any>) => Promise<number>
+    objectiveFn: (params: Record<string, unknown>) => Promise<number>
   ): Promise<OptimizationResult> {
     const startTime = Date.now();
     let noImprovementCount = 0;
@@ -274,7 +274,7 @@ export class HyperparameterOptimizer {
   /**
    * 获取最佳参数
    */
-  getBestParams(): Record<string, any> | null {
+  getBestParams(): Record<string, unknown> | null {
     return this.bestTrial?.params || null;
   }
 
@@ -298,7 +298,7 @@ export class HyperparameterOptimizer {
 // ============================================================
 
 export class BayesianOptimizer {
-  private history: Array<{ params: Record<string, any>; score: number }> = [];
+  private history: Array<{ params: Record<string, unknown>; score: number }> = [];
   private parameters: Map<string, HyperParameter> = new Map();
 
   /**
@@ -311,14 +311,14 @@ export class BayesianOptimizer {
   /**
    * 添加观察
    */
-  addObservation(params: Record<string, any>, score: number): void {
+  addObservation(params: Record<string, unknown>, score: number): void {
     this.history.push({ params, score });
   }
 
   /**
    * 建议下一个参数
    */
-  suggestNext(): Record<string, any> {
+  suggestNext(): Record<string, unknown> {
     if (this.history.length < 5) {
       // 历史数据不足，随机采样
       return this.randomSample();
@@ -330,7 +330,7 @@ export class BayesianOptimizer {
 
     // 从最佳点附近采样
     const best = topResults[0];
-    const params: Record<string, any> = {};
+    const params: Record<string, unknown> = {};
 
     for (const [name, param] of this.parameters) {
       const bestValue = best.params[name];
@@ -363,8 +363,8 @@ export class BayesianOptimizer {
   /**
    * 随机采样
    */
-  private randomSample(): Record<string, any> {
-    const params: Record<string, any> = {};
+  private randomSample(): Record<string, unknown> {
+    const params: Record<string, unknown> = {};
 
     for (const [name, param] of this.parameters) {
       switch (param.type) {
@@ -393,7 +393,7 @@ export class BayesianOptimizer {
   /**
    * 获取历史
    */
-  getHistory(): Array<{ params: Record<string, any>; score: number }> {
+  getHistory(): Array<{ params: Record<string, unknown>; score: number }> {
     return [...this.history];
   }
 }
@@ -404,7 +404,7 @@ export class BayesianOptimizer {
 
 export class GridSearcher {
   private parameters: Map<string, HyperParameter> = new Map();
-  private grid: Array<Record<string, any>> = [];
+  private grid: Array<Record<string, unknown>> = [];
   private currentIndex: number = 0;
 
   /**
@@ -418,10 +418,10 @@ export class GridSearcher {
    * 生成网格
    */
   generateGrid(pointsPerDimension: number = 5): void {
-    const paramArrays: Array<{ name: string; values: any[] }> = [];
+    const paramArrays: Array<{ name: string; values: unknown[] }> = [];
 
     for (const [name, param] of this.parameters) {
-      const values: any[] = [];
+      const values: unknown[] = [];
 
       switch (param.type) {
         case 'float':
@@ -451,13 +451,13 @@ export class GridSearcher {
   /**
    * 笛卡尔积
    */
-  private cartesianProduct(arrays: Array<{ name: string; values: any[] }>): Array<Record<string, any>> {
+  private cartesianProduct(arrays: Array<{ name: string; values: unknown[] }>): Array<Record<string, unknown>> {
     if (arrays.length === 0) return [{}];
 
     const [first, ...rest] = arrays;
     const restProduct = this.cartesianProduct(rest);
 
-    const result: Array<Record<string, any>> = [];
+    const result: Array<Record<string, unknown>> = [];
     for (const value of first.values) {
       for (const restItem of restProduct) {
         result.push({ [first.name]: value, ...restItem });
@@ -470,7 +470,7 @@ export class GridSearcher {
   /**
    * 获取下一个参数组合
    */
-  next(): Record<string, any> | null {
+  next(): Record<string, unknown> | null {
     if (this.currentIndex >= this.grid.length) {
       return null;
     }

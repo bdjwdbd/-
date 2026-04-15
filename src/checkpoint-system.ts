@@ -25,8 +25,8 @@ interface Checkpoint {
   currentStep: string;
   completedSteps: string[];
   pendingSteps: string[];
-  context: Record<string, any>;
-  variables: Record<string, any>;
+  context: Record<string, unknown>;
+  variables: Record<string, unknown>;
   error?: {
     message: string;
     stack?: string;
@@ -61,7 +61,7 @@ interface HandoverDocument {
   warnings: string[];
   recommendations: string[];
   context: {
-    variables: Record<string, any>;
+    variables: Record<string, unknown>;
     files: string[];
     lastCheckpoint: string;
   };

@@ -37,7 +37,7 @@ export interface EnhancedDecisionContext {
   /** 历史决策 */
   recentDecisions?: Decision[];
   /** 记忆 */
-  memories?: any[];
+  memories?: unknown[];
 }
 
 /**

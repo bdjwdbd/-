@@ -333,7 +333,7 @@ export function monitored(name?: string) {
         const original = descriptor.value;
         const operationName = name || propertyKey;
 
-        descriptor.value = async function (...args: any[]) {
+        descriptor.value = async function (...args: unknown[]) {
             const monitor = getMonitor();
             const start = Date.now();
 

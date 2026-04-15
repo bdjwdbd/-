@@ -116,8 +116,8 @@ export class HardConstraints {
 export class LearningValidator {
   private records: LearningRecord[] = [];
   private maxRecords: number = 10000;
-  private generator: any = null;
-  private evaluator: any = null;
+  private generator: unknown = null;
+  private evaluator: unknown = null;
   
   constructor() {
     // 初始化

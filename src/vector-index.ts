@@ -19,14 +19,14 @@ import * as crypto from "crypto";
 interface VectorEntry {
   id: string;
   vector: number[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
 }
 
 interface SearchResult {
   id: string;
   score: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface HNSWConfig {
@@ -44,7 +44,7 @@ interface HNSWNode {
   vector: number[];
   level: number;
   connections: Map<number, Set<string>>; // level -> neighbor ids
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface IndexStats {
@@ -152,7 +152,7 @@ export class HNSWIndex {
   /**
    * 添加向量到索引
    */
-  add(id: string, vector: number[], metadata?: Record<string, any>): void {
+  add(id: string, vector: number[], metadata?: Record<string, unknown>): void {
     // 检查是否已存在
     if (this.nodes.has(id)) {
       this.nodes.get(id)!.vector = vector;

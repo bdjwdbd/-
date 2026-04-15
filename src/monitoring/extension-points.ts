@@ -30,7 +30,7 @@ interface ExtensionHandler<T = any, R = any> {
   priority: number;
   enabled: boolean;
   handler: (context: T) => R | Promise<R>;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface ExtensionPoint<T = any, R = any> {

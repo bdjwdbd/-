@@ -191,7 +191,7 @@ export class PredictiveWarmer {
   async smartWarmup(context: {
     recentActions: string[];
     currentTime: number;
-    userPreferences?: Record<string, any>;
+    userPreferences?: Record<string, unknown>;
   }): Promise<void> {
     // 1. 分析最近操作
     for (const action of context.recentActions) {

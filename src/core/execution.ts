@@ -348,7 +348,7 @@ export class ToolExecutor {
     return this.tools.delete(name);
   }
   
-  async execute(name: string, args: Record<string, any>): Promise<ToolCall> {
+  async execute(name: string, args: Record<string, unknown>): Promise<ToolCall> {
     const tool = this.tools.get(name);
     
     const call: ToolCall = { name, args };

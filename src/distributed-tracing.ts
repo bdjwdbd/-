@@ -44,7 +44,7 @@ interface Trace {
   endTime?: number;
   duration?: number;
   status: "ok" | "error" | "partial";
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 interface TracingConfig {
@@ -680,7 +680,7 @@ export class TracingMiddleware {
       const name = operationName || `${target.constructor.name}.${propertyKey}`;
       const self = this;
       
-      descriptor.value = async function (...args: any[]) {
+      descriptor.value = async function (...args: unknown[]) {
         const span = self.tracer.startSpan(name);
         
         try {

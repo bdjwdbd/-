@@ -13,6 +13,10 @@ import { KnowledgeGraph } from './knowledge-graph';
 
 // ============ 类型定义 ============
 
+export interface ConceptProperties {
+    [key: string]: string | number | boolean | string[] | number[];
+}
+
 export interface SourceDomain {
   id: string;
   name: string;
@@ -32,7 +36,7 @@ export interface TargetDomain {
 export interface Concept {
   id: string;
   name: string;
-  properties: Record<string, any>;
+  properties: ConceptProperties;
   abstraction: number;
   embedding?: number[];
 }
@@ -66,7 +70,7 @@ export interface TransferredKnowledge {
   type: 'concept' | 'relation' | 'property' | 'rule';
   source: string;
   target: string;
-  content: any;
+  content: string | ConceptProperties | DomainRelation;
   confidence: number;
 }
 

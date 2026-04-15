@@ -45,7 +45,7 @@ interface AuditLog {
   result: "allowed" | "warned" | "blocked";
   riskLevel: RiskLevel;
   matchedRules: string[];
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 interface SecurityGuardConfig {
@@ -225,7 +225,7 @@ export class SecurityGuard {
   /**
    * 检查命令是否安全
    */
-  checkCommand(command: string, context?: Record<string, any>): SecurityCheckResult {
+  checkCommand(command: string, context?: Record<string, unknown>): SecurityCheckResult {
     if (!this.config.enabled) {
       return this.createResult(true, "low", [], "安全检查已禁用");
     }
@@ -293,7 +293,7 @@ export class SecurityGuard {
   /**
    * 检查文件访问是否安全
    */
-  checkFileAccess(filePath: string, operation: "read" | "write" | "delete", context?: Record<string, any>): SecurityCheckResult {
+  checkFileAccess(filePath: string, operation: "read" | "write" | "delete", context?: Record<string, unknown>): SecurityCheckResult {
     if (!this.config.enabled) {
       return this.createResult(true, "low", [], "安全检查已禁用");
     }
@@ -377,7 +377,7 @@ export class SecurityGuard {
   /**
    * 检查内容是否包含敏感信息
    */
-  checkContent(content: string, context?: Record<string, any>): SecurityCheckResult {
+  checkContent(content: string, context?: Record<string, unknown>): SecurityCheckResult {
     if (!this.config.enabled) {
       return this.createResult(true, "low", [], "安全检查已禁用");
     }

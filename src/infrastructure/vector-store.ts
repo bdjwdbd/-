@@ -14,14 +14,14 @@ import { StructuredLogger } from './index';
 export interface Vector {
   id: string;
   values: number[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   createdAt: number;
 }
 
 export interface VectorSearchResult {
   id: string;
   score: number;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export interface VectorStoreConfig {
@@ -52,7 +52,7 @@ export class VectorStore {
 
   // ============ 向量操作 ============
 
-  add(id: string, values: number[], metadata: Record<string, any> = {}): boolean {
+  add(id: string, values: number[], metadata: Record<string, unknown> = {}): boolean {
     if (values.length !== this.config.dimension) {
       this.logger.warn('VectorStore', `向量维度不匹配: ${values.length} != ${this.config.dimension}`);
       return false;
@@ -85,7 +85,7 @@ export class VectorStore {
 
   search(query: number[], options?: {
     topK?: number;
-    filter?: (metadata: Record<string, any>) => boolean;
+    filter?: (metadata: Record<string, unknown>) => boolean;
   }): VectorSearchResult[] {
     const topK = options?.topK || 10;
     const results: VectorSearchResult[] = [];
@@ -158,7 +158,7 @@ export class VectorStore {
 
   // ============ 批量操作 ============
 
-  addBatch(vectors: Array<{ id: string; values: number[]; metadata?: Record<string, any> }>): number {
+  addBatch(vectors: Array<{ id: string; values: number[]; metadata?: Record<string, unknown> }>): number {
     let count = 0;
     for (const v of vectors) {
       if (this.add(v.id, v.values, v.metadata || {})) {

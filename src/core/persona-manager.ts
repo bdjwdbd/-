@@ -44,7 +44,7 @@ export interface UserPersona {
   version: number;
   updatedAt: string;
   content: string;
-  preferences: Record<string, any>;
+  preferences: Record<string, unknown>;
   keywords: string[];
 }
 
@@ -112,8 +112,8 @@ export class PersonaManager {
     }
   }
   
-  private extractPreferences(content: string): Record<string, any> {
-    const preferences: Record<string, any> = {};
+  private extractPreferences(content: string): Record<string, unknown> {
+    const preferences: Record<string, unknown> = {};
     
     // 简单解析：提取键值对
     const lines = content.split("\n");
@@ -370,7 +370,7 @@ ${memories.slice(0, 20).join("\n")}
     return persona?.keywords || [];
   }
   
-  getPreferences(): Record<string, any> {
+  getPreferences(): Record<string, unknown> {
     const persona = this.getPersona();
     return persona?.preferences || {};
   }

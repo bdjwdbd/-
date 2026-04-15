@@ -49,7 +49,7 @@ interface L1Record {
   timestamp: string;
   sessionId?: string;
   embedding?: number[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface L3Persona {

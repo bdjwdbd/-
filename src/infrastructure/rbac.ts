@@ -26,14 +26,14 @@ export interface User {
   name: string;
   role: Role;
   permissions: Permission[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface AccessRequest {
   userId: string;
   resource: string;
   action: 'read' | 'write' | 'delete' | 'export' | 'import';
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 export interface AccessResult {
@@ -65,7 +65,7 @@ export class RBACManager {
 
   // ============ 用户管理 ============
 
-  addUser(id: string, name: string, role: Role, metadata?: Record<string, any>): User {
+  addUser(id: string, name: string, role: Role, metadata?: Record<string, unknown>): User {
     const user: User = {
       id,
       name,

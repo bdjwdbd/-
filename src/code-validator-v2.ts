@@ -32,7 +32,7 @@ interface CodeInput {
   code: string;
   language: Language;
   filename?: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 interface TestCase {

@@ -33,7 +33,7 @@ interface TextEmbedding {
   model: string;
   dimensions: number;
   createdAt: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface ImageEmbedding {
@@ -67,7 +67,7 @@ interface SearchResult {
   type: "text" | "image" | "multimodal";
   text?: string;
   imageUrl?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface MultimodalStoreConfig {

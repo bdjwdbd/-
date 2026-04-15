@@ -16,7 +16,7 @@ interface Entity {
   id: string;
   type: string;
   name: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   createdAt: number;
   updatedAt: number;
 }
@@ -26,7 +26,7 @@ interface Relation {
   type: string;
   sourceId: string;
   targetId: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   weight: number;
   createdAt: number;
 }
@@ -35,7 +35,7 @@ interface GraphQuery {
   entityType?: string;
   relationType?: string;
   entityId?: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   depth?: number;
   limit?: number;
 }
@@ -93,7 +93,7 @@ export class KnowledgeGraphStore {
   /**
    * 更新实体
    */
-  updateEntity(id: string, properties: Record<string, any>): Entity | null {
+  updateEntity(id: string, properties: Record<string, unknown>): Entity | null {
     const entity = this.entities.get(id);
     if (!entity) return null;
 
@@ -387,7 +387,7 @@ export class KnowledgeGraphManager {
   /**
    * 添加实体
    */
-  addEntity(type: string, name: string, properties?: Record<string, any>): Entity {
+  addEntity(type: string, name: string, properties?: Record<string, unknown>): Entity {
     return this.store.addEntity({ type, name, properties: properties || {} });
   }
 

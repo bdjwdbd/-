@@ -70,7 +70,7 @@ export class EnhancedCacheSystem {
   /**
    * 生成缓存键
    */
-  generateKey(input: string, context?: Record<string, any>): string {
+  generateKey(input: string, context?: Record<string, unknown>): string {
     // 标准化输入，提高命中率
     const normalized = this.normalizeInput(input);
     const data = context ? `${normalized}:${JSON.stringify(context)}` : normalized;

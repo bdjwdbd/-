@@ -172,7 +172,7 @@ export class IntegratedSystem {
   async addMemory(
     content: string, 
     type: MemoryType = 'fact',
-    metadata: Record<string, any> = {}
+    metadata: Record<string, unknown> = {}
   ): Promise<string> {
     await this.ensureInitialized();
     

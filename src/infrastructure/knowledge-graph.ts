@@ -18,7 +18,7 @@ export interface Entity {
   id: string;
   type: EntityType;
   name: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   confidence: number;
   source: string;
   createdAt: number;
@@ -42,7 +42,7 @@ export interface Relation {
   type: RelationType;
   fromId: string;
   toId: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   confidence: number;
   source: string;
   createdAt: number;
@@ -68,7 +68,7 @@ export interface KnowledgeQuery {
   relationType?: RelationType;
   fromId?: string;
   toId?: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   minConfidence?: number;
   limit?: number;
 }
@@ -333,7 +333,7 @@ export class KnowledgeGraph {
   getOrCreateEntity(
     name: string,
     type: EntityType,
-    properties: Record<string, any> = {},
+    properties: Record<string, unknown> = {},
     confidence: number = 0.8,
     source: string = 'unknown'
   ): Entity {

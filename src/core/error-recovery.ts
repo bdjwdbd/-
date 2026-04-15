@@ -31,7 +31,7 @@ interface ErrorContext {
   category: ErrorCategory;
   severity: ErrorSeverity;
   timestamp: Date;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   retryCount: number;
   maxRetries: number;
   recovered: boolean;
@@ -93,7 +93,7 @@ export class ErrorRecoveryManager {
    */
   async capture(
     error: Error,
-    context?: Record<string, any>,
+    context?: Record<string, unknown>,
     policy?: Partial<RetryPolicy>
   ): Promise<ErrorContext> {
     const errorContext: ErrorContext = {

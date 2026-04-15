@@ -54,8 +54,8 @@ export interface CounterfactualResult {
 
 export interface InterventionResult {
   intervention: string;
-  beforeState: Record<string, any>;
-  afterState: Record<string, any>;
+  beforeState: Record<string, unknown>;
+  afterState: Record<string, unknown>;
   causalEffect: number;
   confidence: number;
 }
@@ -414,7 +414,7 @@ export class CausalReasoner {
     return cause?.strength || 0.5;
   }
   
-  private getCurrentState(variable: string): Record<string, any> {
+  private getCurrentState(variable: string): Record<string, unknown> {
     // 从知识图谱获取当前状态
     const entities = this.knowledgeGraph.queryEntities({ entityName: variable });
     return entities.length > 0 ? { value: entities[0].properties } : {};
@@ -423,8 +423,8 @@ export class CausalReasoner {
   private simulateIntervention(
     intervention: { variable: string; value: any },
     target: string,
-    beforeState: Record<string, any>
-  ): Record<string, any> {
+    beforeState: Record<string, unknown>
+  ): Record<string, unknown> {
     // 简化实现：模拟干预效果
     return {
       ...beforeState,
@@ -434,8 +434,8 @@ export class CausalReasoner {
   }
   
   private calculateCausalEffect(
-    before: Record<string, any>,
-    after: Record<string, any>
+    before: Record<string, unknown>,
+    after: Record<string, unknown>
   ): number {
     // 简化实现：计算状态变化程度
     const keys = new Set([...Object.keys(before), ...Object.keys(after)]);

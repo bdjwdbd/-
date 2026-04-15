@@ -19,7 +19,7 @@ export interface SearchResult {
   content: string;
   score: number;
   source: 'vector' | 'fts' | 'hybrid';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface SearchOptions {

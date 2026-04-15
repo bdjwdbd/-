@@ -22,7 +22,7 @@ interface LogEntry {
   timestamp: Date;
   level: "debug" | "info" | "warn" | "error";
   message: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 interface TokenEstimatorConfig {
@@ -53,7 +53,7 @@ interface HandoverDocument {
   completedWork: string[];
   pendingWork: string[];
   keyFindings: string[];
-  context: Record<string, any>;
+  context: Record<string, unknown>;
 }
 
 interface SprintContract {
@@ -78,23 +78,23 @@ export class StructuredLogger {
     this.logFile = logFile;
   }
   
-  debug(message: string, context?: Record<string, any>): void {
+  debug(message: string, context?: Record<string, unknown>): void {
     this.log("debug", message, context);
   }
   
-  info(message: string, context?: Record<string, any>): void {
+  info(message: string, context?: Record<string, unknown>): void {
     this.log("info", message, context);
   }
   
-  warn(message: string, context?: Record<string, any>): void {
+  warn(message: string, context?: Record<string, unknown>): void {
     this.log("warn", message, context);
   }
   
-  error(message: string, context?: Record<string, any>): void {
+  error(message: string, context?: Record<string, unknown>): void {
     this.log("error", message, context);
   }
   
-  private log(level: LogEntry["level"], message: string, context?: Record<string, any>): void {
+  private log(level: LogEntry["level"], message: string, context?: Record<string, unknown>): void {
     const entry: LogEntry = {
       timestamp: new Date(),
       level,
@@ -208,7 +208,7 @@ export class CacheSystem {
     if (defaultTTL) this.defaultTTL = defaultTTL;
   }
   
-  generateKey(input: string, context?: Record<string, any>): string {
+  generateKey(input: string, context?: Record<string, unknown>): string {
     const data = context ? `${input}:${JSON.stringify(context)}` : input;
     return crypto.createHash("sha256").update(data).digest("hex").substring(0, 32);
   }
@@ -347,7 +347,7 @@ export class ContextReset {
     completedWork: string[],
     pendingWork: string[],
     keyFindings: string[],
-    context: Record<string, any>
+    context: Record<string, unknown>
   ): HandoverDocument {
     return {
       summary,

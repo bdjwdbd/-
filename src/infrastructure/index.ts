@@ -340,7 +340,7 @@ export class SprintContractManager {
     return this.createFromTemplate('task', goal);
   }
   
-  create(goal: string, criteria: any[]): any {
+  create(goal: string, criteria: unknown[]): any {
     const id = `contract-${Date.now()}`;
     const contract = { id, goal, criteria, status: 'draft', createdAt: new Date() };
     this.contracts.set(id, contract);
@@ -370,7 +370,7 @@ export class SprintContractManager {
     return allPassed;
   }
   
-  listAll(): any[] {
+  listAll(): unknown[] {
     return Array.from(this.contracts.values());
   }
   

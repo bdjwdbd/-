@@ -16,7 +16,7 @@ interface VectorDocument {
   id: string;
   content: string;
   embedding: number[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   timestamp: number;
 }
 
@@ -24,7 +24,7 @@ interface SearchResult {
   id: string;
   content: string;
   score: number;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 interface VectorStoreConfig {
@@ -57,7 +57,7 @@ export class VectorStore {
   /**
    * 添加文档
    */
-  addDocument(id: string, content: string, embedding: number[], metadata?: Record<string, any>): void {
+  addDocument(id: string, content: string, embedding: number[], metadata?: Record<string, unknown>): void {
     if (embedding.length !== this.config.dimensions) {
       throw new Error(`Embedding dimension mismatch: expected ${this.config.dimensions}, got ${embedding.length}`);
     }
@@ -83,7 +83,7 @@ export class VectorStore {
   /**
    * 批量添加文档
    */
-  addBatch(documents: Array<{ id: string; content: string; embedding: number[]; metadata?: Record<string, any> }>): void {
+  addBatch(documents: Array<{ id: string; content: string; embedding: number[]; metadata?: Record<string, unknown> }>): void {
     for (const doc of documents) {
       this.addDocument(doc.id, doc.content, doc.embedding, doc.metadata);
     }
@@ -363,7 +363,7 @@ export class MemoryVectorStore {
   /**
    * 添加文档（简化接口）
    */
-  add(doc: { id: string; embedding: number[]; metadata?: Record<string, any> }): void {
+  add(doc: { id: string; embedding: number[]; metadata?: Record<string, unknown> }): void {
     this.store.addDocument(doc.id, doc.metadata?.content || '', doc.embedding, doc.metadata);
     this.index.add(doc.id, doc.embedding);
   }
@@ -378,7 +378,7 @@ export class MemoryVectorStore {
   /**
    * 存储记忆
    */
-  storeMemory(id: string, content: string, embedding: number[], metadata?: Record<string, any>): void {
+  storeMemory(id: string, content: string, embedding: number[], metadata?: Record<string, unknown>): void {
     this.store.addDocument(id, content, embedding, metadata);
     this.index.add(id, embedding);
   }

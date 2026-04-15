@@ -131,7 +131,7 @@ export interface VectorEntry {
   id: string;
   text: string;
   vector: number[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
 }
 

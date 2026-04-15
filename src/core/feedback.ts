@@ -24,7 +24,7 @@ interface Feedback {
   type: FeedbackType;
   source: FeedbackSource;
   content: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   timestamp: Date;
   processed: boolean;
 }
@@ -66,7 +66,7 @@ export class FeedbackCenter {
     type: FeedbackType,
     source: FeedbackSource,
     content: string,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ): Feedback {
     const feedback: Feedback = {
       id: `feedback-${Date.now()}`,

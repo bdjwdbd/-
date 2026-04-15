@@ -32,14 +32,14 @@ interface EmbeddingResult {
 interface VectorEntry {
   id: string;
   vector: number[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
 }
 
 interface VectorSearchResult {
   id: string;
   score: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface VectorStoreConfig {
@@ -151,7 +151,7 @@ export class VectorStore {
     }
   }
   
-  add(id: string, vector: number[], metadata?: Record<string, any>): void {
+  add(id: string, vector: number[], metadata?: Record<string, unknown>): void {
     if (vector.length !== this.dimensions) {
       throw new Error(`向量维度不匹配: 期望 ${this.dimensions}, 实际 ${vector.length}`);
     }

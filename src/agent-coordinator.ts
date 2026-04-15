@@ -30,7 +30,7 @@ interface Agent {
   currentTaskId?: string;
   lockedResources: Set<string>;
   messageQueue: Message[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   createdAt: Date;
   lastHeartbeat: Date;
 }
@@ -49,7 +49,7 @@ interface Task {
   createdAt: Date;
   startedAt?: Date;
   completedAt?: Date;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 interface Resource {
@@ -61,7 +61,7 @@ interface Resource {
   lockedAt?: Date;
   lockTimeout: number;
   waitQueue: Array<{ agentId: string; requestedAt: Date }>;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 interface Message {
@@ -234,7 +234,7 @@ export class AgentCoordinator {
     requiredCapabilities?: string[];
     requiredResources?: string[];
     dependencies?: string[];
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }): Task {
     const id = this.generateId("task");
     

@@ -47,7 +47,7 @@ export interface RememberOptions {
   priority?: Memory["priority"];
   importance?: number;
   tags?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   expiresAt?: Date;
   generateEmbedding?: boolean;
 }

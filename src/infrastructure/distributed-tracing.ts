@@ -68,7 +68,7 @@ export class DistributedTracing {
   /**
    * 开始新的追踪
    */
-  startTrace(operationName: string, tags?: Record<string, any>): Span {
+  startTrace(operationName: string, tags?: Record<string, unknown>): Span {
     const traceId = this.generateId(16);
     const spanId = this.generateId(8);
     
@@ -106,7 +106,7 @@ export class DistributedTracing {
   startSpan(
     operationName: string,
     parentSpan: Span,
-    tags?: Record<string, any>
+    tags?: Record<string, unknown>
   ): Span {
     const spanId = this.generateId(8);
     

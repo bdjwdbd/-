@@ -33,7 +33,7 @@ export interface RuleCondition {
 
 export interface RuleConclusion {
   type: 'entity' | 'relation' | 'property';
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   confidenceModifier: number;
 }
 
@@ -41,7 +41,7 @@ export interface InferenceResult {
   id: string;
   ruleId: string;
   type: 'deductive' | 'inductive' | 'abductive';
-  premises: any[];
+  premises: unknown[];
   conclusion: any;
   confidence: number;
   reasoning: string[];
@@ -166,7 +166,7 @@ export class InferenceEngine {
       if (rule.type !== 'deductive' || !rule.enabled) continue;
       
       // 检查前提条件
-      const premises: any[] = [];
+      const premises: unknown[] = [];
       let premisesMet = true;
       
       for (const condition of rule.premises) {
@@ -399,7 +399,7 @@ export class InferenceEngine {
   private applyConclusion(
     conclusion: RuleConclusion,
     entity: Entity,
-    premises: any[]
+    premises: unknown[]
   ): any {
     switch (conclusion.type) {
       case 'entity':

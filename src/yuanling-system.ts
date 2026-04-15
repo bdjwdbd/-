@@ -659,7 +659,7 @@ export class YuanLingSystem {
   /**
    * 添加记忆
    */
-  async addMemory(content: string, type?: string, metadata?: Record<string, any>): Promise<string> {
+  async addMemory(content: string, type?: string, metadata?: Record<string, unknown>): Promise<string> {
     return this.integratedSystem.addMemory(content, type as any, metadata);
   }
 

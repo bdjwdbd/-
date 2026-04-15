@@ -14,7 +14,7 @@ export interface HealthCheckResult {
   component: string;
   status: 'healthy' | 'warning' | 'error';
   message: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
   timestamp: number;
 }
 
