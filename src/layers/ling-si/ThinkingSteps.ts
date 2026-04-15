@@ -3,6 +3,9 @@
  * 
  * 基于 Thinking Claude 的 core_thinking_sequence
  * 每个步骤都是可独立执行的思考模块
+ * 
+ * @note 基础版思考步骤，增强版见 EnhancedThinkingSteps.ts
+ * @see EnhancedThinkingSteps for advanced implementations
  */
 
 import {

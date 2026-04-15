@@ -537,3 +537,60 @@ export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAcceler
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';
 export { LLMStreamer, SSEServer, WebSocketHandler, StreamChunkImpl, type StreamChunk, type StreamerConfig } from './llm-streaming';
 export { NativeLoader, Accelerator, getAccelerator, type SIMDCapabilities, type MemoryInfo, type SearchResult as NativeSearchResult, type NativeModules } from './native-accelerator';
+export { SkillsDiscoveryEngine, skillsDiscoveryEngine, type SkillInfo } from './SkillsDiscovery';
+export {
+  HealthChecker as SelfHealthChecker,
+  PerformanceMonitor as SelfPerformanceMonitor,
+  DiagnosticEngine,
+  getDiagnosticEngine,
+} from './SelfDiagnostic';
+export type {
+  HealthStatus,
+  HealthCheck,
+  SystemHealth,
+  PerformanceMetrics as SelfPerformanceMetrics,
+  DiagnosticResult,
+} from './SelfDiagnostic';
+export {
+  WasmVectorEngine,
+  getWasmVectorEngine,
+} from './WasmVectorEngine';
+export type {
+  VectorEngineConfig,
+  VectorMetrics,
+} from './WasmVectorEngine';
+export {
+  CpuAffinityManager,
+  IrqIsolationManager,
+  RealtimePriorityManager,
+  PerformanceIsolationSystem,
+  getPerformanceIsolationSystem,
+} from './IrqIsolation';
+export type {
+  IsolationLevel,
+  CpuSet,
+  IrqConfig,
+  IsolationStatus,
+} from './IrqIsolation';
+export {
+  TieredStorage,
+  getTieredStorage,
+} from './TieredStorage';
+export type {
+  StorageTier,
+  StorageItem,
+  StorageConfig,
+  StorageStats,
+} from './TieredStorage';
+
+// 记忆系统优化模块
+export { SQLiteMemoryStore } from './sqlite-memory-store';
+export type { SQLiteMemory, SQLiteMemoryStoreConfig, MemorySearchResult as SQLiteMemorySearchResult } from './sqlite-memory-store';
+export { NativeHNSWIndex, WasmHNSWIndex, createNativeHNSW } from './native-hnsw';
+export type { NativeHNSWConfig, HNSWStats } from './native-hnsw';
+export { SemanticCompressor } from './semantic-compressor';
+export type { CompressibleMemory, CompressedMemory, CompressionResult, SemanticCompressorConfig } from './semantic-compressor';
+export { MLForgetDetector } from './ml-forget-detector';
+export type { ForgetFeatures, ForgetLabel, ForgetModel, MLPrediction, MLForgetDetectorConfig } from './ml-forget-detector';
+export { KnowledgeFusionEngine } from './knowledge-fusion';
+export type { EntityAlignment, RelationInference, ConfidenceFusion, ConflictDetection, KnowledgeFusionResult, KnowledgeFusionConfig } from './knowledge-fusion';

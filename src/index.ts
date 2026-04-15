@@ -84,6 +84,22 @@ export type { L0Config } from './l0-integration';
 
 export * from './layers/ling-si';
 
+// ============ L1 灵枢层 ============
+
+export * from './layers/ling-shu';
+
+// ============ L2 灵脉层 ============
+
+export * from './layers/ling-mai';
+
+// ============ L5 灵韵层 ============
+
+export * from './layers/ling-yun';
+
+// ============ 输出层 ============
+
+export * from './output';
+
 // ============ 元灵自省系统 ============
 
 export * from './introspection';
@@ -154,3 +170,7 @@ export { Plugin, PluginManager, getPluginManager } from './extensions';
 // ============ 监控模块 ============
 
 export * from './monitoring';
+
+// ============ Skills 发现 ============
+
+export { SkillsDiscoveryEngine, skillsDiscoveryEngine } from './infrastructure/SkillsDiscovery';

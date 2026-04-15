@@ -16,14 +16,39 @@
  * L0 灵思层基于 Thinking Claude 协议设计，在所有交互前执行深度思考
  */
 
-// 导出所有层级
+// 导出所有层级（使用命名导出避免冲突）
 export * from "./ling-si";    // L0 灵思层（新增）
 export * from "./ling-shu";   // L1 灵枢层
 export * from "./ling-mai";   // L2 灵脉层
 export * from "./ling-qu";    // L3 灵躯层
 export * from "./ling-dun";   // L4 灵盾层
 export * from "./ling-yun";   // L5 灵韵层
-export * from "./ling-shi";   // L6 灵识层
+
+// L6 灵识层（使用命名空间导出避免冲突）
+export {
+  EnvironmentAwareness,
+  ThreeStepWakeup,
+  StateManager,
+  getEnvironmentAwareness,
+  getThreeStepWakeup,
+  LING_SHI_NAME,
+  LING_SHI_LEVEL,
+  LING_SHI_DESCRIPTION,
+} from "./ling-shi";
+
+// 重命名冲突的类型
+export {
+  ContextManager as SessionContextManager,
+} from "./ling-shi";
+
+export type {
+  EnvironmentInfo,
+  ResourceStatus,
+  NetworkStatus,
+  SessionContext,
+  SystemContext,
+  WakeupState,
+} from "./ling-shi";
 
 // 层级信息
 export const LAYERS = [

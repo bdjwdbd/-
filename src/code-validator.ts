@@ -8,6 +8,9 @@
  * 4. 静态分析
  * 5. 安全漏洞检测
  * 6. 性能分析
+ * 
+ * @note 基础版代码验证器，增强版见 code-validator-v2.ts
+ * @see CodeValidatorV2 for enhanced validation
  */
 
 import * as fs from "fs";
