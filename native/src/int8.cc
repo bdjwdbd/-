@@ -314,19 +314,19 @@ Napi::Value QuantizeFloat32ToInt8(const Napi::CallbackInfo& info) {
     return result;
 }
 
-// ============================================================
-// 模块初始化
-// ============================================================
-
-Napi::Object InitInt8(Napi::Env env, Napi::Object exports) {
-    exports.Set("cosineSimilarityINT8", Napi::Function::New(env, CosineSimilarityINT8));
-    exports.Set("cosineSimilarityBatchINT8", Napi::Function::New(env, CosineSimilarityBatchINT8));
-    exports.Set("topKSearchINT8", Napi::Function::New(env, TopKSearchINT8));
-    exports.Set("quantizeFloat32ToInt8", Napi::Function::New(env, QuantizeFloat32ToInt8));
-    return exports;
-}
-
 }  // namespace int8
 }  // namespace yuanling
 
-NODE_API_MODULE(int8, yuanling::int8::InitInt8)
+// ============================================================
+// 模块初始化（必须在命名空间外）
+// ============================================================
+
+Napi::Object InitInt8Module(Napi::Env env, Napi::Object exports) {
+    exports.Set("cosineSimilarityINT8", Napi::Function::New(env, yuanling::int8::CosineSimilarityINT8));
+    exports.Set("cosineSimilarityBatchINT8", Napi::Function::New(env, yuanling::int8::CosineSimilarityBatchINT8));
+    exports.Set("topKSearchINT8", Napi::Function::New(env, yuanling::int8::TopKSearchINT8));
+    exports.Set("quantizeFloat32ToInt8", Napi::Function::New(env, yuanling::int8::QuantizeFloat32ToInt8));
+    return exports;
+}
+
+NODE_API_MODULE(int8, InitInt8Module)
