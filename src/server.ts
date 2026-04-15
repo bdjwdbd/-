@@ -136,7 +136,7 @@ class YuanLingServer {
     // ============================================================
 
     start() {
-        this.server.listen(PORT, HOST, () => {
+        this.server.listen(Number(PORT), HOST, () => {
             console.log(`========================================`);
             console.log(`  元灵系统 v4.3.0 API 服务器`);
             console.log(`========================================`);
