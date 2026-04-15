@@ -736,6 +736,24 @@ export {
   type ProMaxEngineCapabilities,
 } from './super-vector-engine-pro-max';
 
+// 高性能向量搜索引擎 v2（正确优化）
+export {
+  HighPerfVectorEngine,
+  getHighPerfVectorEngine,
+  initHighPerfVectorEngine,
+  type HighPerfConfig,
+  type HighPerfIndex,
+} from './high-perf-vector-engine';
+
+// 高性能向量搜索引擎 v3（INT8 + 批量搜索）
+export {
+  HighPerfVectorEngineV3,
+  getHighPerfVectorEngineV3,
+  initHighPerfVectorEngineV3,
+  type HighPerfV3Config,
+  type Int8Index,
+} from './high-perf-vector-engine-v3';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
