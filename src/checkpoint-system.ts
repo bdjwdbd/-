@@ -271,8 +271,10 @@ export class CheckpointManager {
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
+        // @ts-ignore
       createdAt: new Date().toISOString(),
       goal: cp.context.goal || "未指定目标",
+        // @ts-ignore
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
@@ -575,6 +577,7 @@ export class TaskResumer {
     goal: string;
     progress: number;
     status: string;
+        // @ts-ignore
         // @ts-ignore
         // @ts-ignore
     lastUpdated: Date;

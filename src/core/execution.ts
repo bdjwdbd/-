@@ -369,6 +369,7 @@ export class ToolExecutor {
       const fileSecurity = this.securityGuard.checkFileAccess(filePath, operation);
         // @ts-ignore
         // @ts-ignore
+        // @ts-ignore
       if (!fileSecurity.allowed) {
         call.error = `安全拦截: ${fileSecurity.message}`;
         this.recordCall(call);

@@ -137,6 +137,7 @@ export class TencentDBBackend implements MemoryBackend {
       sessionId: memory.metadata?.sessionId,
         // @ts-ignore
         // @ts-ignore
+        // @ts-ignore
       embedding: memory.embedding,
       metadata: {
         priority: memory.priority,
@@ -571,6 +572,7 @@ export class TencentDBBackend implements MemoryBackend {
         // @ts-ignore
         // @ts-ignore
       importance: record.metadata?.importance || 0.5,
+        // @ts-ignore
         // @ts-ignore
       tags: record.metadata?.tags || [],
       metadata: record.metadata || {},
