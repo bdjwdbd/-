@@ -88,8 +88,7 @@ export class AdaptiveVectorSearch {
     
     // 尝试加载原生加速器
     try {
-      this.accelerator = new Accelerator();
-      await this.accelerator.initialize();
+      this.accelerator = new SimpleVectorSearch();
       // 检查是否有原生模块（通过尝试使用）
       this.nativeAvailable = false; // TypeScript 实现总是可用
     } catch {
@@ -145,7 +144,7 @@ export class AdaptiveVectorSearch {
    */
   private smallSearch(query: Float32Array, k: number): SearchResult[] {
     const search = new SimpleVectorSearch();
-    search.addVectors(this.vectors);
+    this.vectors.forEach(v => search.add(v));
     return search.search(query, k);
   }
 
@@ -154,7 +153,7 @@ export class AdaptiveVectorSearch {
    */
   private async mediumSearch(query: Float32Array, k: number): Promise<SearchResult[]> {
     const search = new ParallelSearch({ numWorkers: this.config.numWorkers });
-    search.addVectors(this.vectors);
+    this.vectors.forEach(v => search.add(v));
     return search.search(query, k);
   }
 
@@ -166,7 +165,8 @@ export class AdaptiveVectorSearch {
       return this.smallSearch(query, k);
     }
     
-    return this.accelerator.topKSearch(query, this.vectors, k);
+    // 使用 SimpleVectorSearch 的 search 方法
+    return this.accelerator.search(query, k);
   }
 
   /**
