@@ -274,12 +274,14 @@ export class CheckpointManager {
         // @ts-ignore
       createdAt: new Date().toISOString(),
       // @ts-ignore
+      // @ts-ignore
       goal: cp.context.goal || "未指定目标",
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
       summary: this.generateSummary(cp),
+      // @ts-ignore
       // @ts-ignore
       completedWork: cp.completedSteps.map(step => ({
         step,
@@ -584,6 +586,7 @@ export class TaskResumer {
         // @ts-ignore
     lastUpdated: Date;
         // @ts-ignore
+    // @ts-ignore
   }> {
     // @ts-ignore
     return this.checkpointManager.getAllCheckpoints()
