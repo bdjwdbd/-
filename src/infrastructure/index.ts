@@ -444,7 +444,7 @@ export { AdaptiveVectorSearch, createAdaptiveSearch, type AdaptiveSearchConfig }
 export { GPUAccelerator, createGPUAccelerator, type GPUConfig, type GPUSearchResult } from './gpu-accelerator';
 export { LoggerManager, getLogger, initLogger, startTimer, PerformanceTimer, type LoggerConfig, type LogLevel } from './logger';
 export { CacheManager, getCacheManager, type CacheConfig as AdvancedCacheConfig, type CacheStats } from './cache-manager';
-export { Quantizer, FP16Quantizer, INT8Quantizer, ScalarQuantizer, ProductQuantizer, BinaryQuantizer, createQuantizer, type QuantizationType, type QuantizerConfig } from './quantization';
+export { Quantizer, FP16Quantizer, INT8Quantizer, ScalarQuantizer, ProductQuantizer as SimpleProductQuantizer, BinaryQuantizer, createQuantizer, type QuantizationType, type QuantizerConfig } from './quantization';
 export { LRUCache, VectorQueryCache, CachedSearchEngine, type CacheOptions, type CacheEntry } from './query-cache';
 export { AsyncVectorSearch, AsyncLLMClient, AsyncEmbeddingClient, AsyncMemoryPipeline, type AsyncSearchResult, type AsyncSearchConfig, type LLMConfig, type LLMResponse } from './async-ops';
 export { DistributedSearchEngine, LocalShard, ShardManager, type DistributedSearchResult, type ShardConfig } from './distributed-search';
@@ -559,6 +559,18 @@ export type {
   VectorEngineConfig,
   VectorMetrics,
 } from './WasmVectorEngine';
+
+// 产品量化
+export {
+  ProductQuantizer,
+  createProductQuantizer,
+  quickQuantize,
+  type PQConfig,
+  type PQCode,
+  type PQIndex,
+  type PQSearchResult,
+  type PQStats,
+} from './product-quantizer';
 
 // 完整性验证和原生模块加载
 export {
