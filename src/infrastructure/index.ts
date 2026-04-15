@@ -754,6 +754,14 @@ export {
   type Int8Index,
 } from './high-perf-vector-engine-v3';
 
+// 高性能向量搜索引擎 v4（Worker 预加载）
+export {
+  HighPerfVectorEngineV4,
+  getHighPerfVectorEngineV4,
+  initHighPerfVectorEngineV4,
+  type HighPerfV4Config,
+} from './high-perf-vector-engine-v4';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
