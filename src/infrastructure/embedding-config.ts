@@ -9,6 +9,13 @@
 // 类型定义
 // ============================================================
 
+// OpenAI 类型定义（可选依赖）
+type OpenAIType = {
+    embeddings: {
+        create: (params: any) => Promise<{ data: Array<{ embedding: number[] }> }>;
+    };
+};
+
 export interface EmbeddingConfig {
     provider: string;
     model: string;
@@ -41,7 +48,7 @@ export const QWEN3_EMBEDDING_CONFIG: EmbeddingConfig = {
 
 export class EmbeddingClient {
     private config: EmbeddingConfig;
-    private client: any = null;
+    private client: OpenAIType | null = null;
 
     constructor(config: EmbeddingConfig = QWEN3_EMBEDDING_CONFIG) {
         this.config = config;
@@ -50,12 +57,12 @@ export class EmbeddingClient {
 
     private async initClient(): Promise<void> {
         try {
-            const { default: OpenAI } = await import('openai');
+            const OpenAI = (await import('openai')).default;
             this.client = new OpenAI({
                 baseURL: this.config.baseUrl,
                 apiKey: this.config.apiKey,
                 defaultHeaders: { "X-Failover-Enabled": "true" },
-            });
+            }) as OpenAIType;
         } catch (error) {
             console.warn('OpenAI SDK not installed, using fetch fallback');
         }
