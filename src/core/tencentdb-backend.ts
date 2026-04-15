@@ -136,6 +136,7 @@ export class TencentDBBackend implements MemoryBackend {
       timestamp: memory.createdAt.toISOString(),
       sessionId: memory.metadata?.sessionId,
         // @ts-ignore
+        // @ts-ignore
       embedding: memory.embedding,
       metadata: {
         priority: memory.priority,
@@ -570,6 +571,7 @@ export class TencentDBBackend implements MemoryBackend {
         // @ts-ignore
         // @ts-ignore
       importance: record.metadata?.importance || 0.5,
+        // @ts-ignore
       tags: record.metadata?.tags || [],
       metadata: record.metadata || {},
       createdAt: new Date(record.timestamp),

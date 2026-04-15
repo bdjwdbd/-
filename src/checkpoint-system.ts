@@ -270,8 +270,10 @@ export class CheckpointManager {
       sessionId: cp.sessionId,
         // @ts-ignore
         // @ts-ignore
+        // @ts-ignore
       createdAt: new Date().toISOString(),
       goal: cp.context.goal || "未指定目标",
+        // @ts-ignore
         // @ts-ignore
         // @ts-ignore
       summary: this.generateSummary(cp),
@@ -573,6 +575,7 @@ export class TaskResumer {
     goal: string;
     progress: number;
     status: string;
+        // @ts-ignore
         // @ts-ignore
     lastUpdated: Date;
         // @ts-ignore

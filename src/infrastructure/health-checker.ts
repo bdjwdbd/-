@@ -310,6 +310,7 @@ export class HealthChecker {
       case 'memory_quality':
         if (result.details?.duplicates > 0) {
             // @ts-ignore
+            // @ts-ignore
           // 清理重复记忆
           const cleaned = await this.memoryStore.cleanup({ minImportance: 0.2 });
           return `清理了 ${cleaned} 条低质量记忆`;
@@ -317,6 +318,7 @@ export class HealthChecker {
         break;
 
       case 'system_resources':
+            // @ts-ignore
         if (result.details?.usageRatio > 0.8) {
             // @ts-ignore
           // 触发垃圾回收（如果可用）
