@@ -12,6 +12,7 @@
 #include <vector>
 #include <immintrin.h>
 #include <algorithm>
+#include <cmath>
 
 namespace yuanling {
 namespace vnni {
@@ -191,8 +192,16 @@ public:
 Napi::Value DotProductInt8(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    if (info.Length() < 2 || !info[0].IsInt8Array() || !info[1].IsInt8Array()) {
-        Napi::TypeError::New(env, "Expected two Int8Array arguments").ThrowAsJavaScriptException();
+    if (info.Length() < 2 || !info[0].IsTypedArray() || !info[1].IsTypedArray()) {
+        Napi::TypeError::New(env, "Expected two TypedArray arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::TypedArray ta1 = info[0].As<Napi::TypedArray>();
+    Napi::TypedArray ta2 = info[1].As<Napi::TypedArray>();
+    
+    if (ta1.TypedArrayType() != napi_int8_array || ta2.TypedArrayType() != napi_int8_array) {
+        Napi::TypeError::New(env, "Expected Int8Array arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
     
