@@ -338,8 +338,13 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
     $(findstring $(join ^,$(prefix)),\
-                 $(join ^,simd.target.mk)))),)
-  include simd.target.mk
+                 $(join ^,parallel.target.mk)))),)
+  include parallel.target.mk
+endif
+ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
+    $(findstring $(join ^,$(prefix)),\
+                 $(join ^,yuanling_native.target.mk)))),)
+  include yuanling_native.target.mk
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@

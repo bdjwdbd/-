@@ -34,6 +34,40 @@
       ]
     },
     {
+      "target_name": "parallel",
+      "sources": ["src/parallel.cc"],
+      "include_dirs": [
+        "<!@(node -p \"require('node-addon-api').include\")",
+        "include"
+      ],
+      "cflags!": ["-fno-exceptions"],
+      "cflags_cc!": ["-fno-exceptions"],
+      "cflags_cc": ["-std=c++17", "-fPIC", "-O3", "-fopenmp"],
+      "libraries": ["-fopenmp"],
+      "conditions": [
+        ["OS=='linux'", {
+          "cflags_cc": ["-mavx2", "-mfma", "-fopenmp"],
+          "libraries": ["-fopenmp"]
+        }],
+        ["OS=='mac'", {
+          "xcode_settings": {
+            "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+            "CLANG_CXX_LIBRARY": "libc++",
+            "MACOSX_DEPLOYMENT_TARGET": "10.15"
+          },
+          "libraries": ["-lomp"]
+        }],
+        ["OS=='win'", {
+          "msvs_settings": {
+            "VCCLCompilerTool": {
+              "ExceptionHandling": 1,
+              "AdditionalOptions": ["/arch:AVX2", "/openmp"]
+            }
+          }
+        }]
+      ]
+    },
+    {
       "target_name": "memory",
       "sources": ["src/memory.cc"],
       "include_dirs": [
