@@ -2,23 +2,21 @@ name: Build Native Modules
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       
       - name: Install build tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential
+        run: sudo apt-get update && sudo apt-get install -y build-essential
       
       - name: Build native modules
         run: |
@@ -26,50 +24,8 @@ jobs:
           npm install
           npx node-gyp rebuild
       
-      - name: Upload Linux artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: native-linux-x64
-          path: native/build/Release/*.node
-
-  build-mac:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      
-      - name: Build native modules
-        run: |
-          cd native
-          npm install
-          npx node-gyp rebuild
-      
-      - name: Upload macOS artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: native-darwin-x64
-          path: native/build/Release/*.node
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      
-      - name: Build native modules
-        run: |
-          cd native
-          npm install
-          npx node-gyp rebuild
-      
-      - name: Upload Windows artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: native-win32-x64
           path: native/build/Release/*.node
