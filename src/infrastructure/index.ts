@@ -762,6 +762,14 @@ export {
   type HighPerfV4Config,
 } from './high-perf-vector-engine-v4';
 
+// 高性能向量搜索引擎 v5（INT4 + 批量处理）
+export {
+  HighPerfVectorEngineV5,
+  getHighPerfVectorEngineV5,
+  initHighPerfVectorEngineV5,
+  type HighPerfV5Config,
+} from './high-perf-vector-engine-v5';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
