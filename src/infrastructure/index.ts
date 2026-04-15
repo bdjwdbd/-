@@ -49,6 +49,25 @@ export class CacheSystem {
 export class PerformanceMonitor {
   private startTime: number = Date.now();
   private metrics: Map<string, number[]> = new Map();
+  private logger: StructuredLogger;
+  
+  // 告警阈值配置
+  private alertThresholds = {
+    health: { warning: 0.8, critical: 0.7 },
+    avgLatency: { warning: 2000, critical: 5000 },
+    successRate: { warning: 0.95, critical: 0.8 },
+    cacheHitRate: { warning: 0.3, critical: 0.1 },
+  };
+  
+  // 告警历史
+  private alertHistory: Array<{
+    timestamp: Date;
+    type: string;
+    level: 'warning' | 'critical';
+    message: string;
+    value: number;
+    threshold: number;
+  }> = [];
   
   // 系统级指标
   private systemMetrics: {
@@ -67,6 +86,10 @@ export class PerformanceMonitor {
     cacheMisses: 0,
   };
   
+  constructor(logger?: StructuredLogger) {
+    this.logger = logger || new StructuredLogger();
+  }
+  
   recordLayerLatency(layer: string, latency: number): void {
     const latencies = this.metrics.get(layer) || [];
     latencies.push(latency);
@@ -81,6 +104,9 @@ export class PerformanceMonitor {
     } else {
       this.systemMetrics.failedRequests++;
     }
+    
+    // 检查告警
+    this.checkAlerts();
   }
   
   recordCacheHit(): void {
@@ -93,6 +119,130 @@ export class PerformanceMonitor {
   
   getUptime(): number {
     return Date.now() - this.startTime;
+  }
+  
+  /**
+   * 检查告警
+   */
+  private checkAlerts(): void {
+    const metrics = this.getSystemMetrics();
+    
+    // 健康度告警
+    if (metrics.health < this.alertThresholds.health.critical) {
+      this.triggerAlert('health', 'critical', metrics.health, this.alertThresholds.health.critical);
+    } else if (metrics.health < this.alertThresholds.health.warning) {
+      this.triggerAlert('health', 'warning', metrics.health, this.alertThresholds.health.warning);
+    }
+    
+    // 延迟告警
+    if (metrics.avgLatency > this.alertThresholds.avgLatency.critical) {
+      this.triggerAlert('avgLatency', 'critical', metrics.avgLatency, this.alertThresholds.avgLatency.critical);
+    } else if (metrics.avgLatency > this.alertThresholds.avgLatency.warning) {
+      this.triggerAlert('avgLatency', 'warning', metrics.avgLatency, this.alertThresholds.avgLatency.warning);
+    }
+    
+    // 成功率告警
+    if (metrics.successRate < this.alertThresholds.successRate.critical) {
+      this.triggerAlert('successRate', 'critical', metrics.successRate, this.alertThresholds.successRate.critical);
+    } else if (metrics.successRate < this.alertThresholds.successRate.warning) {
+      this.triggerAlert('successRate', 'warning', metrics.successRate, this.alertThresholds.successRate.warning);
+    }
+  }
+  
+  /**
+   * 触发告警
+   */
+  private triggerAlert(
+    type: string,
+    level: 'warning' | 'critical',
+    value: number,
+    threshold: number
+  ): void {
+    // 避免重复告警（5分钟内同类型告警只触发一次）
+    const recentAlert = this.alertHistory.find(
+      a => a.type === type && 
+           a.level === level && 
+           Date.now() - a.timestamp.getTime() < 5 * 60 * 1000
+    );
+    
+    if (recentAlert) return;
+    
+    const message = this.getAlertMessage(type, level, value, threshold);
+    
+    const alert = {
+      timestamp: new Date(),
+      type,
+      level,
+      message,
+      value,
+      threshold,
+    };
+    
+    this.alertHistory.push(alert);
+    
+    // 记录日志
+    if (level === 'critical') {
+      this.logger.error('PerformanceAlert', message);
+    } else {
+      this.logger.warn('PerformanceAlert', message);
+    }
+  }
+  
+  /**
+   * 生成告警消息
+   */
+  private getAlertMessage(
+    type: string,
+    level: 'warning' | 'critical',
+    value: number,
+    threshold: number
+  ): string {
+    const typeNames: Record<string, string> = {
+      health: '健康度',
+      avgLatency: '平均延迟',
+      successRate: '成功率',
+      cacheHitRate: '缓存命中率',
+    };
+    
+    const units: Record<string, string> = {
+      health: '%',
+      avgLatency: 'ms',
+      successRate: '%',
+      cacheHitRate: '%',
+    };
+    
+    const valueStr = type === 'avgLatency' ? `${value}` : `${(value * 100).toFixed(1)}`;
+    const thresholdStr = type === 'avgLatency' ? `${threshold}` : `${(threshold * 100).toFixed(1)}`;
+    
+    return `${typeNames[type]} ${level === 'critical' ? '严重' : '警告'}: 当前 ${valueStr}${units[type]}, 阈值 ${thresholdStr}${units[type]}`;
+  }
+  
+  /**
+   * 获取告警历史
+   */
+  getAlertHistory(limit: number = 20): typeof this.alertHistory {
+    return this.alertHistory.slice(-limit);
+  }
+  
+  /**
+   * 清除告警历史
+   */
+  clearAlertHistory(): void {
+    this.alertHistory = [];
+  }
+  
+  /**
+   * 设置告警阈值
+   */
+  setAlertThresholds(thresholds: Partial<typeof this.alertThresholds>): void {
+    this.alertThresholds = { ...this.alertThresholds, ...thresholds };
+  }
+  
+  /**
+   * 获取告警阈值
+   */
+  getAlertThresholds(): typeof this.alertThresholds {
+    return { ...this.alertThresholds };
   }
   
   getSystemMetrics(): {
@@ -133,6 +283,17 @@ export class PerformanceMonitor {
     report += `- 缓存命中率: ${(sysMetrics.cacheHitRate * 100).toFixed(1)}%\n`;
     report += `- 成功率: ${(sysMetrics.successRate * 100).toFixed(1)}%\n`;
     report += `- 总请求数: ${sysMetrics.totalRequests}\n\n`;
+    
+    // 告警状态
+    const recentAlerts = this.getAlertHistory(5);
+    if (recentAlerts.length > 0) {
+      report += '## 最近告警\n';
+      for (const alert of recentAlerts) {
+        const icon = alert.level === 'critical' ? '🔴' : '🟡';
+        report += `- ${icon} ${alert.message} (${alert.timestamp.toLocaleString()})\n`;
+      }
+      report += '\n';
+    }
     
     report += '## 层级延迟\n';
     for (const [layer, latencies] of this.metrics) {
