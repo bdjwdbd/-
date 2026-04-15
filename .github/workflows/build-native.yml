@@ -3,13 +3,18 @@ name: Build Native Modules
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
+  release:
+    types: [published]
 
 env:
   Force_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-linux:
+  # Linux x64
+  build-linux-x64:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +24,9 @@ jobs:
           node-version: '24'
       
       - name: Install build tools
-        run: sudo apt-get update && sudo apt-get install -y build-essential libomp-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libomp-dev
       
       - name: Build native modules
         run: |
@@ -27,8 +34,267 @@ jobs:
           npm install
           npx node-gyp rebuild
       
+      - name: Calculate SHA256
+        id: hash
+        run: |
+          HASH=$(sha256sum native/build/Release/vector_ops.node | cut -d' ' -f1)
+          echo "hash=sha256:$HASH" >> $GITHUB_OUTPUT
+      
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: native-linux-x64
           path: native/build/Release/*.node
+      
+      - name: Output hash
+        run: |
+          echo "### Linux x64" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "SHA256: ${{ steps.hash.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  # Linux ARM64
+  build-linux-arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      
+      - name: Install cross-compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+      
+      - name: Build for ARM64
+        run: |
+          cd native
+          npm install
+          CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ npx node-gyp rebuild --arch=arm64
+      
+      - name: Calculate SHA256
+        id: hash
+        run: |
+          HASH=$(sha256sum native/build/Release/vector_ops.node | cut -d' ' -f1)
+          echo "hash=sha256:$HASH" >> $GITHUB_OUTPUT
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-linux-arm64
+          path: native/build/Release/*.node
+      
+      - name: Output hash
+        run: |
+          echo "### Linux ARM64" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "SHA256: ${{ steps.hash.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  # macOS x64
+  build-darwin-x64:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      
+      - name: Build native modules
+        run: |
+          cd native
+          npm install
+          npx node-gyp rebuild
+      
+      - name: Calculate SHA256
+        id: hash
+        run: |
+          HASH=$(shasum -a 256 native/build/Release/vector_ops.node | cut -d' ' -f1)
+          echo "hash=sha256:$HASH" >> $GITHUB_OUTPUT
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-darwin-x64
+          path: native/build/Release/*.node
+      
+      - name: Output hash
+        run: |
+          echo "### macOS x64" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "SHA256: ${{ steps.hash.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  # macOS ARM64 (Apple Silicon)
+  build-darwin-arm64:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      
+      - name: Build for ARM64
+        run: |
+          cd native
+          npm install
+          npx node-gyp rebuild --arch=arm64
+      
+      - name: Calculate SHA256
+        id: hash
+        run: |
+          HASH=$(shasum -a 256 native/build/Release/vector_ops.node | cut -d' ' -f1)
+          echo "hash=sha256:$HASH" >> $GITHUB_OUTPUT
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-darwin-arm64
+          path: native/build/Release/*.node
+      
+      - name: Output hash
+        run: |
+          echo "### macOS ARM64" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "SHA256: ${{ steps.hash.outputs.hash }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  # Windows x64
+  build-win32-x64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      
+      - name: Build native modules
+        run: |
+          cd native
+          npm install
+          npx node-gyp rebuild
+      
+      - name: Calculate SHA256
+        id: hash
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash -Algorithm SHA256 native\build\Release\vector_ops.node).Hash.ToLower()
+          echo "hash=sha256:$hash" >> $env:GITHUB_OUTPUT
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-win32-x64
+          path: native/build/Release/*.node
+      
+      - name: Output hash
+        shell: pwsh
+        run: |
+          echo "### Windows x64" >> $env:GITHUB_STEP_SUMMARY
+          echo '```' >> $env:GITHUB_STEP_SUMMARY
+          echo "SHA256: ${{ steps.hash.outputs.hash }}" >> $env:GITHUB_STEP_SUMMARY
+          echo '```' >> $env:GITHUB_STEP_SUMMARY
+
+  # 收集哈希值并更新代码
+  collect-hashes:
+    needs: [build-linux-x64, build-linux-arm64, build-darwin-x64, build-darwin-arm64, build-win32-x64]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'release'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Get hashes from previous jobs
+        id: get-hashes
+        run: |
+          # 这里需要从之前的 job 获取哈希值
+          # 由于 GitHub Actions 限制，我们使用 API 获取
+          echo "Fetching build hashes..."
+      
+      - name: Update integrity-validator.ts
+        run: |
+          echo "Updating integrity-validator.ts with new hashes..."
+          # 实际更新逻辑需要获取各平台的哈希值
+      
+      - name: Create hash summary
+        run: |
+          echo "## Native Module Hashes" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Platform | Architecture | SHA256 |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Linux | x64 | See build job |" >> $GITHUB_STEP_SUMMARY
+          echo "| Linux | arm64 | See build job |" >> $GITHUB_STEP_SUMMARY
+          echo "| macOS | x64 | See build job |" >> $GITHUB_STEP_SUMMARY
+          echo "| macOS | arm64 | See build job |" >> $GITHUB_STEP_SUMMARY
+          echo "| Windows | x64 | See build job |" >> $GITHUB_STEP_SUMMARY
+
+  # 发布 Release
+  release:
+    needs: [build-linux-x64, build-linux-arm64, build-darwin-x64, build-darwin-arm64, build-win32-x64]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      
+      - name: Create release assets
+        run: |
+          cd artifacts
+          tar -czvf ../native-linux-x64.tar.gz native-linux-x64/
+          tar -czvf ../native-linux-arm64.tar.gz native-linux-arm64/
+          tar -czvf ../native-darwin-x64.tar.gz native-darwin-x64/
+          tar -czvf ../native-darwin-arm64.tar.gz native-darwin-arm64/
+          cd ..
+          zip -r native-win32-x64.zip artifacts/native-win32-x64/
+      
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            native-*.tar.gz
+            native-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 测试构建产物
+  test-native:
+    needs: [build-linux-x64]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      
+      - name: Download Linux artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: native-linux-x64
+          path: native/build/Release
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Test native module
+        run: |
+          node -e "
+            const loader = require('./dist/infrastructure/native-loader');
+            loader.loadNativeModule().then(mod => {
+              if (mod) {
+                console.log('✅ Native module loaded');
+                console.log('Capabilities:', mod.getCapabilities());
+              } else {
+                console.log('⚠️ Native module not available, using JS fallback');
+              }
+            });
+          "

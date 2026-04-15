@@ -416,7 +416,7 @@ export { DistributedTracing } from './distributed-tracing';
 export { ExtensionManager } from './extension-manager';
 export { FeedbackLearner, FeedbackRecord } from './feedback-learner';
 export { HybridSearchEngine, SearchResult } from './hybrid-search';
-export { IntegrityValidator } from './integrity-validator';
+// IntegrityValidator 在后面导出（完整版）
 export { MemoryCompressor } from './memory-compressor';
 export { MemoryUpgrader } from './memory-upgrader';
 export { MultiModelRouter } from './multi-model-router';
@@ -536,7 +536,7 @@ export { HugePageManager, HighPerformanceMemoryPool, VectorMemoryManager, getHug
 export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAccelerator, getHardwareOptimizer, type HardwareInfo, type Optimizations } from './hardware-optimize';
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';
 export { LLMStreamer, SSEServer, WebSocketHandler, StreamChunkImpl, type StreamChunk, type StreamerConfig } from './llm-streaming';
-export { NativeLoader, Accelerator, getAccelerator, type SIMDCapabilities, type MemoryInfo, type SearchResult as NativeSearchResult, type NativeModules } from './native-accelerator';
+export { NativeLoader as NativeAcceleratorLoader, Accelerator, getAccelerator, type SIMDCapabilities, type MemoryInfo, type SearchResult as NativeSearchResult, type NativeModules } from './native-accelerator';
 export { SkillsDiscoveryEngine, skillsDiscoveryEngine, type SkillInfo } from './SkillsDiscovery';
 export {
   HealthChecker as SelfHealthChecker,
@@ -559,6 +559,38 @@ export type {
   VectorEngineConfig,
   VectorMetrics,
 } from './WasmVectorEngine';
+
+// 完整性验证和原生模块加载
+export {
+  IntegrityValidator,
+  getIntegrityValidator,
+  quickValidate,
+  validateFile,
+  type IntegrityCheckResult,
+  type BinaryInfo,
+  type IntegrityReport,
+} from './integrity-validator';
+
+export {
+  NativeDownloader,
+  getNativeDownloader,
+  downloadNative,
+  type DownloadOptions,
+  type DownloadResult,
+  type PlatformInfo,
+  type ReleaseInfo,
+} from './native-downloader';
+
+export {
+  NativeLoader,
+  getNativeLoader,
+  loadNativeModule,
+  getNativeModule,
+  isNativeAvailable,
+  type NativeModule,
+  type NativeCapabilities,
+  type LoadResult,
+} from './native-loader';
 export {
   CpuAffinityManager,
   IrqIsolationManager,
