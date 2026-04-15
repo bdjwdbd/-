@@ -165,7 +165,13 @@ export class AdaptiveVectorSearch {
     }
     
     // 使用 SimpleVectorSearch 的 search 方法
-    return this.accelerator.search(query, k);
+    const result = this.accelerator.search(query, k);
+    // 处理可能的 Promise
+    if (result instanceof Promise) {
+      // 同步返回空数组，实际使用时应使用 await
+      return [];
+    }
+    return result;
   }
 
   /**

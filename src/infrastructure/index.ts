@@ -439,7 +439,7 @@ export { VectorOps, getVectorOps, cosineSimilarity, euclideanDistance, topKSearc
 export { ANNIndex, BruteForceANN, HNSWIndex, IVFIndex, createANNIndex, type ANNAlgorithm, type DistanceMetric, type ANNConfig, type ANNResult } from './ann-index';
 export { OPQQuantizer, createOPQQuantizer, type OPQConfig, type OPQIndex } from './opq-quantization';
 export { WALOptimizer, createWALOptimizer, type WALConfig, type WALEntry, type Checkpoint } from './wal-optimizer';
-export { ParallelSearch, type ParallelSearchOptions, type SearchResult } from './parallel-search';
+export { ParallelSearch, type ParallelSearchOptions, type SearchResult as ParallelSearchResult } from './parallel-search';
 export { AdaptiveVectorSearch, createAdaptiveSearch, type AdaptiveSearchConfig } from './adaptive-search';
 export { GPUAccelerator, createGPUAccelerator, type GPUConfig, type GPUSearchResult } from './gpu-accelerator';
 export { LoggerManager, getLogger, initLogger, startTimer, PerformanceTimer, type LoggerConfig, type LogLevel } from './logger';
