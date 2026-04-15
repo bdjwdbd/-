@@ -478,6 +478,14 @@ export {
   type CacheEntry as VectorCacheEntry,
   type CacheStats as VectorCacheStats
 } from './vector-cache';
+export {
+  UnifiedVectorOps,
+  getVectorOps as getNativeVectorOps,
+  isNativeModuleAvailable,
+  getNativeModuleInfo,
+  type NativeVectorOps,
+  type NativeModuleInfo
+} from './native-vector';
 export { HugePageManager, HighPerformanceMemoryPool, VectorMemoryManager, getHugePageManager, type HugePageInfo, type MemoryPoolConfig } from './hugepage-manager';
 export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAccelerator, getHardwareOptimizer, type HardwareInfo, type Optimizations } from './hardware-optimize';
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';

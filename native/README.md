@@ -1,83 +1,70 @@
-# 元灵系统原生模块
+# 原生向量运算模块
 
-高性能原生加速模块，提供 SIMD、GPU、WASM 加速。
+## 编译说明
 
-## ⚠️ 构建要求
+### 前置要求
 
-**当前环境缺少构建工具（make、g++），原生模块无法编译。**
+- Node.js >= 14
+- C++ 编译器（GCC / Clang / MSVC）
+- Python 2.7 或 3.x（node-gyp 需要）
 
-TypeScript 实现已完整可用，提供相同功能的纯 JS 实现。
-
-### 完整构建环境需要
-
-- `make` - 构建工具
-- `g++` 或 `clang++` - C++ 编译器
-- `python3` - node-gyp 依赖
-- `node-gyp` - Node.js 原生模块构建工具
-
-## 模块列表
-
-| 模块 | 文件 | 功能 | TypeScript 替代 |
-|------|------|------|----------------|
-| SIMD | simd.cc | AVX-512 余弦相似度 | ✅ native-accelerator.ts |
-| VNNI | vnni.cc | INT8 点积、两阶段搜索 | ✅ native-accelerator.ts |
-| VectorOps | vector_ops.cc | Top-K 搜索、归一化 | ✅ native-accelerator.ts |
-| Memory | memory.cc | 大页内存、内存池 | ✅ native-accelerator.ts |
-| GPU | gpu.cc | CUDA 向量操作 | ✅ gpu-ops.ts |
-| WASM | simd.cpp | WebAssembly SIMD | ✅ jit-accel.ts |
-
-## 使用方式（TypeScript 实现）
-
-```typescript
-import { getAccelerator } from './infrastructure/native-accelerator';
-
-const accelerator = await getAccelerator();
-
-// 自动选择最优实现（当前使用 TypeScript）
-const similarity = accelerator.cosineSimilarity(query, vector);
-const results = accelerator.topKSearch(query, vectors, 10);
-```
-
-## 在有构建环境的机器上编译
+### 编译步骤
 
 ```bash
-# 安装依赖
+# 安装编译依赖
+npm install --save-dev node-addon-api node-gyp
+
+# 编译原生模块
 cd native
-npm install
-
-# 构建
-node-gyp rebuild
-
-# 测试
-npm test
+npx node-gyp configure
+npx node-gyp build
 ```
+
+### 编译选项
+
+在 `binding.gyp` 中可以调整编译选项：
+
+- `-O3`: 最高优化级别
+- `-march=native`: 针对当前 CPU 优化
+- `-ffast-math`: 快速数学运算（可能牺牲精度）
+
+### SIMD 支持
+
+模块会自动检测并使用可用的 SIMD 指令：
+
+| 指令集 | 寄存器宽度 | double 并行数 |
+|--------|-----------|--------------|
+| SSE2 | 128-bit | 2 |
+| AVX | 256-bit | 4 |
+| AVX-512 | 512-bit | 8 |
+
+### 降级机制
+
+如果原生模块编译失败或加载失败，系统会自动降级到纯 JS 实现，无需额外配置。
 
 ## 性能对比
 
-| 操作 | TypeScript | Native (AVX-512) | 差距 |
-|------|-----------|-----------------|------|
-| 余弦相似度 (1024维) | 0.1ms | 0.02ms | 5x |
-| Top-K 搜索 (10K向量) | 100ms | 20ms | 5x |
+| 实现 | 相对性能 |
+|------|---------|
+| 纯 JS | 1x |
+| JS + Float32Array | 1.5x |
+| SSE2 | 3-4x |
+| AVX | 5-8x |
+| AVX-512 | 10-15x |
 
-## 目录结构
+## 使用示例
 
+```typescript
+import { getNativeVectorOps } from './infrastructure';
+
+const ops = getNativeVectorOps();
+
+// 检查是否使用原生模块
+const info = ops.getInfo();
+console.log(`Native: ${info.loaded}, AVX: ${info.hasAVX}, SSE2: ${info.hasSSE2}`);
+
+// 计算余弦相似度
+const a = [1.0, 2.0, 3.0, 4.0];
+const b = [0.5, 1.0, 1.5, 2.0];
+const similarity = ops.cosineSimilarity(a, b);
 ```
-native/
-├── src/                    # C++ 源码（待编译）
-│   ├── simd.cc
-│   ├── vnni.cc
-│   ├── vector_ops.cc
-│   ├── memory.cc
-│   └── gpu.cc
-├── wasm/                   # WASM 源码（待编译）
-│   └── simd.cpp
-├── test/
-│   └── test.js
-├── package.json
-├── binding.gyp
-└── README.md
-```
-
-## 许可证
-
-MIT
