@@ -1,6 +1,12 @@
 /**
  * @file parallel.cc
  * @brief 多线程并行计算模块 - OpenMP 实现
+ * 
+ * 功能：
+ * 1. 并行余弦相似度批量计算
+ * 2. 并行 Top-K 搜索
+ * 3. 线程数控制
+ * 4. AVX-512 支持
  */
 
 #include <napi.h>
@@ -11,9 +17,115 @@
 #include <algorithm>
 #include <immintrin.h>
 #include <omp.h>
+#include <cpuid.h>
 
 namespace yuanling {
 namespace parallel {
+
+// ============================================================
+// CPU 特性检测
+// ============================================================
+
+struct CPUFeatures {
+    bool hasAVX2 = false;
+    bool hasAVX512F = false;
+    bool hasFMA = false;
+};
+
+CPUFeatures detectCPUFeatures() {
+    CPUFeatures features;
+    unsigned int eax, ebx, ecx, edx;
+    
+    if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+        features.hasFMA = (ecx & (1 << 12)) != 0;
+    }
+    
+    if (__get_cpuid_count(7, 0, &eax, &ebx, &ecx, &edx)) {
+        features.hasAVX2 = (ebx & (1 << 5)) != 0;
+        features.hasAVX512F = (ebx & (1 << 16)) != 0;
+    }
+    
+    return features;
+}
+
+static CPUFeatures g_cpuFeatures = detectCPUFeatures();
+
+// ============================================================
+// AVX-512 余弦相似度
+// ============================================================
+
+#ifdef __AVX512F__
+inline float cosineSimilarityAVX512(const float* query, const float* vec, size_t dim) {
+    __m512 sum_vec = _mm512_setzero_ps();
+    __m512 norm_q_vec = _mm512_setzero_ps();
+    __m512 norm_v_vec = _mm512_setzero_ps();
+    
+    size_t j = 0;
+    for (; j + 16 <= dim; j += 16) {
+        __m512 vq = _mm512_loadu_ps(query + j);
+        __m512 vv = _mm512_loadu_ps(vec + j);
+        sum_vec = _mm512_fmadd_ps(vq, vv, sum_vec);
+        norm_q_vec = _mm512_fmadd_ps(vq, vq, norm_q_vec);
+        norm_v_vec = _mm512_fmadd_ps(vv, vv, norm_v_vec);
+    }
+    
+    float sum = _mm512_reduce_add_ps(sum_vec);
+    float norm_q = _mm512_reduce_add_ps(norm_q_vec);
+    float norm_v = _mm512_reduce_add_ps(norm_v_vec);
+    
+    for (; j < dim; j++) {
+        sum += query[j] * vec[j];
+        norm_q += query[j] * query[j];
+        norm_v += vec[j] * vec[j];
+    }
+    
+    return sum / (std::sqrt(norm_q) * std::sqrt(norm_v) + 1e-10f);
+}
+#endif
+
+// ============================================================
+// AVX2 余弦相似度
+// ============================================================
+
+inline float cosineSimilarityAVX2(const float* query, const float* vec, size_t dim) {
+    __m256 sum_vec = _mm256_setzero_ps();
+    __m256 norm_q_vec = _mm256_setzero_ps();
+    __m256 norm_v_vec = _mm256_setzero_ps();
+    
+    size_t j = 0;
+    for (; j + 8 <= dim; j += 8) {
+        __m256 vq = _mm256_loadu_ps(query + j);
+        __m256 vv = _mm256_loadu_ps(vec + j);
+        sum_vec = _mm256_fmadd_ps(vq, vv, sum_vec);
+        norm_q_vec = _mm256_fmadd_ps(vq, vq, norm_q_vec);
+        norm_v_vec = _mm256_fmadd_ps(vv, vv, norm_v_vec);
+    }
+    
+    float sum = 0, norm_q = 0, norm_v = 0;
+    for (int k = 0; k < 8; k++) {
+        sum += ((float*)&sum_vec)[k];
+        norm_q += ((float*)&norm_q_vec)[k];
+        norm_v += ((float*)&norm_v_vec)[k];
+    }
+    
+    for (; j < dim; j++) {
+        sum += query[j] * vec[j];
+        norm_q += query[j] * query[j];
+        norm_v += vec[j] * vec[j];
+    }
+    
+    return sum / (std::sqrt(norm_q) * std::sqrt(norm_v) + 1e-10f);
+}
+
+// 统一接口
+inline float cosineSimilarity(const float* query, const float* vec, size_t dim) {
+#ifdef __AVX512F__
+    if (g_cpuFeatures.hasAVX512F) {
+        return cosineSimilarityAVX512(query, vec, dim);
+    }
+#endif
+    return cosineSimilarityAVX2(query, vec, dim);
+}
 
 // ============================================================
 // 并行余弦相似度批量计算
@@ -28,38 +140,7 @@ void cosineSimilarityBatchParallel(
 ) {
     #pragma omp parallel for schedule(static)
     for (size_t i = 0; i < numVectors; i++) {
-        const float* vec = vectors + i * dim;
-        
-        // AVX2 优化
-        __m256 sum_vec = _mm256_setzero_ps();
-        __m256 norm_q_vec = _mm256_setzero_ps();
-        __m256 norm_v_vec = _mm256_setzero_ps();
-        
-        size_t j = 0;
-        for (; j + 8 <= dim; j += 8) {
-            __m256 vq = _mm256_loadu_ps(query + j);
-            __m256 vv = _mm256_loadu_ps(vec + j);
-            sum_vec = _mm256_fmadd_ps(vq, vv, sum_vec);
-            norm_q_vec = _mm256_fmadd_ps(vq, vq, norm_q_vec);
-            norm_v_vec = _mm256_fmadd_ps(vv, vv, norm_v_vec);
-        }
-        
-        // 水平求和
-        float sum = 0, norm_q = 0, norm_v = 0;
-        for (int k = 0; k < 8; k++) {
-            sum += ((float*)&sum_vec)[k];
-            norm_q += ((float*)&norm_q_vec)[k];
-            norm_v += ((float*)&norm_v_vec)[k];
-        }
-        
-        // 处理剩余元素
-        for (; j < dim; j++) {
-            sum += query[j] * vec[j];
-            norm_q += query[j] * query[j];
-            norm_v += vec[j] * vec[j];
-        }
-        
-        results[i] = sum / (std::sqrt(norm_q) * std::sqrt(norm_v) + 1e-10f);
+        results[i] = cosineSimilarity(query, vectors + i * dim, dim);
     }
 }
 
@@ -101,36 +182,7 @@ void topKSearchParallel(
         
         #pragma omp for schedule(static)
         for (size_t i = 0; i < numVectors; i++) {
-            const float* vec = vectors + i * dim;
-            
-            // AVX2 余弦相似度
-            __m256 sum_vec = _mm256_setzero_ps();
-            __m256 norm_q_vec = _mm256_setzero_ps();
-            __m256 norm_v_vec = _mm256_setzero_ps();
-            
-            size_t j = 0;
-            for (; j + 8 <= dim; j += 8) {
-                __m256 vq = _mm256_loadu_ps(query + j);
-                __m256 vv = _mm256_loadu_ps(vec + j);
-                sum_vec = _mm256_fmadd_ps(vq, vv, sum_vec);
-                norm_q_vec = _mm256_fmadd_ps(vq, vq, norm_q_vec);
-                norm_v_vec = _mm256_fmadd_ps(vv, vv, norm_v_vec);
-            }
-            
-            float sum = 0, norm_q = 0, norm_v = 0;
-            for (int k = 0; k < 8; k++) {
-                sum += ((float*)&sum_vec)[k];
-                norm_q += ((float*)&norm_q_vec)[k];
-                norm_v += ((float*)&norm_v_vec)[k];
-            }
-            
-            for (; j < dim; j++) {
-                sum += query[j] * vec[j];
-                norm_q += query[j] * query[j];
-                norm_v += vec[j] * vec[j];
-            }
-            
-            float score = sum / (std::sqrt(norm_q) * std::sqrt(norm_v) + 1e-10f);
+            float score = cosineSimilarity(query, vectors + i * dim, dim);
             
             // 维护 Top-K
             if (myResults.size() < k) {
@@ -143,7 +195,8 @@ void topKSearchParallel(
             }
         }
     }
-    
+            
+            float sum = 0, norm_q = 0, norm_v = 0;
     // 合并所有线程的结果
     std::vector<ResultItem> finalResults;
     finalResults.reserve(k * numThreads);
