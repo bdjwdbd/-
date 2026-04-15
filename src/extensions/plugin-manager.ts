@@ -44,14 +44,14 @@ export interface ExtensionPoint {
   handlers: Array<{
     plugin: string;
     priority: number;
-    handler: (...args: unknown[]) => unknown;
+    handler: (...args: any[]) => unknown;
   }>;
 }
 
 export interface EventEmitter {
-  on(event: string, handler: (...args: unknown[]) => void): void;
-  off(event: string, handler: (...args: unknown[]) => void): void;
-  emit(event: string, ...args: unknown[]): void;
+  on(event: string, handler: (...args: any[]) => void): void;
+  off(event: string, handler: (...args: any[]) => void): void;
+  emit(event: string, ...args: any[]): void;
 }
 
 // ============================================================
@@ -62,7 +62,7 @@ export class PluginManager {
   private plugins: Map<string, Plugin> = new Map();
   private enabledPlugins: Set<string> = new Set();
   private extensionPoints: Map<string, ExtensionPoint> = new Map();
-  private eventHandlers: Map<string, Map<string, (...args: unknown[]) => void>> = new Map();
+  private eventHandlers: Map<string, Map<string, (...args: any[]) => void>> = new Map();
   private context: PluginContext;
 
   constructor() {
@@ -147,7 +147,7 @@ export class PluginManager {
     // 注册扩展
     if (plugin.extensions) {
       for (const [point, handler] of Object.entries(plugin.extensions)) {
-        this.registerExtension(point, plugin.name, handler as (...args: unknown[]) => unknown, 0);
+        this.registerExtension(point, plugin.name, handler as (...args: any[]) => unknown, 0);
       }
     }
 
@@ -165,7 +165,7 @@ export class PluginManager {
   private registerExtension(
     pointName: string,
     pluginName: string,
-    handler: (...args: unknown[]) => unknown,
+    handler: (...args: any[]) => unknown,
     priority: number
   ): void {
     const point = this.extensionPoints.get(pointName);
@@ -270,7 +270,7 @@ export class PluginManager {
   /**
    * 调用扩展点
    */
-  async invoke<T = unknown>(pointName: string, ...args: unknown[]): Promise<T[]> {
+  async invoke<T = unknown>(pointName: string, ...args: any[]): Promise<T[]> {
     const point = this.extensionPoints.get(pointName);
     if (!point) {
       return [];

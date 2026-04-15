@@ -716,7 +716,7 @@ function solution(arr: number[]): number {
   const problematicCode: CodeInput = {
     id: "problematic-1",
     code: `
-function solution(arr: unknown[]): any {
+function solution(arr: any[]): any {
   // 使用 any 类型
   let result = eval("arr[0]");  // 使用 eval
   console.log("debug", result);  // console 残留

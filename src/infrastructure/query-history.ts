@@ -51,7 +51,7 @@ export class QueryHistory {
   private config: HistoryConfig;
   private history: QueryRecord[] = [];
   private stats: Map<string, QueryStats> = new Map();
-  private cache: Map<string, { results: unknown[]; timestamp: number }> = new Map();
+  private cache: Map<string, { results: any[]; timestamp: number }> = new Map();
 
   constructor(config: Partial<HistoryConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
@@ -99,7 +99,7 @@ export class QueryHistory {
   /**
    * 检查缓存
    */
-  checkCache(query: string): unknown[] | null {
+  checkCache(query: string): any[] | null {
     const cached = this.cache.get(query);
     
     if (!cached) {
@@ -118,7 +118,7 @@ export class QueryHistory {
   /**
    * 设置缓存
    */
-  setCache(query: string, results: unknown[]): void {
+  setCache(query: string, results: any[]): void {
     // 只缓存高频查询
     const stats = this.stats.get(query);
     if (stats && stats.count >= this.config.cacheThreshold) {

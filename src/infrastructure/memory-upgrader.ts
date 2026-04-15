@@ -242,10 +242,10 @@ export class MemoryUpgrader {
    * 应用升级
    */
   private applyUpgrade(
-    data: unknown[],
+    data: any[],
     fromVersion: string,
     toVersion: string
-  ): { success: boolean; data: unknown[]; changes: string[]; error?: string } {
+  ): { success: boolean; data: any[]; changes: string[]; error?: string } {
     const rule = this.upgradeRules.find(
       r => r.fromVersion === fromVersion && r.toVersion === toVersion
     );
@@ -291,7 +291,7 @@ export class MemoryUpgrader {
   
   // ============ 数据持久化 ============
   
-  private loadMemories(): unknown[] {
+  private loadMemories(): any[] {
     const memoryFile = path.join(this.dataDir, 'memories.json');
     
     try {
@@ -305,7 +305,7 @@ export class MemoryUpgrader {
     return [];
   }
   
-  private saveMemories(memories: unknown[]): void {
+  private saveMemories(memories: any[]): void {
     const memoryFile = path.join(this.dataDir, 'memories.json');
     fs.writeFileSync(memoryFile, JSON.stringify(memories, null, 2));
   }

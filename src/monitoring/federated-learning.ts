@@ -313,7 +313,7 @@ export class FederatedClientNode {
   private id: string;
   private coordinator: FederatedCoordinator;
   private localModel: ModelWeights | null = null;
-  private localData: unknown[] = [];
+  private localData: any[] = [];
 
   constructor(id: string, coordinator: FederatedCoordinator) {
     this.id = id;
@@ -323,7 +323,7 @@ export class FederatedClientNode {
   /**
    * 设置本地数据
    */
-  setLocalData(data: unknown[]): void {
+  setLocalData(data: any[]): void {
     this.localData = data;
   }
 

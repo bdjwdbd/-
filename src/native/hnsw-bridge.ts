@@ -48,7 +48,7 @@ export class HNSWHighPerformance {
   }> = [];
   private isProcessing: boolean = false;
   private usePython: boolean = false;
-  private fallbackIndex: unknown = null;
+  private fallbackIndex: any = null;
   
   constructor(config: HNSWConfig) {
     this.config = {

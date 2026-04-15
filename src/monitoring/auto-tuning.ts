@@ -418,10 +418,10 @@ export class GridSearcher {
    * 生成网格
    */
   generateGrid(pointsPerDimension: number = 5): void {
-    const paramArrays: Array<{ name: string; values: unknown[] }> = [];
+    const paramArrays: Array<{ name: string; values: any[] }> = [];
 
     for (const [name, param] of this.parameters) {
-      const values: unknown[] = [];
+      const values: any[] = [];
 
       switch (param.type) {
         case 'float':
@@ -451,7 +451,7 @@ export class GridSearcher {
   /**
    * 笛卡尔积
    */
-  private cartesianProduct(arrays: Array<{ name: string; values: unknown[] }>): Array<Record<string, unknown>> {
+  private cartesianProduct(arrays: Array<{ name: string; values: any[] }>): Array<Record<string, unknown>> {
     if (arrays.length === 0) return [{}];
 
     const [first, ...rest] = arrays;

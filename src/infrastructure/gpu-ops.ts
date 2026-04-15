@@ -83,7 +83,7 @@ export async function detectGPU(): Promise<GPUInfo> {
 export class GPUVectorOps {
   private config: GPUOpsConfig;
   private gpuInfo: GPUInfo;
-  private device: unknown = null;
+  private device: any = null;
 
   constructor(config: Partial<GPUOpsConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };

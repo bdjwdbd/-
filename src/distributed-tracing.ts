@@ -680,7 +680,7 @@ export class TracingMiddleware {
       const name = operationName || `${target.constructor.name}.${propertyKey}`;
       const self = this;
       
-      descriptor.value = async function (...args: unknown[]) {
+      descriptor.value = async function (...args: any[]) {
         const span = self.tracer.startSpan(name);
         
         try {

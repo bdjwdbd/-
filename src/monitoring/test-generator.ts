@@ -24,7 +24,7 @@ interface TestCase {
   id: string;
   functionName: string;
   description: string;
-  input: unknown[];
+  input: any[];
   expectedOutput: any;
   type: 'normal' | 'edge' | 'error';
 }
@@ -384,7 +384,7 @@ export class TestCodeGenerator {
   /**
    * 格式化输入
    */
-  private formatInput(input: unknown[]): string {
+  private formatInput(input: any[]): string {
     return input.map(i => JSON.stringify(i)).join(', ');
   }
 
