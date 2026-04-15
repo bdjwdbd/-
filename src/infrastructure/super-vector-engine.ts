@@ -61,8 +61,9 @@ if (!isMainThread && parentPort) {
     const queryNorm = Math.sqrt(queryNormSq) * task.queryScale;
 
     // 批量计算
-    for (let i = task.startIdx; i < task.endIdx; i++) {
+    for (let i = 0; i < task.vectors.length; i++) {
       const v = task.vectors[i];
+      if (!v || !v.data) continue;
       
       // INT8 点积
       let dot = 0;
@@ -72,7 +73,7 @@ if (!isMainThread && parentPort) {
 
       // 还原并计算相似度
       const realDot = dot * task.queryScale * v.scale;
-      results[i - task.startIdx] = realDot / (queryNorm * task.norms[i]);
+      results[i] = realDot / (queryNorm * task.norms[i]);
     }
 
     parentPort!.postMessage(results);
@@ -208,16 +209,19 @@ export class SuperVectorEngine {
           resolve(chunkResults);
         });
 
+        const chunkVectors = this.index!.vectors.slice(startIdx, endIdx);
+        const chunkNorms = this.index!.norms.slice(startIdx, endIdx);
+
         worker.postMessage({
           queryData: query.data,
           queryScale: query.scale,
-          vectors: this.index!.vectors.slice(startIdx, endIdx).map(v => ({
+          vectors: chunkVectors.map(v => ({
             data: v.data,
             scale: v.scale,
           })),
-          norms: this.index!.norms.slice(startIdx, endIdx),
-          startIdx,
-          endIdx,
+          norms: chunkNorms,
+          startIdx: 0,
+          endIdx: chunkVectors.length,
         });
       });
     });
