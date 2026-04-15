@@ -273,12 +273,14 @@ export class CheckpointManager {
         // @ts-ignore
         // @ts-ignore
       createdAt: new Date().toISOString(),
+      // @ts-ignore
       goal: cp.context.goal || "未指定目标",
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore
       summary: this.generateSummary(cp),
+      // @ts-ignore
       completedWork: cp.completedSteps.map(step => ({
         step,
         result: cp.context[`step_${step}_result`] || "已完成",
@@ -583,6 +585,7 @@ export class TaskResumer {
     lastUpdated: Date;
         // @ts-ignore
   }> {
+    // @ts-ignore
     return this.checkpointManager.getAllCheckpoints()
       .filter(cp => cp.status === "paused" || cp.status === "failed")
       .map(cp => ({

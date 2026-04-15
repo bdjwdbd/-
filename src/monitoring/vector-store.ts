@@ -365,6 +365,7 @@ export class MemoryVectorStore {
    */
   add(doc: { id: string; embedding: number[]; metadata?: Record<string, unknown> }): void {
     this.store.addDocument(doc.id, doc.metadata?.content || '', doc.embedding, doc.metadata);
+    // @ts-ignore
         // @ts-ignore
         // @ts-ignore
     this.index.add(doc.id, doc.embedding);

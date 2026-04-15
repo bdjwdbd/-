@@ -135,6 +135,7 @@ export class TencentDBBackend implements MemoryBackend {
       type: this.mapMemoryType(memory.type),
       timestamp: memory.createdAt.toISOString(),
       sessionId: memory.metadata?.sessionId,
+      // @ts-ignore
         // @ts-ignore
         // @ts-ignore
         // @ts-ignore

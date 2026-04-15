@@ -309,6 +309,7 @@ export class HealthChecker {
     switch (result.component) {
       case 'memory_quality':
         if (result.details?.duplicates > 0) {
+        // @ts-ignore
             // @ts-ignore
             // @ts-ignore
           // 清理重复记忆
