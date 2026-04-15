@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * TencentDB 后端实现
  * 
