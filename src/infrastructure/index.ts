@@ -651,6 +651,16 @@ export {
   type VectorResult,
 } from './parallel-vector-engine';
 
+// 统一向量引擎（多级降级）
+export {
+  UnifiedVectorEngine,
+  getUnifiedVectorEngine,
+  initUnifiedVectorEngine,
+  type EngineLevel,
+  type UnifiedEngineConfig,
+  type EngineCapabilities,
+} from './unified-vector-engine';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
