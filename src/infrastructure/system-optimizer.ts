@@ -167,17 +167,17 @@ export class NUMAOptimizer {
      */
     printRecommendations(): void {
         const config = this.checkStatus();
-        console.log('\n=== NUMA 优化建议 ===\n');
+        // console.log('\n=== NUMA 优化建议 ===\n');
         
         if (!config.available) {
-            console.log('NUMA 不可用（单节点系统或未启用）');
+            // console.log('NUMA 不可用（单节点系统或未启用）');
             return;
         }
 
-        console.log(`检测到 ${config.nodes.length} 个 NUMA 节点`);
-        console.log(`推荐使用节点: ${config.optimalNode}`);
-        console.log(`\n启动命令:`);
-        console.log(`  ${this.getNumactlCommand()} node your_script.js`);
+        // console.log(`检测到 ${config.nodes.length} 个 NUMA 节点`);
+        // console.log(`推荐使用节点: ${config.optimalNode}`);
+        // console.log(`\n启动命令:`);
+        // console.log(`  ${this.getNumactlCommand()} node your_script.js`);
     }
 }
 
@@ -242,23 +242,23 @@ export class HugePageManager {
      */
     printRecommendations(): void {
         const config = this.checkStatus();
-        console.log('\n=== 大页内存优化建议 ===\n');
+        // console.log('\n=== 大页内存优化建议 ===\n');
 
         if (!config.available) {
-            console.log('大页内存未配置');
-            console.log(`\n启用命令:`);
-            console.log(`  ${this.getConfigCommand(config.recommended || 1024)}`);
+            // console.log('大页内存未配置');
+            // console.log(`\n启用命令:`);
+            // console.log(`  ${this.getConfigCommand(config.recommended || 1024)}`);
             return;
         }
 
-        console.log(`大页大小: ${config.pageSize / 1024 / 1024} MB`);
-        console.log(`总页数: ${config.totalPages}`);
-        console.log(`空闲页数: ${config.freePages}`);
-        console.log(`推荐页数: ${config.recommended}`);
+        // console.log(`大页大小: ${config.pageSize / 1024 / 1024} MB`);
+        // console.log(`总页数: ${config.totalPages}`);
+        // console.log(`空闲页数: ${config.freePages}`);
+        // console.log(`推荐页数: ${config.recommended}`);
 
         if (config.freePages < config.recommended) {
-            console.log(`\n⚠️ 空闲大页不足，建议增加:`);
-            console.log(`  ${this.getConfigCommand(config.recommended)}`);
+            // console.log(`\n⚠️ 空闲大页不足，建议增加:`);
+            // console.log(`  ${this.getConfigCommand(config.recommended)}`);
         }
     }
 }
@@ -315,15 +315,15 @@ export class CacheAwareScheduler {
      */
     printRecommendations(): void {
         const config = this.checkStatus();
-        console.log('\n=== 缓存感知调度 (CAS) 建议 ===\n');
+        // console.log('\n=== 缓存感知调度 (CAS) 建议 ===\n');
 
-        console.log(`内核版本: ${config.kernelVersion}`);
-        console.log(`CAS 支持: ${config.available ? '✅' : '❌'}`);
-        console.log(`CAS 启用: ${config.enabled ? '✅' : '❌'}`);
+        // console.log(`内核版本: ${config.kernelVersion}`);
+        // console.log(`CAS 支持: ${config.available ? '✅' : '❌'}`);
+        // console.log(`CAS 启用: ${config.enabled ? '✅' : '❌'}`);
 
         if (config.available && !config.enabled) {
-            console.log(`\n启用命令:`);
-            console.log(`  ${this.getEnableCommand()}`);
+            // console.log(`\n启用命令:`);
+            // console.log(`  ${this.getEnableCommand()}`);
         }
     }
 }
@@ -426,22 +426,22 @@ export class IRQIsolator {
      */
     printRecommendations(): void {
         const config = this.checkStatus();
-        console.log('\n=== IRQ 中断隔离建议 ===\n');
+        // console.log('\n=== IRQ 中断隔离建议 ===\n');
 
         if (!config.available) {
-            console.log('IRQ 隔离不可用（CPU 数量不足）');
+            // console.log('IRQ 隔离不可用（CPU 数量不足）');
             return;
         }
 
-        console.log(`计算 CPU: ${config.computeCpus.join(', ')}`);
-        console.log(`IRQ CPU: ${config.irqCpus.join(', ')}`);
-        console.log(`当前隔离: ${config.isolated ? '✅' : '❌'}`);
+        // console.log(`计算 CPU: ${config.computeCpus.join(', ')}`);
+        // console.log(`IRQ CPU: ${config.irqCpus.join(', ')}`);
+        // console.log(`当前隔离: ${config.isolated ? '✅' : '❌'}`);
 
         if (!config.isolated) {
-            console.log(`\n内核参数（添加到 /etc/default/grub）:`);
-            console.log(`  GRUB_CMDLINE_LINUX="... ${this.getKernelParameters()}"`);
-            console.log(`\n启动命令:`);
-            console.log(`  ${this.getTasksetCommand()} node your_script.js`);
+            // console.log(`\n内核参数（添加到 /etc/default/grub）:`);
+            // console.log(`  GRUB_CMDLINE_LINUX="... ${this.getKernelParameters()}"`);
+            // console.log(`\n启动命令:`);
+            // console.log(`  ${this.getTasksetCommand()} node your_script.js`);
         }
     }
 }
@@ -515,9 +515,9 @@ export class SystemOptimizer {
      * 打印完整报告
      */
     printReport(): void {
-        console.log('========================================');
-        console.log('  系统级性能优化报告');
-        console.log('========================================');
+        // console.log('========================================');
+        // console.log('  系统级性能优化报告');
+        // console.log('========================================');
 
         this.numaOptimizer.printRecommendations();
         this.hugePageManager.printRecommendations();
@@ -526,20 +526,20 @@ export class SystemOptimizer {
 
         const report = this.getReport();
 
-        console.log('\n========================================');
-        console.log('  优化建议汇总');
-        console.log('========================================\n');
+        // console.log('\n========================================');
+        // console.log('  优化建议汇总');
+        // console.log('========================================\n');
 
         if (report.recommendations.length === 0) {
-            console.log('✅ 系统已优化');
+            // console.log('✅ 系统已优化');
         } else {
             report.recommendations.forEach((rec, i) => {
-                console.log(`${i + 1}. ${rec}`);
+                // console.log(`${i + 1}. ${rec}`);
             });
         }
 
-        console.log(`\n优化启动命令:`);
-        console.log(`  ${this.getOptimizedCommand('node your_script.js')}`);
+        // console.log(`\n优化启动命令:`);
+        // console.log(`  ${this.getOptimizedCommand('node your_script.js')}`);
     }
 }
 

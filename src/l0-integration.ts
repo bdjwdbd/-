@@ -62,7 +62,7 @@ export class L0Manager {
 
       const elapsed = Date.now() - startTime;
       
-      console.log(`[L0] 思考完成: 深度=${result.depth}, 耗时=${elapsed}ms, 假设=${result.hypotheses?.length || 0}个`);
+      // console.log(`[L0] 思考完成: 深度=${result.depth}, 耗时=${elapsed}ms, 假设=${result.hypotheses?.length || 0}个`);
 
       this.lastThinking = result;
       return result;

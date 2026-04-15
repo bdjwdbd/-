@@ -437,9 +437,9 @@ class ABTestFramework {
     
     this.activeTests.set(config.testId, fullConfig);
     
-    console.log(`[ABTest] 创建测试: ${config.testId}`);
-    console.log(`  参数: ${config.parameter}`);
-    console.log(`  对照组: ${config.controlValue}, 实验组: ${config.treatmentValue}`);
+    // console.log(`[ABTest] 创建测试: ${config.testId}`);
+    // console.log(`  参数: ${config.parameter}`);
+    // console.log(`  对照组: ${config.controlValue}, 实验组: ${config.treatmentValue}`);
     
     return config.testId;
   }
@@ -516,10 +516,10 @@ class ABTestFramework {
       this.completedTests.shift();
     }
     
-    console.log(`[ABTest] 测试完成: ${testId}`);
-    console.log(`  胜者: ${winner}`);
-    console.log(`  置信度: ${confidence.toFixed(1)}%`);
-    console.log(`  改进: ${(improvement * 100).toFixed(1)}%`);
+    // console.log(`[ABTest] 测试完成: ${testId}`);
+    // console.log(`  胜者: ${winner}`);
+    // console.log(`  置信度: ${confidence.toFixed(1)}%`);
+    // console.log(`  改进: ${(improvement * 100).toFixed(1)}%`);
     
     return test;
   }
@@ -609,7 +609,7 @@ export class AutoTuner {
       this.optimizer.registerParameter(componentId, param);
     }
     
-    console.log(`[AutoTuner] 注册组件: ${name} (${componentId})`);
+    // console.log(`[AutoTuner] 注册组件: ${name} (${componentId})`);
   }
   
   /**
@@ -630,7 +630,7 @@ export class AutoTuner {
     const summary = this.analyzer.getSummary(componentId);
     
     if (summary.sampleCount < this.config.minSamplesForTuning) {
-      console.log(`[AutoTuner] 样本不足 (${summary.sampleCount}/${this.config.minSamplesForTuning})`);
+      // console.log(`[AutoTuner] 样本不足 (${summary.sampleCount}/${this.config.minSamplesForTuning})`);
       return results;
     }
     
@@ -638,9 +638,9 @@ export class AutoTuner {
     const bottlenecks = this.analyzer.detectBottlenecks(componentId);
     
     if (bottlenecks.length > 0) {
-      console.log(`[AutoTuner] 检测到瓶颈:`);
+      // console.log(`[AutoTuner] 检测到瓶颈:`);
       bottlenecks.forEach(b => {
-        console.log(`  - ${b.type}: ${b.value.toFixed(2)} (阈值: ${b.threshold})`);
+        // console.log(`  - ${b.type}: ${b.value.toFixed(2)} (阈值: ${b.threshold})`);
       });
     }
     
@@ -689,7 +689,7 @@ export class AutoTuner {
     
     // 检查并发测试数
     if (this.abTestFramework.getActiveTests().length >= this.config.maxConcurrentTests) {
-      console.log(`[AutoTuner] 已达到最大并发测试数 (${this.config.maxConcurrentTests})`);
+      // console.log(`[AutoTuner] 已达到最大并发测试数 (${this.config.maxConcurrentTests})`);
       return null;
     }
     
@@ -816,9 +816,9 @@ export class AutoTuner {
 // ============================================================
 
 function demo() {
-  console.log("=".repeat(60));
-  console.log("组件自动调优系统演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("组件自动调优系统演示");
+  // console.log("=".repeat(60));
   
   const tuner = new AutoTuner({
     tunerDir: "./experiment-results/auto-tuner",
@@ -827,7 +827,7 @@ function demo() {
   });
   
   // 注册组件
-  console.log("\n1. 注册组件");
+  // console.log("\n1. 注册组件");
   
   tuner.registerComponent(
     "cache-system",
@@ -862,7 +862,7 @@ function demo() {
   );
   
   // 模拟记录指标
-  console.log("\n2. 记录性能指标");
+  // console.log("\n2. 记录性能指标");
   
   for (let i = 0; i < 100; i++) {
     tuner.recordMetrics({
@@ -879,32 +879,32 @@ function demo() {
     });
   }
   
-  console.log("   已记录 100 个样本");
+  // console.log("   已记录 100 个样本");
   
   // 运行自动调优
-  console.log("\n3. 运行自动调优");
+  // console.log("\n3. 运行自动调优");
   
   const results = tuner.runTuning("cache-system");
   
   if (results.length === 0) {
-    console.log("   无优化建议");
+    // console.log("   无优化建议");
   } else {
     for (const r of results) {
-      console.log(`   - ${r.parameter}: ${r.previousValue.toFixed(0)} → ${r.newValue.toFixed(0)}`);
-      console.log(`     预期改进: ${r.expectedImprovement.toFixed(1)}%`);
+      // console.log(`   - ${r.parameter}: ${r.previousValue.toFixed(0)} → ${r.newValue.toFixed(0)}`);
+      // console.log(`     预期改进: ${r.expectedImprovement.toFixed(1)}%`);
     }
   }
   
   // 创建 A/B 测试
-  console.log("\n4. 创建 A/B 测试");
+  // console.log("\n4. 创建 A/B 测试");
   
   const testId = tuner.createABTest("cache-system", "maxSize", 2000, 50);
   
   if (testId) {
-    console.log(`   测试 ID: ${testId}`);
+    // console.log(`   测试 ID: ${testId}`);
     
     // 模拟 A/B 测试样本
-    console.log("   记录测试样本...");
+    // console.log("   记录测试样本...");
     
     for (let i = 0; i < 100; i++) {
       const isTreatment = i % 2 === 0;
@@ -921,20 +921,20 @@ function demo() {
   }
   
   // 生成性能报告
-  console.log("\n5. 性能报告");
+  // console.log("\n5. 性能报告");
   
   const report = tuner.getPerformanceReport("cache-system");
-  console.log(report);
+  // console.log(report);
   
   // 组件状态
-  console.log("\n6. 所有组件状态");
+  // console.log("\n6. 所有组件状态");
   
   const allStatus = tuner.getAllComponentsStatus();
   for (const s of allStatus) {
-    console.log(`   - ${s.name}: 延迟 ${s.avgLatency.toFixed(0)}ms, 错误率 ${(s.avgErrorRate * 100).toFixed(1)}%`);
+    // console.log(`   - ${s.name}: 延迟 ${s.avgLatency.toFixed(0)}ms, 错误率 ${(s.avgErrorRate * 100).toFixed(1)}%`);
   }
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

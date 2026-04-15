@@ -5,7 +5,7 @@
 import { DAGParser, MermaidGenerator, HTMLReportGenerator } from '../dag-visualizer';
 
 async function runTest() {
-  console.log('=== DAG 可视化测试 ===\n');
+  // console.log('=== DAG 可视化测试 ===\n');
 
   // 创建测试任务
   const tasks = [
@@ -18,40 +18,40 @@ async function runTest() {
   ];
 
   // 测试 1: 解析 DAG
-  console.log('测试 1: 解析 DAG');
+  // console.log('测试 1: 解析 DAG');
   const graph = DAGParser.parse(tasks);
-  console.log('  节点数:', graph.nodes.length);
-  console.log('  边数:', graph.edges.length);
-  console.log('  ✅ 通过\n');
+  // console.log('  节点数:', graph.nodes.length);
+  // console.log('  边数:', graph.edges.length);
+  // console.log('  ✅ 通过\n');
 
   // 测试 2: 检测循环依赖
-  console.log('测试 2: 检测循环依赖');
+  // console.log('测试 2: 检测循环依赖');
   const cycles = DAGParser.detectCycles(graph);
-  console.log('  循环依赖:', cycles || '无');
-  console.log('  ✅ 通过\n');
+  // console.log('  循环依赖:', cycles || '无');
+  // console.log('  ✅ 通过\n');
 
   // 测试 3: 拓扑排序
-  console.log('测试 3: 拓扑排序');
+  // console.log('测试 3: 拓扑排序');
   const order = DAGParser.topologicalSort(graph);
-  console.log('  执行顺序:', order);
-  console.log('  ✅ 通过\n');
+  // console.log('  执行顺序:', order);
+  // console.log('  ✅ 通过\n');
 
   // 测试 4: 生成 Mermaid 图表
-  console.log('测试 4: 生成 Mermaid 图表');
+  // console.log('测试 4: 生成 Mermaid 图表');
   const mermaid = MermaidGenerator.generateFlowchart(graph, '测试 DAG');
-  console.log('  Mermaid 代码:');
-  console.log(mermaid.split('\n').slice(0, 10).join('\n'));
-  console.log('  ...');
-  console.log('  ✅ 通过\n');
+  // console.log('  Mermaid 代码:');
+  // console.log(mermaid.split('\n').slice(0, 10).join('\n'));
+  // console.log('  ...');
+  // console.log('  ✅ 通过\n');
 
   // 测试 5: 生成 HTML 报告
-  console.log('测试 5: 生成 HTML 报告');
+  // console.log('测试 5: 生成 HTML 报告');
   const html = HTMLReportGenerator.generate(graph);
-  console.log('  HTML 长度:', html.length, '字符');
-  console.log('  包含 Mermaid:', html.includes('mermaid'));
-  console.log('  ✅ 通过\n');
+  // console.log('  HTML 长度:', html.length, '字符');
+  // console.log('  包含 Mermaid:', html.includes('mermaid'));
+  // console.log('  ✅ 通过\n');
 
-  console.log('=== 所有测试通过 ===');
+  // console.log('=== 所有测试通过 ===');
 }
 
 runTest().catch(console.error);

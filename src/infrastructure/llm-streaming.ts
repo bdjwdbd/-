@@ -253,7 +253,7 @@ export class WebSocketHandler {
    */
   broadcast(message: unknown): void {
     // 实际实现需要 WebSocket 库
-    console.log('Broadcast:', message);
+    // console.log('Broadcast:', message);
   }
 
   /**

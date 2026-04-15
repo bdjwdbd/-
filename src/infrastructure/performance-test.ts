@@ -59,26 +59,26 @@ function generateQuery(dim: number): Float32Array {
 // ============================================================
 
 async function runTests() {
-    console.log('========================================');
-    console.log('  元灵系统性能优化测试');
-    console.log('========================================');
-    console.log('');
-    console.log('配置:');
-    console.log(`  向量数量: ${config.numVectors.toLocaleString()}`);
-    console.log(`  向量维度: ${config.dimensions}`);
-    console.log(`  TopK: ${config.topK}`);
-    console.log('');
+    // console.log('========================================');
+    // console.log('  元灵系统性能优化测试');
+    // console.log('========================================');
+    // console.log('');
+    // console.log('配置:');
+    // console.log(`  向量数量: ${config.numVectors.toLocaleString()}`);
+    // console.log(`  向量维度: ${config.dimensions}`);
+    // console.log(`  TopK: ${config.topK}`);
+    // console.log('');
 
     // 生成数据
-    console.log('生成测试数据...');
+    // console.log('生成测试数据...');
     const vectors = generateVectors(config.numVectors, config.dimensions);
     const query = generateQuery(config.dimensions);
-    console.log('');
+    // console.log('');
 
     // ============================================================
     // 测试 1: 原生模块单次调用
     // ============================================================
-    console.log('【测试 1】原生模块 - 单次调用');
+    // console.log('【测试 1】原生模块 - 单次调用');
     const start1 = Date.now();
     for (let i = 0; i < config.iterations; i++) {
         for (let j = 0; j < 1000; j++) {
@@ -87,14 +87,14 @@ async function runTests() {
     }
     const elapsed1 = Date.now() - start1;
     const qps1 = (config.iterations * 1000) / (elapsed1 / 1000);
-    console.log(`  耗时: ${elapsed1}ms`);
-    console.log(`  QPS: ${qps1.toLocaleString()}`);
-    console.log('');
+    // console.log(`  耗时: ${elapsed1}ms`);
+    // console.log(`  QPS: ${qps1.toLocaleString()}`);
+    // console.log('');
 
     // ============================================================
     // 测试 2: 批量接口
     // ============================================================
-    console.log('【测试 2】原生模块 - 批量接口');
+    // console.log('【测试 2】原生模块 - 批量接口');
     const batchVectors = vectors.slice(0, 10000);
     const start2 = Date.now();
     for (let i = 0; i < config.iterations; i++) {
@@ -102,15 +102,15 @@ async function runTests() {
     }
     const elapsed2 = Date.now() - start2;
     const qps2 = (config.iterations * 10000) / (elapsed2 / 1000);
-    console.log(`  耗时: ${elapsed2}ms`);
-    console.log(`  QPS: ${qps2.toLocaleString()}`);
-    console.log(`  提升: ${(qps2 / qps1).toFixed(2)}x`);
-    console.log('');
+    // console.log(`  耗时: ${elapsed2}ms`);
+    // console.log(`  QPS: ${qps2.toLocaleString()}`);
+    // console.log(`  提升: ${(qps2 / qps1).toFixed(2)}x`);
+    // console.log('');
 
     // ============================================================
     // 测试 3: 连续内存批量接口
     // ============================================================
-    console.log('【测试 3】原生模块 - 连续内存批量接口');
+    // console.log('【测试 3】原生模块 - 连续内存批量接口');
     const contiguousVectors = new Float32Array(10000 * config.dimensions);
     for (let i = 0; i < 10000; i++) {
         contiguousVectors.set(vectors[i], i * config.dimensions);
@@ -121,15 +121,15 @@ async function runTests() {
     }
     const elapsed3 = Date.now() - start3;
     const qps3 = (config.iterations * 10000) / (elapsed3 / 1000);
-    console.log(`  耗时: ${elapsed3}ms`);
-    console.log(`  QPS: ${qps3.toLocaleString()}`);
-    console.log(`  提升: ${(qps3 / qps1).toFixed(2)}x`);
-    console.log('');
+    // console.log(`  耗时: ${elapsed3}ms`);
+    // console.log(`  QPS: ${qps3.toLocaleString()}`);
+    // console.log(`  提升: ${(qps3 / qps1).toFixed(2)}x`);
+    // console.log('');
 
     // ============================================================
     // 测试 4: INT8 量化
     // ============================================================
-    console.log('【测试 4】INT8 量化');
+    // console.log('【测试 4】INT8 量化');
     const quantizer = new INT8Quantizer(config.dimensions);
     quantizer.train(vectors.slice(0, 1000));
     
@@ -150,15 +150,15 @@ async function runTests() {
     }
     const elapsed4 = Date.now() - start4;
     const qps4 = (config.iterations * 1000) / (elapsed4 / 1000);
-    console.log(`  耗时: ${elapsed4}ms`);
-    console.log(`  QPS: ${qps4.toLocaleString()}`);
-    console.log(`  存储节省: 4x (Float32 -> INT8)`);
-    console.log('');
+    // console.log(`  耗时: ${elapsed4}ms`);
+    // console.log(`  QPS: ${qps4.toLocaleString()}`);
+    // console.log(`  存储节省: 4x (Float32 -> INT8)`);
+    // console.log('');
 
     // ============================================================
     // 测试 5: HNSW 索引
     // ============================================================
-    console.log('【测试 5】HNSW 索引');
+    // console.log('【测试 5】HNSW 索引');
     const hnsw = new HNSWIndex({
         dimensions: config.dimensions,
         maxConnections: 16,
@@ -167,13 +167,13 @@ async function runTests() {
     });
     
     // 构建索引
-    console.log('  构建索引...');
+    // console.log('  构建索引...');
     const buildStart = Date.now();
     for (let i = 0; i < Math.min(10000, config.numVectors); i++) {
         hnsw.add(`vec_${i}`, Array.from(vectors[i]));
     }
     const buildTime = Date.now() - buildStart;
-    console.log(`  构建耗时: ${buildTime}ms`);
+    // console.log(`  构建耗时: ${buildTime}ms`);
     
     // 搜索
     const start5 = Date.now();
@@ -182,15 +182,15 @@ async function runTests() {
     }
     const elapsed5 = Date.now() - start5;
     const qps5 = config.iterations / (elapsed5 / 1000);
-    console.log(`  搜索耗时: ${elapsed5}ms`);
-    console.log(`  QPS: ${qps5.toLocaleString()}`);
-    console.log(`  复杂度: O(log N) vs O(N)`);
-    console.log('');
+    // console.log(`  搜索耗时: ${elapsed5}ms`);
+    // console.log(`  QPS: ${qps5.toLocaleString()}`);
+    // console.log(`  复杂度: O(log N) vs O(N)`);
+    // console.log('');
 
     // ============================================================
     // 测试 6: GPU 加速
     // ============================================================
-    console.log('【测试 6】GPU 加速 (gpu.js)');
+    // console.log('【测试 6】GPU 加速 (gpu.js)');
     try {
         const gpu = createGPUAccelerator({ mode: 'gpu' });
         
@@ -203,31 +203,31 @@ async function runTests() {
         }
         const elapsed6 = Date.now() - start6;
         const qps6 = (10 * 10000) / (elapsed6 / 1000);
-        console.log(`  耗时: ${elapsed6}ms`);
-        console.log(`  QPS: ${qps6.toLocaleString()}`);
-        console.log(`  提升: ${(qps6 / qps1).toFixed(2)}x`);
+        // console.log(`  耗时: ${elapsed6}ms`);
+        // console.log(`  QPS: ${qps6.toLocaleString()}`);
+        // console.log(`  提升: ${(qps6 / qps1).toFixed(2)}x`);
         
         gpu.destroy();
     } catch (e) {
-        console.log('  GPU 不可用，跳过');
+        // console.log('  GPU 不可用，跳过');
     }
-    console.log('');
+    // console.log('');
 
     // ============================================================
     // 总结
     // ============================================================
-    console.log('========================================');
-    console.log('  性能优化总结');
-    console.log('========================================');
-    console.log('');
-    console.log('| 优化项 | QPS | 提升 |');
-    console.log('|--------|-----|------|');
-    console.log(`| 原生模块（基准） | ${qps1.toLocaleString()} | 1x |`);
-    console.log(`| 批量接口 | ${qps2.toLocaleString()} | ${(qps2 / qps1).toFixed(2)}x |`);
-    console.log(`| 连续内存批量 | ${qps3.toLocaleString()} | ${(qps3 / qps1).toFixed(2)}x |`);
-    console.log(`| INT8 量化 | ${qps4.toLocaleString()} | ${(qps4 / qps1).toFixed(2)}x |`);
-    console.log(`| HNSW 索引 | ${qps5.toLocaleString()} | O(log N) |`);
-    console.log('');
+    // console.log('========================================');
+    // console.log('  性能优化总结');
+    // console.log('========================================');
+    // console.log('');
+    // console.log('| 优化项 | QPS | 提升 |');
+    // console.log('|--------|-----|------|');
+    // console.log(`| 原生模块（基准） | ${qps1.toLocaleString()} | 1x |`);
+    // console.log(`| 批量接口 | ${qps2.toLocaleString()} | ${(qps2 / qps1).toFixed(2)}x |`);
+    // console.log(`| 连续内存批量 | ${qps3.toLocaleString()} | ${(qps3 / qps1).toFixed(2)}x |`);
+    // console.log(`| INT8 量化 | ${qps4.toLocaleString()} | ${(qps4 / qps1).toFixed(2)}x |`);
+    // console.log(`| HNSW 索引 | ${qps5.toLocaleString()} | O(log N) |`);
+    // console.log('');
 }
 
 // 运行测试

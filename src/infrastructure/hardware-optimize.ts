@@ -146,13 +146,13 @@ export class HardwareOptimizer {
    * 打印状态
    */
   printStatus(): void {
-    console.log('硬件优化器状态:');
-    console.log(`  CPU: ${this.info.cpuVendor} ${this.info.cpuModel}`);
-    console.log(`  架构: ${this.info.arch}`);
-    console.log(`  核心: ${this.info.cores}`);
-    console.log(`  SIMD: ${this.info.simd.join(', ') || '无'}`);
-    console.log(`  特殊硬件: ${this.info.specialHardware.join(', ') || '无'}`);
-    console.log(`  最优路径: ${this.getOptimalPath()}`);
+    // console.log('硬件优化器状态:');
+    // console.log(`  CPU: ${this.info.cpuVendor} ${this.info.cpuModel}`);
+    // console.log(`  架构: ${this.info.arch}`);
+    // console.log(`  核心: ${this.info.cores}`);
+    // console.log(`  SIMD: ${this.info.simd.join(', ') || '无'}`);
+    // console.log(`  特殊硬件: ${this.info.specialHardware.join(', ') || '无'}`);
+    // console.log(`  最优路径: ${this.getOptimalPath()}`);
   }
 }
 

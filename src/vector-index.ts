@@ -651,7 +651,7 @@ export class HybridVectorIndex {
   }
   
   private switchToHNSW(): void {
-    console.log(`切换到 HNSW 索引 (${this.linearIndex.size} 条目)`);
+    // console.log(`切换到 HNSW 索引 (${this.linearIndex.size} 条目)`);
     
     for (const [id, entry] of this.linearIndex) {
       this.hnsw.add(id, entry.vector, entry.metadata);
@@ -674,9 +674,9 @@ export class HybridVectorIndex {
 // ============================================================
 
 function benchmark() {
-  console.log("=".repeat(60));
-  console.log("向量索引性能测试");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("向量索引性能测试");
+  // console.log("=".repeat(60));
   
   const dimensions = 128;
   const numVectors = 5000;
@@ -694,7 +694,7 @@ function benchmark() {
   const query = Array.from({ length: dimensions }, () => Math.random() * 2 - 1);
   
   // 测试线性搜索
-  console.log("\n--- 线性搜索 ---");
+  // console.log("\n--- 线性搜索 ---");
   const linearStart = Date.now();
   const linearIndex = new Map<string, number[]>();
   
@@ -714,12 +714,12 @@ function benchmark() {
   
   const linearEnd = Date.now();
   
-  console.log(`构建时间: ${linearSearchStart - linearStart}ms`);
-  console.log(`搜索时间: ${linearEnd - linearSearchStart}ms`);
-  console.log(`总时间: ${linearEnd - linearStart}ms`);
+  // console.log(`构建时间: ${linearSearchStart - linearStart}ms`);
+  // console.log(`搜索时间: ${linearEnd - linearSearchStart}ms`);
+  // console.log(`总时间: ${linearEnd - linearStart}ms`);
   
   // 测试 HNSW
-  console.log("\n--- HNSW 索引 ---");
+  // console.log("\n--- HNSW 索引 ---");
   const hnsw = new HNSWIndex({ dimensions, maxConnections: 16, efSearch: 50 });
   
   const hnswBuildStart = Date.now();
@@ -732,22 +732,22 @@ function benchmark() {
   const hnswResults = hnsw.search(query, topK);
   const hnswSearchEnd = Date.now();
   
-  console.log(`构建时间: ${hnswBuildEnd - hnswBuildStart}ms`);
-  console.log(`搜索时间: ${hnswSearchEnd - hnswSearchStart}ms`);
-  console.log(`总时间: ${hnswSearchEnd - hnswBuildStart}ms`);
+  // console.log(`构建时间: ${hnswBuildEnd - hnswBuildStart}ms`);
+  // console.log(`搜索时间: ${hnswSearchEnd - hnswSearchStart}ms`);
+  // console.log(`总时间: ${hnswSearchEnd - hnswBuildStart}ms`);
   
   // 统计信息
   const stats = hnsw.getStats();
-  console.log(`\n--- HNSW 统计 ---`);
-  console.log(`节点数: ${stats.totalNodes}`);
-  console.log(`最大层级: ${stats.maxLevel}`);
-  console.log(`平均连接数: ${stats.avgConnections.toFixed(2)}`);
-  console.log(`内存使用: ${(stats.memoryUsage / 1024 / 1024).toFixed(2)} MB`);
+  // console.log(`\n--- HNSW 统计 ---`);
+  // console.log(`节点数: ${stats.totalNodes}`);
+  // console.log(`最大层级: ${stats.maxLevel}`);
+  // console.log(`平均连接数: ${stats.avgConnections.toFixed(2)}`);
+  // console.log(`内存使用: ${(stats.memoryUsage / 1024 / 1024).toFixed(2)} MB`);
   
   // 结果对比
-  console.log(`\n--- 结果对比 ---`);
-  console.log(`线性搜索 Top-1: ${linearTopK[0]?.id} (${linearTopK[0]?.score.toFixed(4)})`);
-  console.log(`HNSW 搜索 Top-1: ${hnswResults[0]?.id} (${hnswResults[0]?.score.toFixed(4)})`);
+  // console.log(`\n--- 结果对比 ---`);
+  // console.log(`线性搜索 Top-1: ${linearTopK[0]?.id} (${linearTopK[0]?.score.toFixed(4)})`);
+  // console.log(`HNSW 搜索 Top-1: ${hnswResults[0]?.id} (${hnswResults[0]?.score.toFixed(4)})`);
   
   // 计算召回率
   const linearIds = new Set(linearTopK.map(r => r.id));
@@ -755,13 +755,13 @@ function benchmark() {
   const overlap = [...linearIds].filter(id => hnswIds.has(id)).length;
   const recall = overlap / topK;
   
-  console.log(`召回率: ${(recall * 100).toFixed(1)}%`);
+  // console.log(`召回率: ${(recall * 100).toFixed(1)}%`);
   
   // 加速比
   const speedup = (linearEnd - linearSearchStart) / (hnswSearchEnd - hnswSearchStart);
-  console.log(`搜索加速: ${speedup.toFixed(1)}x`);
+  // console.log(`搜索加速: ${speedup.toFixed(1)}x`);
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

@@ -212,7 +212,7 @@ export class PersonaManager {
     
     try {
       fs.copyFileSync(this.personaPath, backupPath);
-      console.log("[PersonaManager] 备份已创建:", backupPath);
+      // console.log("[PersonaManager] 备份已创建:", backupPath);
     } catch (error) {
       console.error("[PersonaManager] 备份失败:", error);
     }

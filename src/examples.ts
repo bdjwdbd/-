@@ -253,12 +253,12 @@ export class SemanticCache<T> {
 // ============================================================
 
 async function demo() {
-    console.log('========================================');
-    console.log('  元灵系统应用示例');
-    console.log('========================================\n');
+    // console.log('========================================');
+    // console.log('  元灵系统应用示例');
+    // console.log('========================================\n');
 
     // 示例 1: 文档搜索
-    console.log('【示例 1: 文档搜索】');
+    // console.log('【示例 1: 文档搜索】');
     const docEngine = new DocumentSearchEngine();
     
     await docEngine.addDocument({
@@ -274,23 +274,23 @@ async function demo() {
     });
 
     const results = await docEngine.search('什么是人工智能');
-    console.log('搜索结果:', results.map(r => r.doc.title));
-    console.log();
+    // console.log('搜索结果:', results.map(r => r.doc.title));
+    // console.log();
 
     // 示例 2: 问答系统
-    console.log('【示例 2: 问答系统】');
+    // console.log('【示例 2: 问答系统】');
     const qa = new QASystem();
     
     await qa.addQA('什么是元灵系统', '元灵系统是一个高性能向量搜索引擎');
     await qa.addQA('如何使用', '通过 createYuanLing() 创建实例');
 
     const answer = await qa.ask('元灵系统是什么');
-    console.log('回答:', answer);
-    console.log();
+    // console.log('回答:', answer);
+    // console.log();
 
-    console.log('========================================');
-    console.log('  示例完成');
-    console.log('========================================');
+    // console.log('========================================');
+    // console.log('  示例完成');
+    // console.log('========================================');
 }
 
 // 导出

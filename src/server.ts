@@ -137,17 +137,17 @@ class YuanLingServer {
 
     start() {
         this.server.listen(Number(PORT), HOST, () => {
-            console.log(`========================================`);
-            console.log(`  元灵系统 v4.3.0 API 服务器`);
-            console.log(`========================================`);
-            console.log(`  地址: http://${HOST}:${PORT}`);
-            console.log(`  端点:`);
-            console.log(`    GET  /health - 健康检查`);
-            console.log(`    GET  /info    - 系统信息`);
-            console.log(`    POST /embed   - 生成向量`);
-            console.log(`    POST /search  - 搜索`);
-            console.log(`    POST /add     - 添加向量`);
-            console.log(`========================================`);
+            // console.log(`========================================`);
+            // console.log(`  元灵系统 v4.3.0 API 服务器`);
+            // console.log(`========================================`);
+            // console.log(`  地址: http://${HOST}:${PORT}`);
+            // console.log(`  端点:`);
+            // console.log(`    GET  /health - 健康检查`);
+            // console.log(`    GET  /info    - 系统信息`);
+            // console.log(`    POST /embed   - 生成向量`);
+            // console.log(`    POST /search  - 搜索`);
+            // console.log(`    POST /add     - 添加向量`);
+            // console.log(`========================================`);
         });
     }
 }

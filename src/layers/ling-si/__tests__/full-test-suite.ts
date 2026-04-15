@@ -37,25 +37,25 @@ import {
 // ============================================================
 
 function log(message: string): void {
-  console.log(`[${new Date().toISOString()}] ${message}`);
+  // console.log(`[${new Date().toISOString()}] ${message}`);
 }
 
 function logSection(title: string): void {
-  console.log("\n" + "═".repeat(60));
-  console.log(`  ${title}`);
-  console.log("═".repeat(60) + "\n");
+  // console.log("\n" + "═".repeat(60));
+  // console.log(`  ${title}`);
+  // console.log("═".repeat(60) + "\n");
 }
 
 function logSuccess(message: string): void {
-  console.log(`✅ ${message}`);
+  // console.log(`✅ ${message}`);
 }
 
 function logError(message: string): void {
-  console.log(`❌ ${message}`);
+  // console.log(`❌ ${message}`);
 }
 
 function logInfo(message: string): void {
-  console.log(`ℹ️  ${message}`);
+  // console.log(`ℹ️  ${message}`);
 }
 
 // ============================================================
@@ -153,7 +153,7 @@ async function testMultiHypothesisManager(): Promise<boolean> {
 
     // 生成摘要
     logInfo("假设摘要:");
-    console.log(manager.generateSummary());
+    // console.log(manager.generateSummary());
 
     logSuccess("多假设管理器测试通过");
     return true;
@@ -413,17 +413,17 @@ async function testVisualization(): Promise<boolean> {
     // ASCII
     logInfo("ASCII 格式:");
     const ascii = thinkingVisualizer.toASCII(result);
-    console.log(ascii.split("\n").slice(0, 15).join("\n") + "\n...");
+    // console.log(ascii.split("\n").slice(0, 15).join("\n") + "\n...");
 
     // Markdown
     logInfo("Markdown 格式:");
     const markdown = thinkingVisualizer.toMarkdown(result);
-    console.log(markdown.split("\n").slice(0, 20).join("\n") + "\n...");
+    // console.log(markdown.split("\n").slice(0, 20).join("\n") + "\n...");
 
     // JSON
     logInfo("JSON 格式:");
     const json = thinkingVisualizer.toJSON(result);
-    console.log(json.split("\n").slice(0, 10).join("\n") + "\n...");
+    // console.log(json.split("\n").slice(0, 10).join("\n") + "\n...");
 
     logSuccess("可视化测试通过");
     return true;
@@ -490,11 +490,11 @@ async function testFullPipeline(): Promise<boolean> {
 // ============================================================
 
 async function runAllTests(): Promise<void> {
-  console.log("\n");
-  console.log("╔══════════════════════════════════════════════════════════════╗");
-  console.log("║           灵思层（L0）完整测试套件                             ║");
-  console.log("║        基于 Thinking Claude 协议设计                           ║");
-  console.log("╚══════════════════════════════════════════════════════════════╝");
+  // console.log("\n");
+  // console.log("╔══════════════════════════════════════════════════════════════╗");
+  // console.log("║           灵思层（L0）完整测试套件                             ║");
+  // console.log("║        基于 Thinking Claude 协议设计                           ║");
+  // console.log("╚══════════════════════════════════════════════════════════════╝");
 
   const tests = [
     { name: "自适应深度控制器", fn: testAdaptiveDepthController },
@@ -532,16 +532,16 @@ async function runAllTests(): Promise<void> {
     }
   }
 
-  console.log("\n" + "═".repeat(60));
-  console.log(`  总计: ${tests.length} 个测试`);
-  console.log(`  通过: ${passed} 个`);
-  console.log(`  失败: ${failed} 个`);
-  console.log("═".repeat(60) + "\n");
+  // console.log("\n" + "═".repeat(60));
+  // console.log(`  总计: ${tests.length} 个测试`);
+  // console.log(`  通过: ${passed} 个`);
+  // console.log(`  失败: ${failed} 个`);
+  // console.log("═".repeat(60) + "\n");
 
   if (failed === 0) {
-    console.log("🎉 所有测试通过！灵思层（L0）实现完整且稳定。\n");
+    // console.log("🎉 所有测试通过！灵思层（L0）实现完整且稳定。\n");
   } else {
-    console.log("⚠️  部分测试失败，请检查实现。\n");
+    // console.log("⚠️  部分测试失败，请检查实现。\n");
     process.exit(1);
   }
 }

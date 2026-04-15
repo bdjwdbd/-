@@ -223,7 +223,7 @@ export class HyperparameterOptimizer {
     for (let i = 0; i < this.config.maxTrials; i++) {
       // 检查超时
       if (Date.now() - startTime > this.config.timeout) {
-        console.log('Optimization timeout');
+        // console.log('Optimization timeout');
         break;
       }
 
@@ -254,7 +254,7 @@ export class HyperparameterOptimizer {
         }
 
         if (noImprovementCount >= this.config.earlyStoppingRounds) {
-          console.log('Early stopping triggered');
+          // console.log('Early stopping triggered');
           break;
         }
       } catch (error) {

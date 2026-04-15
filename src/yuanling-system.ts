@@ -230,8 +230,8 @@ export class YuanLingSystem {
     };
     integratedSystem?: SystemHealth;
   }> {
-    console.log('[YuanLing] 元灵系统启动中...');
-    console.log('[YuanLing] 工作目录:', this.config.workspaceRoot);
+    // console.log('[YuanLing] 元灵系统启动中...');
+    // console.log('[YuanLing] 工作目录:', this.config.workspaceRoot);
 
     // 环境感知
     const environment = {
@@ -248,12 +248,12 @@ export class YuanLingSystem {
     // 自省评估（如果启用）
     let introspectionReport;
     if (this.config.enableIntrospection) {
-      console.log('[YuanLing] 运行自省评估...');
+      // console.log('[YuanLing] 运行自省评估...');
       introspectionReport = await this.fullIntrospection.introspect('startup');
-      console.log('[YuanLing] 综合评分:', introspectionReport.currentSnapshot.overallScore.toFixed(1));
+      // console.log('[YuanLing] 综合评分:', introspectionReport.currentSnapshot.overallScore.toFixed(1));
     }
 
-    console.log('[YuanLing] 元灵系统启动完成');
+    // console.log('[YuanLing] 元灵系统启动完成');
 
     return { introspectionReport, environment, integratedSystem };
   }

@@ -41,13 +41,13 @@ export class WebGPUAccelerator {
      */
     async initialize(config: WebGPUConfig = {}): Promise<boolean> {
         if (!this.supported) {
-            console.log('WebGPU not supported in Node.js, using CPU fallback');
+            // console.log('WebGPU not supported in Node.js, using CPU fallback');
             return false;
         }
 
         try {
             // 浏览器环境下的初始化逻辑
-            console.log('WebGPU initialized successfully');
+            // console.log('WebGPU initialized successfully');
             this.initialized = true;
             return true;
         } catch (error) {

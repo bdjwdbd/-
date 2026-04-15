@@ -115,11 +115,11 @@ export class HNSWHighPerformance {
       });
       
       this.usePython = true;
-      console.log("[HNSWHighPerformance] ✅ 使用 Python hnswlib（100% 性能）");
+      // console.log("[HNSWHighPerformance] ✅ 使用 Python hnswlib（100% 性能）");
       return true;
       
     } catch (error) {
-      console.log("[HNSWHighPerformance] ⚠️ Python 不可用，回退到纯 TS 实现");
+      // console.log("[HNSWHighPerformance] ⚠️ Python 不可用，回退到纯 TS 实现");
       this.usePython = false;
       
       // 回退到纯 TS 实现

@@ -106,10 +106,10 @@ export class HugePageManager {
    * 打印状态
    */
   printStatus(): void {
-    console.log('大页内存管理器状态:');
-    console.log(`  支持大页: ${this.info.supported ? '✅' : '❌'}`);
-    console.log(`  页大小: ${this.info.pageSize / 1024} KB`);
-    console.log(`  可配置: ${this.info.canConfigure ? '✅' : '❌'}`);
+    // console.log('大页内存管理器状态:');
+    // console.log(`  支持大页: ${this.info.supported ? '✅' : '❌'}`);
+    // console.log(`  页大小: ${this.info.pageSize / 1024} KB`);
+    // console.log(`  可配置: ${this.info.canConfigure ? '✅' : '❌'}`);
   }
 }
 

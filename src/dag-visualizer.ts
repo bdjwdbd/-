@@ -528,9 +528,9 @@ ${mermaidFlowchart}
 // ============================================================
 
 function demo() {
-  console.log("=".repeat(60));
-  console.log("DAG 可视化工具演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("DAG 可视化工具演示");
+  // console.log("=".repeat(60));
   
   // 创建示例任务
   const tasks: TaskNode[] = [
@@ -549,29 +549,29 @@ function demo() {
   
   // 检测循环
   const cycles = DAGParser.detectCycles(graph);
-  console.log("\n循环检测:", cycles ? `发现循环: ${cycles.join(' → ')}` : "无循环依赖");
+  // console.log("\n循环检测:", cycles ? `发现循环: ${cycles.join(' → ')}` : "无循环依赖");
   
   // 拓扑排序
   const sorted = DAGParser.topologicalSort(graph);
-  console.log("\n拓扑排序:", sorted.join(' → '));
+  // console.log("\n拓扑排序:", sorted.join(' → '));
   
   // 并行层级
   const levels = DAGParser.getParallelLevels(graph);
-  console.log("\n并行执行层级:");
+  // console.log("\n并行执行层级:");
   levels.forEach((level, i) => {
-    console.log(`  Level ${i + 1}: ${level.join(', ')}`);
+    // console.log(`  Level ${i + 1}: ${level.join(', ')}`);
   });
   
   // 生成 Mermaid 图
-  console.log("\n" + MermaidGenerator.generateFlowchart(graph, "任务执行流程"));
+  // console.log("\n" + MermaidGenerator.generateFlowchart(graph, "任务执行流程"));
   
   // 生成 HTML 报告
   const html = HTMLReportGenerator.generate(graph);
   const outputPath = "./experiment-results/dag-report.html";
   HTMLReportGenerator.saveToFile(html, outputPath);
-  console.log(`\nHTML 报告已保存: ${outputPath}`);
+  // console.log(`\nHTML 报告已保存: ${outputPath}`);
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 // 运行演示

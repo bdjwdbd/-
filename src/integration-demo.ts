@@ -288,12 +288,12 @@ class SemanticCache<T> {
 // ============================================================
 
 async function runDemo() {
-    console.log('========================================');
-    console.log('  元灵系统实际项目集成演示');
-    console.log('========================================\n');
+    // console.log('========================================');
+    // console.log('  元灵系统实际项目集成演示');
+    // console.log('========================================\n');
 
     // 场景 1: 文档搜索
-    console.log('【场景 1: 文档搜索引擎】\n');
+    // console.log('【场景 1: 文档搜索引擎】\n');
     const docEngine = new DocumentSearchEngine();
 
     await docEngine.addDocument({
@@ -313,14 +313,14 @@ async function runDemo() {
     });
 
     const docResults = await docEngine.search('人工智能学习');
-    console.log('搜索 "人工智能学习":');
+    // console.log('搜索 "人工智能学习":');
     docResults.forEach(r => {
-        console.log(`  - ${r.doc.title} (相似度: ${r.score.toFixed(3)})`);
+        // console.log(`  - ${r.doc.title} (相似度: ${r.score.toFixed(3)})`);
     });
-    console.log('');
+    // console.log('');
 
     // 场景 2: 智能问答
-    console.log('【场景 2: 智能问答系统】\n');
+    // console.log('【场景 2: 智能问答系统】\n');
     const qaSystem = new QASystem();
 
     await qaSystem.addQA({
@@ -336,11 +336,11 @@ async function runDemo() {
     });
 
     const answer = await qaSystem.getAnswer('机器学习是什么？');
-    console.log('问题: 机器学习是什么？');
-    console.log(`答案: ${answer || '未找到答案'}\n`);
+    // console.log('问题: 机器学习是什么？');
+    // console.log(`答案: ${answer || '未找到答案'}\n`);
 
     // 场景 3: 推荐系统
-    console.log('【场景 3: 推荐系统】\n');
+    // console.log('【场景 3: 推荐系统】\n');
     const recommender = new RecommendationEngine();
 
     await recommender.addItem({
@@ -363,32 +363,32 @@ async function runDemo() {
     await recommender.recordUserAction('user1', 'item2', 'click');
 
     const recommendations = await recommender.getRecommendations('user1', 3);
-    console.log('用户 user1 的推荐:');
+    // console.log('用户 user1 的推荐:');
     recommendations.forEach(r => {
-        console.log(`  - ${r.item.name} (相似度: ${r.score.toFixed(3)})`);
+        // console.log(`  - ${r.item.name} (相似度: ${r.score.toFixed(3)})`);
     });
-    console.log('');
+    // console.log('');
 
     // 场景 4: 语义缓存
-    console.log('【场景 4: 语义缓存】\n');
+    // console.log('【场景 4: 语义缓存】\n');
     const cache = new SemanticCache<string>(60000, 0.9);
 
     await cache.set('今天天气怎么样？', '今天天气晴朗，温度适宜。');
     
     const cachedResult = await cache.get('今天天气如何？');
-    console.log('查询: 今天天气如何？');
-    console.log(`缓存命中: ${cachedResult ? '是' : '否'}`);
+    // console.log('查询: 今天天气如何？');
+    // console.log(`缓存命中: ${cachedResult ? '是' : '否'}`);
     if (cachedResult) {
-        console.log(`结果: ${cachedResult}`);
+        // console.log(`结果: ${cachedResult}`);
     }
-    console.log('');
+    // console.log('');
 
-    console.log('缓存统计:', cache.getStats());
-    console.log('');
+    // console.log('缓存统计:', cache.getStats());
+    // console.log('');
 
-    console.log('========================================');
-    console.log('  演示完成');
-    console.log('========================================');
+    // console.log('========================================');
+    // console.log('  演示完成');
+    // console.log('========================================');
 }
 
 // 导出

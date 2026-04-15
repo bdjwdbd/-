@@ -678,27 +678,27 @@ export class MultiDimensionalRouter {
 // ============================================================
 
 function demo() {
-  console.log("=".repeat(60));
-  console.log("MultiDimensionalRouter 三维模型路由演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("MultiDimensionalRouter 三维模型路由演示");
+  // console.log("=".repeat(60));
   
   const router = new MultiDimensionalRouter({
     persistencePath: "./experiment-results/router",
   });
   
   // 显示可用模型
-  console.log("\n1. 可用模型");
+  // console.log("\n1. 可用模型");
   
   const models = router.getAllModels();
-  console.log(`   共 ${models.length} 个模型`);
+  // console.log(`   共 ${models.length} 个模型`);
   
   for (const tier of ["economy", "standard", "premium", "flagship"] as ModelTier[]) {
     const tierModels = router.getModelsByTier(tier);
-    console.log(`   ${tier}: ${tierModels.map(m => m.name).join(", ")}`);
+    // console.log(`   ${tier}: ${tierModels.map(m => m.name).join(", ")}`);
   }
   
   // 路由测试
-  console.log("\n2. 路由测试");
+  // console.log("\n2. 路由测试");
   
   const requests: RoutingRequest[] = [
     {
@@ -734,42 +734,42 @@ function demo() {
   
   for (const request of requests) {
     const decision = router.route(request);
-    console.log(`\n   ${request.taskId} (${request.priority || "balanced"}):`);
-    console.log(`   选择: ${decision.selectedModel.name}`);
-    console.log(`   理由: ${decision.reasoning}`);
-    console.log(`   预估: $${decision.estimatedCost.toFixed(6)}, ${decision.estimatedLatency}ms`);
-    console.log(`   置信度: ${(decision.confidence * 100).toFixed(0)}%`);
+    // console.log(`\n   ${request.taskId} (${request.priority || "balanced"}):`);
+    // console.log(`   选择: ${decision.selectedModel.name}`);
+    // console.log(`   理由: ${decision.reasoning}`);
+    // console.log(`   预估: $${decision.estimatedCost.toFixed(6)}, ${decision.estimatedLatency}ms`);
+    // console.log(`   置信度: ${(decision.confidence * 100).toFixed(0)}%`);
   }
   
   // 统计信息
-  console.log("\n3. 统计信息");
+  // console.log("\n3. 统计信息");
   
   const stats = router.getStats();
-  console.log(`   总请求: ${stats.totalRequests}`);
-  console.log(`   平均成本: $${stats.avgCost.toFixed(6)}`);
-  console.log(`   平均延迟: ${stats.avgLatency.toFixed(0)}ms`);
-  console.log(`   成本节省: $${stats.costSavings.toFixed(4)}`);
+  // console.log(`   总请求: ${stats.totalRequests}`);
+  // console.log(`   平均成本: $${stats.avgCost.toFixed(6)}`);
+  // console.log(`   平均延迟: ${stats.avgLatency.toFixed(0)}ms`);
+  // console.log(`   成本节省: $${stats.costSavings.toFixed(4)}`);
   
   // 权重
-  console.log("\n4. 当前权重");
+  // console.log("\n4. 当前权重");
   
   const weights = router.getWeights();
-  console.log(`   成本: ${(weights.cost * 100).toFixed(1)}%`);
-  console.log(`   质量: ${(weights.quality * 100).toFixed(1)}%`);
-  console.log(`   延迟: ${(weights.latency * 100).toFixed(1)}%`);
+  // console.log(`   成本: ${(weights.cost * 100).toFixed(1)}%`);
+  // console.log(`   质量: ${(weights.quality * 100).toFixed(1)}%`);
+  // console.log(`   延迟: ${(weights.latency * 100).toFixed(1)}%`);
   
   // 生成报告
-  console.log("\n5. 生成报告");
+  // console.log("\n5. 生成报告");
   
   const report = router.generateReport();
   const reportPath = "./experiment-results/router/report.md";
   fs.writeFileSync(reportPath, report);
-  console.log(`   报告已保存: ${reportPath}`);
+  // console.log(`   报告已保存: ${reportPath}`);
   
   // 保存状态
   router.save();
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

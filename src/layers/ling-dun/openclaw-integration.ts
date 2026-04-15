@@ -23,7 +23,7 @@ let guard: ToolExecutionGuard | null = null;
  */
 export function initGuard(config?: Parameters<typeof getToolExecutionGuard>[0]): void {
   guard = getToolExecutionGuard(config);
-  console.log('[灵盾层] 已初始化，工具执行将被保护');
+  // console.log('[灵盾层] 已初始化，工具执行将被保护');
 }
 
 /**
@@ -104,7 +104,7 @@ export function patchOpenClawExec(): void {
   // 这个函数需要在 OpenClaw 的运行时环境中执行
   // 具体实现取决于 OpenClaw 的架构
   
-  console.log('[灵盾层] Monkey Patch 模式：尝试注入 OpenClaw exec');
+  // console.log('[灵盾层] Monkey Patch 模式：尝试注入 OpenClaw exec');
   console.warn('[灵盾层] 注意：Monkey Patch 模式可能不稳定，建议直接修改源码');
 }
 
@@ -128,7 +128,7 @@ export function getGuardStats() {
 export function resetSession(sessionId?: string): void {
   if (guard) {
     guard.resetSession(sessionId || 'default');
-    console.log('[灵盾层] 会话已重置');
+    // console.log('[灵盾层] 会话已重置');
   }
 }
 

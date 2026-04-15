@@ -686,80 +686,80 @@ export class TaskResumer {
 // ============================================================
 
 function demo() {
-  console.log("=".repeat(60));
-  console.log("断点续传系统演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("断点续传系统演示");
+  // console.log("=".repeat(60));
   
   const manager = new CheckpointManager({
     checkpointDir: "./experiment-results/checkpoints",
   });
   
   // 创建检查点
-  console.log("\n1. 创建检查点");
+  // console.log("\n1. 创建检查点");
   const cp = manager.create("session-001", "完成数据分析任务");
-  console.log(`   检查点 ID: ${cp.id}`);
-  console.log(`   状态: ${cp.status}`);
+  // console.log(`   检查点 ID: ${cp.id}`);
+  // console.log(`   状态: ${cp.status}`);
   
   // 设置待执行步骤
-  console.log("\n2. 设置任务步骤");
+  // console.log("\n2. 设置任务步骤");
   manager.update({
     pendingSteps: ["读取数据", "清洗数据", "分析数据", "生成报告"],
   });
   const checkpoints1 = manager.getAllCheckpoints();
   const current1 = checkpoints1.find(c => c.id === cp.id);
-  console.log(`   待执行步骤: ${current1?.pendingSteps.join(", ")}`);
+  // console.log(`   待执行步骤: ${current1?.pendingSteps.join(", ")}`);
   
   // 完成步骤
-  console.log("\n3. 执行步骤");
+  // console.log("\n3. 执行步骤");
   manager.completeStep("读取数据", { rows: 1000 });
   const checkpoints2 = manager.getAllCheckpoints();
   const current2 = checkpoints2.find(c => c.id === cp.id);
-  console.log(`   进度: ${current2?.progress}%`);
+  // console.log(`   进度: ${current2?.progress}%`);
   
   manager.completeStep("清洗数据", { cleaned: 950 });
   const checkpoints3 = manager.getAllCheckpoints();
   const current3 = checkpoints3.find(c => c.id === cp.id);
-  console.log(`   进度: ${current3?.progress}%`);
+  // console.log(`   进度: ${current3?.progress}%`);
   
   // 模拟错误
-  console.log("\n4. 模拟错误");
+  // console.log("\n4. 模拟错误");
   manager.recordError(new Error("数据格式错误"), "分析数据");
   const checkpoints4 = manager.getAllCheckpoints();
   const current4 = checkpoints4.find(c => c.id === cp.id);
-  console.log(`   状态: ${current4?.status}`);
-  console.log(`   错误: ${current4?.error?.message}`);
+  // console.log(`   状态: ${current4?.status}`);
+  // console.log(`   错误: ${current4?.error?.message}`);
   
   // 生成恢复计划
-  console.log("\n5. 生成恢复计划");
+  // console.log("\n5. 生成恢复计划");
   const recoveryPlan = manager.createRecoveryPlan();
-  console.log(`   可恢复: ${recoveryPlan.canRecover}`);
-  console.log(`   风险级别: ${recoveryPlan.riskLevel}`);
-  console.log(`   预计时间: ${recoveryPlan.estimatedTime}ms`);
-  console.log(`   恢复步骤:`);
+  // console.log(`   可恢复: ${recoveryPlan.canRecover}`);
+  // console.log(`   风险级别: ${recoveryPlan.riskLevel}`);
+  // console.log(`   预计时间: ${recoveryPlan.estimatedTime}ms`);
+  // console.log(`   恢复步骤:`);
   recoveryPlan.steps.forEach(s => {
-    console.log(`     - ${s.action}: ${s.step} (${s.reason})`);
+    // console.log(`     - ${s.action}: ${s.step} (${s.reason})`);
   });
   
   // 生成交接单
-  console.log("\n6. 生成交接单");
+  // console.log("\n6. 生成交接单");
   const handover = manager.generateHandover();
   if (handover) {
-    console.log(`   目标: ${handover.goal}`);
-    console.log(`   摘要: ${handover.summary}`);
-    console.log(`   已完成: ${handover.completedWork.length} 项`);
-    console.log(`   待执行: ${handover.pendingWork.length} 项`);
-    console.log(`   警告: ${handover.warnings.length} 项`);
+    // console.log(`   目标: ${handover.goal}`);
+    // console.log(`   摘要: ${handover.summary}`);
+    // console.log(`   已完成: ${handover.completedWork.length} 项`);
+    // console.log(`   待执行: ${handover.pendingWork.length} 项`);
+    // console.log(`   警告: ${handover.warnings.length} 项`);
   }
   
   // 查看所有检查点
-  console.log("\n7. 所有检查点");
+  // console.log("\n7. 所有检查点");
   const allCheckpoints = manager.getAllCheckpoints();
-  console.log(`   总数: ${allCheckpoints.length}`);
+  // console.log(`   总数: ${allCheckpoints.length}`);
   allCheckpoints.forEach(cp => {
-    console.log(`   - ${cp.id}: ${cp.status} (${cp.progress}%)`);
+    // console.log(`   - ${cp.id}: ${cp.status} (${cp.progress}%)`);
   });
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

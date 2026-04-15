@@ -110,7 +110,7 @@ export class SmartMemoryUpgrader {
     
     try {
       this.db = new DatabaseSync(this.dbPath);
-      console.log("[SmartMemoryUpgrader] ✅ 初始化完成");
+      // console.log("[SmartMemoryUpgrader] ✅ 初始化完成");
       return true;
     } catch (error) {
       console.error("[SmartMemoryUpgrader] 初始化失败:", error);
@@ -157,7 +157,7 @@ export class SmartMemoryUpgrader {
       }
     }
     
-    console.log(`[SmartMemoryUpgrader] L0 → L1 升级: ${upgraded} 条`);
+    // console.log(`[SmartMemoryUpgrader] L0 → L1 升级: ${upgraded} 条`);
     return upgraded;
   }
   
@@ -213,7 +213,7 @@ export class SmartMemoryUpgrader {
       }
     }
     
-    console.log(`[SmartMemoryUpgrader] L1 → L2 升级: ${upgraded} 条`);
+    // console.log(`[SmartMemoryUpgrader] L1 → L2 升级: ${upgraded} 条`);
     return upgraded;
   }
   
@@ -271,7 +271,7 @@ export class SmartMemoryUpgrader {
       }
     }
     
-    console.log(`[SmartMemoryUpgrader] L2 → L3 升级: ${upgraded} 条`);
+    // console.log(`[SmartMemoryUpgrader] L2 → L3 升级: ${upgraded} 条`);
     return upgraded;
   }
   
@@ -357,7 +357,7 @@ export class SmartMemoryUpgrader {
       } else if (toLevel === "L3") {
         // L3 是用户画像，更新 USER.md
         // 这里只记录，实际画像更新由 PersonaManager 处理
-        console.log(`[SmartMemoryUpgrader] L3 升级: ${candidate.id}`);
+        // console.log(`[SmartMemoryUpgrader] L3 升级: ${candidate.id}`);
       }
     } catch (error) {
       console.error(`[SmartMemoryUpgrader] 插入目标层级失败:`, error);

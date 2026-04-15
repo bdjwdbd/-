@@ -26,10 +26,10 @@ async function main() {
   });
   
   // 输出 L0 结果
-  console.log(`[L0] 深度=${result.depth}, 置信度=${(result.confidence || 0).toFixed(2)}`);
+  // console.log(`[L0] 深度=${result.depth}, 置信度=${(result.confidence || 0).toFixed(2)}`);
   
   // 返回 HEARTBEAT_OK
-  console.log('HEARTBEAT_OK');
+  // console.log('HEARTBEAT_OK');
 }
 
 main().catch(console.error);

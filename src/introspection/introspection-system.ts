@@ -54,19 +54,19 @@ export class IntrospectionSystem {
   async introspect(
     trigger: 'startup' | 'manual' | 'scheduled' = 'manual'
   ): Promise<IntrospectionReport> {
-    console.log('[IntrospectionSystem] 开始自省...');
+    // console.log('[IntrospectionSystem] 开始自省...');
 
     // 1. 检测变更
     const changes = this.config.enabled ? this.changeDetector.detectChanges() : [];
-    console.log(`[IntrospectionSystem] 检测到 ${changes.length} 个变更`);
+    // console.log(`[IntrospectionSystem] 检测到 ${changes.length} 个变更`);
 
     // 2. 运行基准测试
-    console.log('[IntrospectionSystem] 运行基准测试...');
+    // console.log('[IntrospectionSystem] 运行基准测试...');
     const scores = await this.benchmarkRunner.runAllBenchmarks();
 
     // 3. 创建当前快照
     const currentSnapshot = this.createSnapshot(scores);
-    console.log(`[IntrospectionSystem] 综合评分: ${currentSnapshot.overallScore.toFixed(2)}`);
+    // console.log(`[IntrospectionSystem] 综合评分: ${currentSnapshot.overallScore.toFixed(2)}`);
 
     // 4. 加载上次快照
     const previousSnapshot = this.reportGenerator.loadLatestHistory();
@@ -88,14 +88,14 @@ export class IntrospectionSystem {
       currentSnapshot,
       join(this.dataDir, 'history')
     );
-    console.log(`[IntrospectionSystem] 可视化报告: ${vizPath}`);
+    // console.log(`[IntrospectionSystem] 可视化报告: ${vizPath}`);
 
     // 8. 更新变更记录
     if (changes.length > 0) {
       this.changeDetector.updateRecords();
     }
 
-    console.log('[IntrospectionSystem] 自省完成');
+    // console.log('[IntrospectionSystem] 自省完成');
 
     return report;
   }

@@ -172,7 +172,7 @@ export class HybridIndexOptimized {
     // ============================================================
 
     async train(vectors: Float32Array[], iterations: number = 10): Promise<void> {
-        console.log(`训练混合索引: ${vectors.length} 个向量`);
+        // console.log(`训练混合索引: ${vectors.length} 个向量`);
 
         // L1: IVF 聚类
         this.ivf = new IVFIndex({
@@ -182,7 +182,7 @@ export class HybridIndexOptimized {
         this.ivf.train(vectors, iterations);
 
         this.trained = true;
-        console.log('混合索引训练完成');
+        // console.log('混合索引训练完成');
     }
 
     // ============================================================
@@ -286,7 +286,7 @@ export class AdaptiveSearchEngine {
         this.cpuDetector = CPUFeatureDetector.getInstance();
         this.hybridIndex = new HybridIndexOptimized({ dimensions });
 
-        console.log(this.cpuDetector.getReport());
+        // console.log(this.cpuDetector.getReport());
     }
 
     async index(vectors: Float32Array[]): Promise<void> {
@@ -304,7 +304,7 @@ export class AdaptiveSearchEngine {
 
         // 记录性能
         if (elapsed > 100) {
-            console.log(`搜索耗时: ${elapsed}ms (向量数: ${this.hybridIndex.getStats().vectorCount})`);
+            // console.log(`搜索耗时: ${elapsed}ms (向量数: ${this.hybridIndex.getStats().vectorCount})`);
         }
 
         return results;

@@ -137,7 +137,7 @@ export class ImageProcessor {
    */
   async resize(image: Buffer, width: number, height: number): Promise<Buffer> {
     // 模拟调整大小
-    console.log(`Resizing image to ${width}x${height}`);
+    // console.log(`Resizing image to ${width}x${height}`);
     return image;
   }
 
@@ -145,7 +145,7 @@ export class ImageProcessor {
    * 转换格式
    */
   async convertFormat(image: Buffer, format: 'jpg' | 'png' | 'webp'): Promise<Buffer> {
-    console.log(`Converting to ${format}`);
+    // console.log(`Converting to ${format}`);
     return image;
   }
 }

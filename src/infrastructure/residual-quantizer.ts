@@ -58,7 +58,7 @@ export class ResidualQuantizer {
 
         // 逐级训练
         for (let l = 0; l < this.nLevels; l++) {
-            console.log(`Training level ${l + 1}/${this.nLevels}...`);
+            // console.log(`Training level ${l + 1}/${this.nLevels}...`);
 
             // 训练当前级
             this.quantizers[l].train(residuals, nIterations);

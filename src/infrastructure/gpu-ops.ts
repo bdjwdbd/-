@@ -102,22 +102,22 @@ export class GPUVectorOps {
     this.gpuInfo = await detectGPU();
 
     if (!this.config.useGPU) {
-      console.log('ℹ️ GPU 已禁用，使用 CPU');
+      // console.log('ℹ️ GPU 已禁用，使用 CPU');
       return false;
     }
 
     if (this.config.backend === 'auto') {
       if (this.gpuInfo.available) {
-        console.log(`✅ GPU 后端已启用: ${this.gpuInfo.backend}`);
+        // console.log(`✅ GPU 后端已启用: ${this.gpuInfo.backend}`);
         return true;
       }
     } else if (this.config.backend === this.gpuInfo.backend) {
-      console.log(`✅ GPU 后端已启用: ${this.gpuInfo.backend}`);
+      // console.log(`✅ GPU 后端已启用: ${this.gpuInfo.backend}`);
       return true;
     }
 
     if (this.config.fallbackToCPU) {
-      console.log('ℹ️ GPU 不可用，回退到 CPU');
+      // console.log('ℹ️ GPU 不可用，回退到 CPU');
     }
     return false;
   }

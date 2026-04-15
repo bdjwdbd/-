@@ -541,7 +541,7 @@ export class Tracer {
   
   private log(message: string): void {
     if (this.config.enableLogging) {
-      console.log(message);
+      // console.log(message);
     }
   }
   
@@ -703,9 +703,9 @@ export class TracingMiddleware {
 // ============================================================
 
 function demo() {
-  console.log("=".repeat(60));
-  console.log("分布式追踪系统演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("分布式追踪系统演示");
+  // console.log("=".repeat(60));
   
   const tracer = new Tracer({
     serviceName: "yuanling-system",
@@ -717,7 +717,7 @@ function demo() {
   const middleware = new TracingMiddleware(tracer);
   
   // 模拟请求处理
-  console.log("\n1. 模拟请求处理链");
+  // console.log("\n1. 模拟请求处理链");
   
   const rootSpan = tracer.startTrace("process_request", {
     component: "api-gateway",
@@ -768,7 +768,7 @@ function demo() {
   tracer.endSpan(rootSpan);
   
   // 使用中间件
-  console.log("\n2. 使用中间件包装函数");
+  // console.log("\n2. 使用中间件包装函数");
   
   async function simulateLLMCall(): Promise<string> {
     await new Promise(r => setTimeout(r, 30));
@@ -779,32 +779,32 @@ function demo() {
     component: "llm-service",
     tags: { model: "claude-3" },
   }).then(result => {
-    console.log(`   结果: ${result}`);
+    // console.log(`   结果: ${result}`);
     
     // 生成报告
-    console.log("\n3. 追踪统计");
+    // console.log("\n3. 追踪统计");
     
     const stats = tracer.getStats();
-    console.log(`   总追踪数: ${stats.totalTraces}`);
-    console.log(`   总 Span 数: ${stats.totalSpans}`);
-    console.log(`   平均持续时间: ${stats.avgDuration.toFixed(2)}ms`);
-    console.log(`   错误率: ${(stats.errorRate * 100).toFixed(1)}%`);
+    // console.log(`   总追踪数: ${stats.totalTraces}`);
+    // console.log(`   总 Span 数: ${stats.totalSpans}`);
+    // console.log(`   平均持续时间: ${stats.avgDuration.toFixed(2)}ms`);
+    // console.log(`   错误率: ${(stats.errorRate * 100).toFixed(1)}%`);
     
     // 生成报告
-    console.log("\n4. 生成报告");
+    // console.log("\n4. 生成报告");
     
     const report = tracer.generateReport();
     const reportPath = "./experiment-results/traces/tracing-report.md";
     fs.writeFileSync(reportPath, report);
-    console.log(`   报告已保存: ${reportPath}`);
+    // console.log(`   报告已保存: ${reportPath}`);
     
     // 导出追踪
-    console.log("\n5. 导出追踪数据");
+    // console.log("\n5. 导出追踪数据");
     
     const jsonPath = tracer.saveToFile();
-    console.log(`   JSON: ${jsonPath}`);
+    // console.log(`   JSON: ${jsonPath}`);
     
-    console.log("\n" + "=".repeat(60));
+    // console.log("\n" + "=".repeat(60));
   });
 }
 

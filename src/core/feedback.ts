@@ -203,16 +203,16 @@ export class RegulationCenter {
     // 执行动作
     switch (rule.action) {
       case "adjust":
-        console.log(`[Regulation] 调整参数: ${rule.name}`);
+        // console.log(`[Regulation] 调整参数: ${rule.name}`);
         break;
       case "alert":
-        console.log(`[Regulation] 警告: ${rule.name}`);
+        // console.log(`[Regulation] 警告: ${rule.name}`);
         break;
       case "throttle":
-        console.log(`[Regulation] 限流: ${rule.name}`);
+        // console.log(`[Regulation] 限流: ${rule.name}`);
         break;
       case "restart":
-        console.log(`[Regulation] 重启: ${rule.name}`);
+        // console.log(`[Regulation] 重启: ${rule.name}`);
         break;
     }
   }

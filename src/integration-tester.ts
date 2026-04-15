@@ -131,7 +131,7 @@ export class IntegrationTester {
       throw new Error(`测试套件不存在: ${suiteId}`);
     }
     
-    console.log(`\n运行测试套件: ${suite.name}`);
+    // console.log(`\n运行测试套件: ${suite.name}`);
     
     const results: TestResult[] = [];
     const startTime = Date.now();
@@ -270,7 +270,7 @@ export class IntegrationTester {
     
     // 输出结果
     const icon = result.status === "passed" ? "✅" : result.status === "failed" ? "❌" : "⏭️";
-    console.log(`  ${icon} ${testCase.name} (${result.duration}ms)`);
+    // console.log(`  ${icon} ${testCase.name} (${result.duration}ms)`);
     
     return result;
   }
@@ -470,9 +470,9 @@ export class IntegrationTester {
 // ============================================================
 
 async function demo() {
-  console.log("=".repeat(60));
-  console.log("IntegrationTester 集成测试框架演示");
-  console.log("=".repeat(60));
+  // console.log("=".repeat(60));
+  // console.log("IntegrationTester 集成测试框架演示");
+  // console.log("=".repeat(60));
   
   const tester = new IntegrationTester({
     reportPath: "./experiment-results/test-results",
@@ -538,28 +538,28 @@ async function demo() {
   });
   
   // 运行测试
-  console.log("\n1. 运行测试套件");
+  // console.log("\n1. 运行测试套件");
   
   const report = await tester.runSuite("core-components");
   
   // 输出结果
-  console.log("\n2. 测试结果");
+  // console.log("\n2. 测试结果");
   
-  console.log(`   总数: ${report.totalTests}`);
-  console.log(`   通过: ${report.passed}`);
-  console.log(`   失败: ${report.failed}`);
-  console.log(`   通过率: ${(report.passRate * 100).toFixed(1)}%`);
-  console.log(`   耗时: ${report.duration}ms`);
+  // console.log(`   总数: ${report.totalTests}`);
+  // console.log(`   通过: ${report.passed}`);
+  // console.log(`   失败: ${report.failed}`);
+  // console.log(`   通过率: ${(report.passRate * 100).toFixed(1)}%`);
+  // console.log(`   耗时: ${report.duration}ms`);
   
   // 生成 HTML 报告
-  console.log("\n3. 生成 HTML 报告");
+  // console.log("\n3. 生成 HTML 报告");
   
   const html = tester.generateHTMLReport(report);
   const htmlPath = "./experiment-results/test-results/report.html";
   fs.writeFileSync(htmlPath, html);
-  console.log(`   报告已保存: ${htmlPath}`);
+  // console.log(`   报告已保存: ${htmlPath}`);
   
-  console.log("\n" + "=".repeat(60));
+  // console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

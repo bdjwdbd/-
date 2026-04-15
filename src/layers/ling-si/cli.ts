@@ -25,13 +25,13 @@ const rl = readline.createInterface({
 });
 
 function print(message: string): void {
-  console.log(message);
+  // console.log(message);
 }
 
 function printHeader(title: string): void {
-  console.log("\n" + "═".repeat(60));
-  console.log(`  ${title}`);
-  console.log("═".repeat(60) + "\n");
+  // console.log("\n" + "═".repeat(60));
+  // console.log(`  ${title}`);
+  // console.log("═".repeat(60) + "\n");
 }
 
 function printHelp(): void {

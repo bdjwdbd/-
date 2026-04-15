@@ -83,25 +83,25 @@ export class NativeLoader {
     try {
       this.modules = await this.loadNativeModules();
       this.backend = 'native';
-      console.log('✅ 原生模块加载成功');
+      // console.log('✅ 原生模块加载成功');
       return;
     } catch (error) {
-      console.log('ℹ️ 原生模块不可用，尝试 WASM');
+      // console.log('ℹ️ 原生模块不可用，尝试 WASM');
     }
 
     // 2. 尝试加载 WASM 模块
     try {
       await this.loadWasmModules();
       this.backend = 'wasm';
-      console.log('✅ WASM 模块加载成功');
+      // console.log('✅ WASM 模块加载成功');
       return;
     } catch (error) {
-      console.log('ℹ️ WASM 模块不可用，使用 TypeScript 实现');
+      // console.log('ℹ️ WASM 模块不可用，使用 TypeScript 实现');
     }
 
     // 3. 使用 TypeScript 实现
     this.backend = 'js';
-    console.log('ℹ️ 使用 TypeScript 实现');
+    // console.log('ℹ️ 使用 TypeScript 实现');
   }
 
   /**
