@@ -493,6 +493,13 @@ export {
   type MKLConfig,
   type MKLInfo
 } from './mkl-bridge';
+export {
+  MKLDirect,
+  getMKLDirect,
+  isMKLDirectAvailable,
+  type MKLDirectConfig,
+  type MKLDirectInfo
+} from './mkl-direct';
 export { HugePageManager, HighPerformanceMemoryPool, VectorMemoryManager, getHugePageManager, type HugePageInfo, type MemoryPoolConfig } from './hugepage-manager';
 export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAccelerator, getHardwareOptimizer, type HardwareInfo, type Optimizations } from './hardware-optimize';
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';
