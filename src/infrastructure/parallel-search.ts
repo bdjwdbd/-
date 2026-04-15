@@ -155,7 +155,7 @@ export class ParallelSearch {
     /**
      * TypeScript 余弦相似度（回退）
      */
-    private cosineSimilarityTS(a: Float32Array, b: Float32Array): float {
+    private cosineSimilarityTS(a: Float32Array, b: Float32Array): number {
         let sum = 0, normA = 0, normB = 0;
         for (let i = 0; i < a.length; i++) {
             sum += a[i] * b[i];

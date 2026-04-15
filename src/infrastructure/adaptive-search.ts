@@ -7,8 +7,7 @@
  * 3. 大数据量 (>10万): 原生模块（如果可用）
  */
 
-import { SimpleVectorSearch, ParallelVectorSearch } from './parallel-search';
-import { Accelerator } from './native-accelerator';
+import { ParallelSearch } from './parallel-search';
 
 // ============================================================
 // 类型定义

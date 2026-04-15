@@ -276,7 +276,7 @@ export class VectorSearchPool {
         const allResults = results.flat();
 
         // 合并并取 Top-K
-        allResults.sort((a, b) => b.score - a.score);
+        allResults.sort((a: any, b: any) => b.score - a.score);
         return allResults.slice(0, k);
     }
 
