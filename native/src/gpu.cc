@@ -190,8 +190,16 @@ Napi::Value GetGPUInfo(const Napi::CallbackInfo& info) {
 Napi::Value CosineSimilarityBatch(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    if (info.Length() < 2 || !info[0].IsFloat32Array() || !info[1].IsFloat32Array()) {
-        Napi::TypeError::New(env, "Expected two Float32Array arguments").ThrowAsJavaScriptException();
+    if (info.Length() < 2 || !info[0].IsTypedArray() || !info[1].IsTypedArray()) {
+        Napi::TypeError::New(env, "Expected two TypedArray arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::TypedArray ta1 = info[0].As<Napi::TypedArray>();
+    Napi::TypedArray ta2 = info[1].As<Napi::TypedArray>();
+    
+    if (ta1.TypedArrayType() != napi_float32_array || ta2.TypedArrayType() != napi_float32_array) {
+        Napi::TypeError::New(env, "Expected Float32Array arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
     

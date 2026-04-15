@@ -180,7 +180,13 @@ Napi::Value TopKSearch(const Napi::CallbackInfo& info) {
 Napi::Value Normalize(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    if (info.Length() < 1 || !info[0].IsFloat32Array()) {
+    if (info.Length() < 1 || !info[0].IsTypedArray()) {
+        Napi::TypeError::New(env, "Expected TypedArray argument").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::TypedArray ta = info[0].As<Napi::TypedArray>();
+    if (ta.TypedArrayType() != napi_float32_array) {
         Napi::TypeError::New(env, "Expected Float32Array argument").ThrowAsJavaScriptException();
         return env.Null();
     }
