@@ -248,6 +248,141 @@ Napi::Value EuclideanDistance(const Napi::CallbackInfo& info) {
 }
 
 // ============================================================
+// Top-K 搜索（使用堆选择，避免全排序）
+// ============================================================
+
+#include <queue>
+#include <functional>
+
+Napi::Value TopKSearch(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    
+    if (info.Length() < 3 || !info[0].IsTypedArray() || !info[1].IsTypedArray() || !info[2].IsNumber()) {
+        Napi::TypeError::New(env, "Expected Float32Array, Float32Array, and k").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::TypedArray ta0 = info[0].As<Napi::TypedArray>();
+    Napi::TypedArray ta1 = info[1].As<Napi::TypedArray>();
+    
+    if (ta0.TypedArrayType() != napi_float32_array || ta1.TypedArrayType() != napi_float32_array) {
+        Napi::TypeError::New(env, "Expected Float32Array arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::Float32Array query = info[0].As<Napi::Float32Array>();
+    Napi::Float32Array allVectors = info[1].As<Napi::Float32Array>();
+    size_t k = info[2].As<Napi::Number>().Uint32Value();
+    
+    size_t dim = query.ElementLength();
+    size_t numVectors = allVectors.ElementLength() / dim;
+    
+    if (k > numVectors) k = numVectors;
+    
+    const float* queryData = query.Data();
+    const float* vectorsData = allVectors.Data();
+    
+    // 使用最小堆，保持 Top-K
+    using Result = std::pair<float, size_t>;
+    std::priority_queue<Result, std::vector<Result>, std::greater<>> heap;
+    
+    for (size_t i = 0; i < numVectors; i++) {
+        float score = cosineSimilarity(queryData, vectorsData + i * dim, dim);
+        
+        if (heap.size() < k) {
+            heap.push({score, i});
+        } else if (score > heap.top().first) {
+            heap.pop();
+            heap.push({score, i});
+        }
+    }
+    
+    // 转换结果（从大到小排序）
+    std::vector<Result> sorted;
+    while (!heap.empty()) {
+        sorted.push_back(heap.top());
+        heap.pop();
+    }
+    std::reverse(sorted.begin(), sorted.end());
+    
+    // 返回结果数组
+    Napi::Array results = Napi::Array::New(env, sorted.size());
+    for (size_t i = 0; i < sorted.size(); i++) {
+        Napi::Object obj = Napi::Object::New(env);
+        obj.Set("index", Napi::Number::New(env, sorted[i].second));
+        obj.Set("score", Napi::Number::New(env, sorted[i].first));
+        results.Set(i, obj);
+    }
+    
+    return results;
+}
+
+// ============================================================
+// Top-K 搜索（带维度参数）
+// ============================================================
+
+Napi::Value TopKSearchWithDim(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    
+    if (info.Length() < 4 || !info[0].IsTypedArray() || !info[1].IsTypedArray() || !info[2].IsNumber() || !info[3].IsNumber()) {
+        Napi::TypeError::New(env, "Expected Float32Array, Float32Array, dimension, and k").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::TypedArray ta0 = info[0].As<Napi::TypedArray>();
+    Napi::TypedArray ta1 = info[1].As<Napi::TypedArray>();
+    
+    if (ta0.TypedArrayType() != napi_float32_array || ta1.TypedArrayType() != napi_float32_array) {
+        Napi::TypeError::New(env, "Expected Float32Array arguments").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    
+    Napi::Float32Array query = info[0].As<Napi::Float32Array>();
+    Napi::Float32Array allVectors = info[1].As<Napi::Float32Array>();
+    size_t dim = info[2].As<Napi::Number>().Uint32Value();
+    size_t k = info[3].As<Napi::Number>().Uint32Value();
+    
+    size_t numVectors = allVectors.ElementLength() / dim;
+    if (k > numVectors) k = numVectors;
+    
+    const float* queryData = query.Data();
+    const float* vectorsData = allVectors.Data();
+    
+    // 使用最小堆
+    using Result = std::pair<float, size_t>;
+    std::priority_queue<Result, std::vector<Result>, std::greater<>> heap;
+    
+    for (size_t i = 0; i < numVectors; i++) {
+        float score = cosineSimilarity(queryData, vectorsData + i * dim, dim);
+        
+        if (heap.size() < k) {
+            heap.push({score, i});
+        } else if (score > heap.top().first) {
+            heap.pop();
+            heap.push({score, i});
+        }
+    }
+    
+    // 转换结果
+    std::vector<Result> sorted;
+    while (!heap.empty()) {
+        sorted.push_back(heap.top());
+        heap.pop();
+    }
+    std::reverse(sorted.begin(), sorted.end());
+    
+    Napi::Array results = Napi::Array::New(env, sorted.size());
+    for (size_t i = 0; i < sorted.size(); i++) {
+        Napi::Object obj = Napi::Object::New(env);
+        obj.Set("index", Napi::Number::New(env, sorted[i].second));
+        obj.Set("score", Napi::Number::New(env, sorted[i].first));
+        results.Set(i, obj);
+    }
+    
+    return results;
+}
+
+// ============================================================
 // 模块初始化
 // ============================================================
 
@@ -256,6 +391,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set("cosineSimilarityBatch", Napi::Function::New(env, CosineSimilarityBatch));
     exports.Set("cosineSimilarityBatchContiguous", Napi::Function::New(env, CosineSimilarityBatchContiguous));
     exports.Set("euclideanDistance", Napi::Function::New(env, EuclideanDistance));
+    exports.Set("topKSearch", Napi::Function::New(env, TopKSearch));
+    exports.Set("topKSearchWithDim", Napi::Function::New(env, TopKSearchWithDim));
     exports.Set("getCapabilities", Napi::Function::New(env, GetCapabilities));
     return exports;
 }
