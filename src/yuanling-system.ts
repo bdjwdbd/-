@@ -1,5 +1,5 @@
 /**
- * 元灵系统 v4.2.0 - 统一主入口
+ * 元灵系统 v4.3.0 - 统一主入口
  * 
  * 这是系统的唯一主入口，整合所有层级：
  * - L0 灵思层（思考协议）
@@ -793,5 +793,5 @@ export async function quickIntrospect(workspaceRoot: string): Promise<{
 
 // ============ 版本信息 ============
 
-export const VERSION = '4.2.0';
-export const BUILD_DATE = '2026-04-14';
+export const VERSION = '4.3.0';
+export const BUILD_DATE = '2026-04-15';

@@ -1,4 +1,4 @@
-# 元灵系统 (YuanLing System) v4.2.0
+# 元灵系统 (YuanLing System) v4.3.0
 
 一个基于六层架构的多 Agent 协作框架，融合了思考协议、记忆系统、学习系统和安全验证。
 
