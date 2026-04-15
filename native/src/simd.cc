@@ -1,6 +1,6 @@
 /**
  * @file simd.cc
- * @brief SIMD 加速模块 - AVX2 实现
+ * @brief SIMD 加速模块 - AVX2/AVX-512 实现
  */
 
 #include <napi.h>
@@ -10,9 +10,85 @@
 #include <functional>
 #include <algorithm>
 #include <immintrin.h>
+#include <cpuid.h>
 
 namespace yuanling {
 namespace simd {
+
+// ============================================================
+// CPU 特性检测
+// ============================================================
+
+struct CPUFeatures {
+    bool hasAVX2 = false;
+    bool hasAVX512F = false;
+    bool hasAVX512DQ = false;
+    bool hasAVX512VL = false;
+    bool hasFMA = false;
+};
+
+CPUFeatures detectCPUFeatures() {
+    CPUFeatures features;
+    
+    unsigned int eax, ebx, ecx, edx;
+    
+    // 检查基本 CPUID 支持
+    if (__get_cpuid(1, &eax, &ebx, &ecx, &edx)) {
+        // FMA
+        features.hasFMA = (ecx & (1 << 12)) != 0;
+    }
+    
+    // 检查扩展功能
+    if (__get_cpuid_count(7, 0, &eax, &ebx, &ecx, &edx)) {
+        // AVX2
+        features.hasAVX2 = (ebx & (1 << 5)) != 0;
+        // AVX-512F
+        features.hasAVX512F = (ebx & (1 << 16)) != 0;
+        // AVX-512DQ
+        features.hasAVX512DQ = (ebx & (1 << 17)) != 0;
+        // AVX-512VL
+        features.hasAVX512VL = (ebx & (1 << 31)) != 0;
+    }
+    
+    return features;
+}
+
+static CPUFeatures g_cpuFeatures = detectCPUFeatures();
+
+// ============================================================
+// AVX-512 余弦相似度
+// ============================================================
+
+#ifdef __AVX512F__
+float cosineSimilarityAVX512(const float* a, const float* b, size_t len) {
+    __m512 sum_vec = _mm512_setzero_ps();
+    __m512 norm_a_vec = _mm512_setzero_ps();
+    __m512 norm_b_vec = _mm512_setzero_ps();
+    
+    size_t i = 0;
+    for (; i + 16 <= len; i += 16) {
+        __m512 va = _mm512_loadu_ps(a + i);
+        __m512 vb = _mm512_loadu_ps(b + i);
+        sum_vec = _mm512_fmadd_ps(va, vb, sum_vec);
+        norm_a_vec = _mm512_fmadd_ps(va, va, norm_a_vec);
+        norm_b_vec = _mm512_fmadd_ps(vb, vb, norm_b_vec);
+    }
+    
+    // 水平求和
+    float sum = _mm512_reduce_add_ps(sum_vec);
+    float norm_a = _mm512_reduce_add_ps(norm_a_vec);
+    float norm_b = _mm512_reduce_add_ps(norm_b_vec);
+    
+    // 处理剩余元素
+    for (; i < len; i++) {
+        sum += a[i] * b[i];
+        norm_a += a[i] * a[i];
+        norm_b += b[i] * b[i];
+    }
+    
+    return sum / (std::sqrt(norm_a) * std::sqrt(norm_b) + 1e-10f);
+}
+#endif
 
 // ============================================================
 // AVX2 余弦相似度
@@ -61,8 +137,13 @@ float cosineSimilarityScalar(const float* a, const float* b, size_t len) {
     return sum / (std::sqrt(norm_a) * std::sqrt(norm_b) + 1e-10f);
 }
 
-// 统一接口
+// 统一接口 - 自动选择最优实现
 float cosineSimilarity(const float* a, const float* b, size_t len) {
+#ifdef __AVX512F__
+    if (g_cpuFeatures.hasAVX512F) {
+        return cosineSimilarityAVX512(a, b, len);
+    }
+#endif
     return cosineSimilarityAVX2(a, b, len);
 }
 
@@ -380,6 +461,23 @@ Napi::Value TopKSearchWithDim(const Napi::CallbackInfo& info) {
     }
     
     return results;
+}
+
+// ============================================================
+// 获取 CPU 特性
+// ============================================================
+
+Napi::Value GetCapabilities(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    Napi::Object caps = Napi::Object::New(env);
+    
+    caps.Set("avx2", Napi::Boolean::New(env, g_cpuFeatures.hasAVX2));
+    caps.Set("avx512f", Napi::Boolean::New(env, g_cpuFeatures.hasAVX512F));
+    caps.Set("avx512dq", Napi::Boolean::New(env, g_cpuFeatures.hasAVX512DQ));
+    caps.Set("avx512vl", Napi::Boolean::New(env, g_cpuFeatures.hasAVX512VL));
+    caps.Set("fma", Napi::Boolean::New(env, g_cpuFeatures.hasFMA));
+    
+    return caps;
 }
 
 // ============================================================

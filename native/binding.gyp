@@ -14,7 +14,7 @@
       "cflags_cc": ["-std=c++17", "-fPIC", "-O3"],
       "conditions": [
         ["OS=='linux'", {
-          "cflags_cc": ["-mavx2", "-mfma"]
+          "cflags_cc": ["-mavx2", "-mfma", "-mavx512f", "-mavx512dq", "-mavx512vl"]
         }],
         ["OS=='mac'", {
           "xcode_settings": {
