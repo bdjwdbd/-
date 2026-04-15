@@ -25,13 +25,13 @@ try {
 }
 
 try {
-    parallel = require('../../native/build/Release/parallel.node');
+    parallel = require('../../native/build/Release/(parallel as any).node');
 } catch (e) {
     // 原生模块不可用
 }
 
 try {
-    int8 = require('../../native/build/Release/int8.node');
+    int8 = require('../../native/build/Release/(int8 as any).node');
 } catch (e) {
     // 原生模块不可用
 }
@@ -85,7 +85,7 @@ export class YuanLingAPI {
 
         // 设置线程数
         if (this.config.useParallel) {
-            parallel.setThreadCount(this.config.threadCount);
+            (parallel as any).setThreadCount(this.config.threadCount);
         }
     }
 
@@ -236,7 +236,7 @@ export class YuanLingAPI {
             allVectors.set(vectors[i], i * d);
         }
 
-        return simd.cosineSimilarityBatch(query, allVectors, d);
+        return (simd as any).cosineSimilarityBatch(query, allVectors, d);
     }
 
     // ============================================================
@@ -255,8 +255,8 @@ export class YuanLingAPI {
         }
 
         const results = this.config.useParallel
-            ? parallel.topKSearchParallel(query, allVectors, dim, k)
-            : simd.topKSearchWithDim(query, allVectors, dim, k);
+            ? (parallel as any).topKSearchParallel(query, allVectors, dim, k)
+            : (simd as any).topKSearchWithDim(query, allVectors, dim, k);
 
         return results.indices.map((idx: number, i: number) => ({
             id: String(idx),
@@ -272,7 +272,7 @@ export class YuanLingAPI {
      * 量化向量
      */
     quantize(vector: Float32Array): { data: Int8Array; scale: number } {
-        const result = int8.quantizeFloat32ToInt8(vector);
+        const result = (int8 as any).quantizeFloat32ToInt8(vector);
         return {
             data: result.data,
             scale: result.scale,
@@ -294,8 +294,8 @@ export class YuanLingAPI {
         dimensions: number;
     } {
         return {
-            simdCapabilities: simd.getCapabilities(),
-            threadCount: parallel.getThreadCount(),
+            simdCapabilities: (simd as any).getCapabilities(),
+            threadCount: (parallel as any).getThreadCount(),
             vectorCount: this.vectors.size,
             indexType: this.config.indexType,
             dimensions: this.config.dimensions,
