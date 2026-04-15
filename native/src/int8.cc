@@ -260,6 +260,9 @@ Napi::Value TopKSearchINT8(const Napi::CallbackInfo& info) {
     Napi::Float32Array scores = Napi::Float32Array::New(env, k);
     Napi::Uint32Array indices = Napi::Uint32Array::New(env, k);
     
+    // 创建临时 size_t 数组
+    std::vector<size_t> indicesTemp(k);
+    
     topKSearchINT8(
         query.Data(),
         vectors.Data(),
@@ -269,8 +272,13 @@ Napi::Value TopKSearchINT8(const Napi::CallbackInfo& info) {
         scaleQuery,
         scales.Data(),
         scores.Data(),
-        indices.Data()
+        indicesTemp.data()
     );
+    
+    // 复制到 Uint32Array
+    for (size_t i = 0; i < k; i++) {
+        indices[i] = static_cast<uint32_t>(indicesTemp[i]);
+    }
     
     Napi::Object result = Napi::Object::New(env);
     result.Set("scores", scores);
@@ -310,7 +318,7 @@ Napi::Value QuantizeFloat32ToInt8(const Napi::CallbackInfo& info) {
 // 模块初始化
 // ============================================================
 
-Napi::Object Init(Napi::Env env, Napi::Object exports) {
+Napi::Object InitInt8(Napi::Env env, Napi::Object exports) {
     exports.Set("cosineSimilarityINT8", Napi::Function::New(env, CosineSimilarityINT8));
     exports.Set("cosineSimilarityBatchINT8", Napi::Function::New(env, CosineSimilarityBatchINT8));
     exports.Set("topKSearchINT8", Napi::Function::New(env, TopKSearchINT8));
@@ -321,4 +329,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
 }  // namespace int8
 }  // namespace yuanling
 
-NODE_API_MODULE(int8, yuanling::int8::Init)
+NODE_API_MODULE(int8, yuanling::int8::InitInt8)
