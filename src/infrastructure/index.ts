@@ -456,6 +456,28 @@ export { IndexPersistence, IncrementalIndexUpdater, type IndexMetadata, type Per
 export { MultimodalEncoder, MultimodalSearcher, type ModalityType as MMModalityType, type MultimodalContent as MMMultimodalContent, type MultimodalEmbedding, type MultimodalSearchResult, type MultimodalEncoderConfig } from './multimodal-search';
 export { GPUVectorOps, getGPUOps, isGPUAvailable, detectGPU, type GPUInfo, type GPUOpsConfig } from './gpu-ops';
 export { ParallelCompute, INT8AcceleratedSearch, getParallelCompute, getNumThreads, type JITConfig } from './jit-accel';
+export { 
+  SIMDVectorOps, 
+  createSIMDVectorOps, 
+  isSIMDSupported,
+  type SIMDConfig, 
+  type SIMDInfo 
+} from '../wasm';
+export { 
+  WorkerPool, 
+  createWorkerPool,
+  type WorkerPoolConfig,
+  type WorkerTask,
+  type VectorSearchTask,
+  type VectorSearchResult as WorkerVectorSearchResult
+} from './worker-pool';
+export {
+  VectorSearchCache,
+  createVectorCache,
+  type VectorCacheConfig,
+  type CacheEntry as VectorCacheEntry,
+  type CacheStats as VectorCacheStats
+} from './vector-cache';
 export { HugePageManager, HighPerformanceMemoryPool, VectorMemoryManager, getHugePageManager, type HugePageInfo, type MemoryPoolConfig } from './hugepage-manager';
 export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAccelerator, getHardwareOptimizer, type HardwareInfo, type Optimizations } from './hardware-optimize';
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';

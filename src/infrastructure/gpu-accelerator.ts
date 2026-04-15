@@ -16,12 +16,24 @@ import type { GPU as GPUType } from 'gpu.js';
 export interface GPUConfig {
   mode?: 'gpu' | 'cpu';
   precision?: 'single' | 'unsigned';
+  /** 分块大小，默认 1024 */
+  chunkSize?: number;
+  /** 是否启用分块计算，默认 true */
+  enableChunking?: boolean;
 }
 
 export interface GPUSearchResult {
   index: number;
   score: number;
 }
+
+// ============================================================
+// 分块计算配置
+// ============================================================
+
+const DEFAULT_CHUNK_SIZE = 1024;
+const MIN_CHUNK_SIZE = 64;
+const MAX_CHUNK_SIZE = 4096;
 
 // ============================================================
 // GPU 可用性检测
@@ -47,9 +59,13 @@ export class GPUAccelerator {
   private config: GPUConfig;
   private kernels: Map<string, Function> = new Map();
   private useCPU: boolean = false;
+  private chunkSize: number;
+  private enableChunking: boolean;
 
   constructor(config: GPUConfig = {}) {
     this.config = { mode: 'gpu', precision: 'single', ...config };
+    this.chunkSize = Math.min(MAX_CHUNK_SIZE, Math.max(MIN_CHUNK_SIZE, config.chunkSize || DEFAULT_CHUNK_SIZE));
+    this.enableChunking = config.enableChunking !== false;
     
     if (gpuAvailable && GPU && this.config.mode === 'gpu') {
       try {
@@ -133,42 +149,103 @@ export class GPUAccelerator {
    * 初始化 CPU 内核（降级模式）
    */
   private initializeCPUKernels(): void {
-    // CPU 实现的余弦相似度
+    // CPU 实现的余弦相似度（分块优化）
     this.kernels.set('cosineSimilarity', (query: number[], vectors: number[][], dim: number) => {
-      return vectors.map((vec) => {
-        let dot = 0;
-        let normQ = 0;
-        let normV = 0;
-        for (let i = 0; i < dim; i++) {
-          dot += query[i] * vec[i];
-          normQ += query[i] * query[i];
-          normV += vec[i] * vec[i];
+      const results: number[] = new Array(vectors.length);
+      const normQ = Math.sqrt(query.reduce((sum, v) => sum + v * v, 0));
+      
+      // 分块处理
+      if (this.enableChunking && vectors.length > this.chunkSize) {
+        for (let start = 0; start < vectors.length; start += this.chunkSize) {
+          const end = Math.min(start + this.chunkSize, vectors.length);
+          for (let i = start; i < end; i++) {
+            const vec = vectors[i];
+            let dot = 0;
+            let normV = 0;
+            for (let j = 0; j < dim; j++) {
+              dot += query[j] * vec[j];
+              normV += vec[j] * vec[j];
+            }
+            results[i] = dot / (normQ * Math.sqrt(normV));
+          }
         }
-        return dot / (Math.sqrt(normQ) * Math.sqrt(normV));
-      });
+      } else {
+        // 小批量直接处理
+        for (let i = 0; i < vectors.length; i++) {
+          const vec = vectors[i];
+          let dot = 0;
+          let normV = 0;
+          for (let j = 0; j < dim; j++) {
+            dot += query[j] * vec[j];
+            normV += vec[j] * vec[j];
+          }
+          results[i] = dot / (normQ * Math.sqrt(normV));
+        }
+      }
+      
+      return results;
     });
 
-    // CPU 实现的欧氏距离
+    // CPU 实现的欧氏距离（分块优化）
     this.kernels.set('euclideanDistance', (query: number[], vectors: number[][], dim: number) => {
-      return vectors.map((vec) => {
-        let sum = 0;
-        for (let i = 0; i < dim; i++) {
-          const diff = query[i] - vec[i];
-          sum += diff * diff;
+      const results: number[] = new Array(vectors.length);
+      
+      if (this.enableChunking && vectors.length > this.chunkSize) {
+        for (let start = 0; start < vectors.length; start += this.chunkSize) {
+          const end = Math.min(start + this.chunkSize, vectors.length);
+          for (let i = start; i < end; i++) {
+            const vec = vectors[i];
+            let sum = 0;
+            for (let j = 0; j < dim; j++) {
+              const diff = query[j] - vec[j];
+              sum += diff * diff;
+            }
+            results[i] = Math.sqrt(sum);
+          }
         }
-        return Math.sqrt(sum);
-      });
+      } else {
+        for (let i = 0; i < vectors.length; i++) {
+          const vec = vectors[i];
+          let sum = 0;
+          for (let j = 0; j < dim; j++) {
+            const diff = query[j] - vec[j];
+            sum += diff * diff;
+          }
+          results[i] = Math.sqrt(sum);
+        }
+      }
+      
+      return results;
     });
 
-    // CPU 实现的点积
+    // CPU 实现的点积（分块优化）
     this.kernels.set('dotProduct', (query: number[], vectors: number[][], dim: number) => {
-      return vectors.map((vec) => {
-        let dot = 0;
-        for (let i = 0; i < dim; i++) {
-          dot += query[i] * vec[i];
+      const results: number[] = new Array(vectors.length);
+      
+      if (this.enableChunking && vectors.length > this.chunkSize) {
+        for (let start = 0; start < vectors.length; start += this.chunkSize) {
+          const end = Math.min(start + this.chunkSize, vectors.length);
+          for (let i = start; i < end; i++) {
+            const vec = vectors[i];
+            let dot = 0;
+            for (let j = 0; j < dim; j++) {
+              dot += query[j] * vec[j];
+            }
+            results[i] = dot;
+          }
         }
-        return dot;
-      });
+      } else {
+        for (let i = 0; i < vectors.length; i++) {
+          const vec = vectors[i];
+          let dot = 0;
+          for (let j = 0; j < dim; j++) {
+            dot += query[j] * vec[j];
+          }
+          results[i] = dot;
+        }
+      }
+      
+      return results;
     });
   }
 
@@ -266,10 +343,12 @@ export class GPUAccelerator {
   /**
    * 获取 GPU 信息
    */
-  getInfo(): { mode: string; available: boolean } {
+  getInfo(): { mode: string; available: boolean; chunkSize: number; chunking: boolean } {
     return {
       mode: this.useCPU ? 'cpu' : 'gpu',
       available: gpuAvailable && !this.useCPU,
+      chunkSize: this.chunkSize,
+      chunking: this.enableChunking,
     };
   }
 }
