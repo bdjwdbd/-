@@ -6,6 +6,9 @@
 #include <napi.h>
 #include <cmath>
 #include <vector>
+#include <queue>
+#include <functional>
+#include <algorithm>
 #include <immintrin.h>
 
 namespace yuanling {
@@ -250,9 +253,6 @@ Napi::Value EuclideanDistance(const Napi::CallbackInfo& info) {
 // ============================================================
 // Top-K 搜索（使用堆选择，避免全排序）
 // ============================================================
-
-#include <queue>
-#include <functional>
 
 Napi::Value TopKSearch(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
