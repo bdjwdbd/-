@@ -3,9 +3,11 @@
  * 
  * 使用 gpu.js 实现 WebGL 加速的向量计算
  * 无需 CUDA，在浏览器和 Node.js 中均可使用
+ * 
+ * 注意：在无 WebGL 环境时自动降级到 CPU 实现
  */
 
-import { GPU } from 'gpu.js';
+import type { GPU as GPUType } from 'gpu.js';
 
 // ============================================================
 // 类型定义
@@ -22,68 +24,152 @@ export interface GPUSearchResult {
 }
 
 // ============================================================
+// GPU 可用性检测
+// ============================================================
+
+let GPU: typeof GPUType | null = null;
+let gpuAvailable = false;
+
+try {
+  GPU = require('gpu.js').GPU;
+  gpuAvailable = true;
+} catch (e) {
+  // WebGL 不可用，将使用 CPU 降级模式
+  gpuAvailable = false;
+}
+
+// ============================================================
 // GPU 加速器
 // ============================================================
 
 export class GPUAccelerator {
-  private gpu: GPU;
+  private gpu: GPUType | null = null;
   private config: GPUConfig;
   private kernels: Map<string, Function> = new Map();
+  private useCPU: boolean = false;
 
   constructor(config: GPUConfig = {}) {
     this.config = { mode: 'gpu', precision: 'single', ...config };
-    this.gpu = new GPU({ mode: this.config.mode });
+    
+    if (gpuAvailable && GPU && this.config.mode === 'gpu') {
+      try {
+        this.gpu = new GPU({ mode: 'gpu' });
+      } catch (e) {
+        // GPU 初始化失败，降级到 CPU
+        this.useCPU = true;
+        this.gpu = null;
+      }
+    } else {
+      this.useCPU = true;
+    }
   }
 
   /**
    * 初始化内核
    */
   initialize(): void {
-    // 余弦相似度内核
-    this.kernels.set('cosineSimilarity', this.gpu.createKernel(function(
-      query: number[],
-      vectors: number[][],
-      dim: number
-    ): number {
-      let dot = 0;
-      let normQ = 0;
-      let normV = 0;
-      
-      for (let i = 0; i < dim; i++) {
-        dot += query[i] * vectors[this.thread.x][i];
-        normQ += query[i] * query[i];
-        normV += vectors[this.thread.x][i] * vectors[this.thread.x][i];
-      }
-      
-      return dot / (Math.sqrt(normQ) * Math.sqrt(normV));
-    }).setOutput([1000]));
+    if (this.useCPU || !this.gpu) {
+      // CPU 降级模式：使用纯 JS 实现
+      this.initializeCPUKernels();
+      return;
+    }
 
-    // 欧氏距离内核
-    this.kernels.set('euclideanDistance', this.gpu.createKernel(function(
-      query: number[],
-      vectors: number[][],
-      dim: number
-    ): number {
-      let sum = 0;
-      for (let i = 0; i < dim; i++) {
-        const diff = query[i] - vectors[this.thread.x][i];
-        sum += diff * diff;
-      }
-      return Math.sqrt(sum);
-    }).setOutput([1000]));
+    try {
+      // GPU 模式：使用 gpu.js 内核
+      // 余弦相似度内核
+      this.kernels.set('cosineSimilarity', this.gpu.createKernel(function(
+        query: number[],
+        vectors: number[][],
+        dim: number
+      ): number {
+        let dot = 0;
+        let normQ = 0;
+        let normV = 0;
+        
+        for (let i = 0; i < dim; i++) {
+          dot += query[i] * vectors[this.thread.x][i];
+          normQ += query[i] * query[i];
+          normV += vectors[this.thread.x][i] * vectors[this.thread.x][i];
+        }
+        
+        return dot / (Math.sqrt(normQ) * Math.sqrt(normV));
+      }).setOutput([1000]));
 
-    // 点积内核
-    this.kernels.set('dotProduct', this.gpu.createKernel(function(
-      query: number[],
-      vectors: number[][],
-      dim: number
-    ): number {
-      let dot = 0;
-      for (let i = 0; i < dim; i++) {
-        dot += query[i] * vectors[this.thread.x][i];
-      }
-      return dot;
-    }).setOutput([1000]));
+      // 欧氏距离内核
+      this.kernels.set('euclideanDistance', this.gpu.createKernel(function(
+        query: number[],
+        vectors: number[][],
+        dim: number
+      ): number {
+        let sum = 0;
+        for (let i = 0; i < dim; i++) {
+          const diff = query[i] - vectors[this.thread.x][i];
+          sum += diff * diff;
+        }
+        return Math.sqrt(sum);
+      }).setOutput([1000]));
+
+      // 点积内核
+      this.kernels.set('dotProduct', this.gpu.createKernel(function(
+        query: number[],
+        vectors: number[][],
+        dim: number
+      ): number {
+        let dot = 0;
+        for (let i = 0; i < dim; i++) {
+          dot += query[i] * vectors[this.thread.x][i];
+        }
+        return dot;
+      }).setOutput([1000]));
+    } catch (e) {
+      // GPU 内核创建失败，降级到 CPU
+      this.useCPU = true;
+      this.gpu = null;
+      this.initializeCPUKernels();
+    }
+  }
+
+  /**
+   * 初始化 CPU 内核（降级模式）
+   */
+  private initializeCPUKernels(): void {
+    // CPU 实现的余弦相似度
+    this.kernels.set('cosineSimilarity', (query: number[], vectors: number[][], dim: number) => {
+      return vectors.map((vec) => {
+        let dot = 0;
+        let normQ = 0;
+        let normV = 0;
+        for (let i = 0; i < dim; i++) {
+          dot += query[i] * vec[i];
+          normQ += query[i] * query[i];
+          normV += vec[i] * vec[i];
+        }
+        return dot / (Math.sqrt(normQ) * Math.sqrt(normV));
+      });
+    });
+
+    // CPU 实现的欧氏距离
+    this.kernels.set('euclideanDistance', (query: number[], vectors: number[][], dim: number) => {
+      return vectors.map((vec) => {
+        let sum = 0;
+        for (let i = 0; i < dim; i++) {
+          const diff = query[i] - vec[i];
+          sum += diff * diff;
+        }
+        return Math.sqrt(sum);
+      });
+    });
+
+    // CPU 实现的点积
+    this.kernels.set('dotProduct', (query: number[], vectors: number[][], dim: number) => {
+      return vectors.map((vec) => {
+        let dot = 0;
+        for (let i = 0; i < dim; i++) {
+          dot += query[i] * vec[i];
+        }
+        return dot;
+      });
+    });
   }
 
   /**
@@ -98,9 +184,13 @@ export class GPUAccelerator {
       throw new Error('Kernel not initialized');
     }
     
-    // 调整输出大小
-    (kernel as any).setOutput([vectors.length]);
+    if (this.useCPU) {
+      // CPU 模式：直接调用
+      return (kernel as any)(query, vectors, query.length);
+    }
     
+    // GPU 模式：调整输出大小
+    (kernel as any).setOutput([vectors.length]);
     return kernel(query, vectors, query.length) as number[];
   }
 
@@ -116,8 +206,11 @@ export class GPUAccelerator {
       throw new Error('Kernel not initialized');
     }
     
-    (kernel as any).setOutput([vectors.length]);
+    if (this.useCPU) {
+      return (kernel as any)(query, vectors, query.length);
+    }
     
+    (kernel as any).setOutput([vectors.length]);
     return kernel(query, vectors, query.length) as number[];
   }
 
@@ -133,8 +226,11 @@ export class GPUAccelerator {
       throw new Error('Kernel not initialized');
     }
     
-    (kernel as any).setOutput([vectors.length]);
+    if (this.useCPU) {
+      return (kernel as any)(query, vectors, query.length);
+    }
     
+    (kernel as any).setOutput([vectors.length]);
     return kernel(query, vectors, query.length) as number[];
   }
 
@@ -161,7 +257,10 @@ export class GPUAccelerator {
    * 释放资源
    */
   destroy(): void {
-    this.gpu.destroy();
+    if (this.gpu) {
+      this.gpu.destroy();
+    }
+    this.kernels.clear();
   }
 
   /**
@@ -169,8 +268,8 @@ export class GPUAccelerator {
    */
   getInfo(): { mode: string; available: boolean } {
     return {
-      mode: this.config.mode || 'gpu',
-      available: true,
+      mode: this.useCPU ? 'cpu' : 'gpu',
+      available: gpuAvailable && !this.useCPU,
     };
   }
 }
