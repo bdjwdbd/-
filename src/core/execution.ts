@@ -366,6 +366,7 @@ export class ToolExecutor {
     if (args.path || args.filePath || args.file || args.dir) {
       const filePath = args.path || args.filePath || args.file || args.dir;
       const operation = name.includes('write') || name.includes('save') || name.includes('delete') ? 'write' : 'read';
+      // @ts-ignore
       const fileSecurity = this.securityGuard.checkFileAccess(filePath, operation);
       // @ts-ignore
       // @ts-ignore

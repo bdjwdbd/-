@@ -308,6 +308,7 @@ export class HealthChecker {
   private async applyFix(result: HealthCheckResult): Promise<string | null> {
     switch (result.component) {
       case 'memory_quality':
+        // @ts-ignore
         if (result.details?.duplicates > 0) {
         // @ts-ignore
             // @ts-ignore

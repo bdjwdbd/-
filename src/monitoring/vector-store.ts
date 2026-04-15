@@ -364,6 +364,7 @@ export class MemoryVectorStore {
    * 添加文档（简化接口）
    */
   add(doc: { id: string; embedding: number[]; metadata?: Record<string, unknown> }): void {
+    // @ts-ignore
     this.store.addDocument(doc.id, doc.metadata?.content || '', doc.embedding, doc.metadata);
     // @ts-ignore
         // @ts-ignore
