@@ -661,6 +661,25 @@ export {
   type EngineCapabilities,
 } from './unified-vector-engine';
 
+// INT8 量化器
+export {
+  Int8Quantizer,
+  createQuantizedIndex,
+  quantizeVector,
+  type QuantizedVector,
+  type QuantizedIndex,
+} from './int8-quantizer';
+
+// 超级向量引擎（时刻超越 AVX-512）
+export {
+  SuperVectorEngine,
+  getSuperVectorEngine,
+  initSuperVectorEngine,
+  type SuperEngineLevel,
+  type SuperEngineConfig,
+  type SuperEngineCapabilities,
+} from './super-vector-engine';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
