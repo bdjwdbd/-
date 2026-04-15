@@ -679,6 +679,33 @@ export {
   type Int4Index,
 } from './int4-quantizer';
 
+// 内存优化索引
+export {
+  MemoryOptimizedIndexBuilder,
+  createMemoryOptimizedIndex,
+  batchCosineSimilarity,
+  type MemoryOptimizedConfig,
+  type MemoryOptimizedIndex,
+} from './memory-optimized-index';
+
+// 批量搜索引擎
+export {
+  BatchSearchEngine,
+  getBatchSearchEngine,
+  initBatchSearchEngine,
+  type BatchSearchResult,
+  type BatchSearchConfig,
+} from './batch-search-engine';
+
+// 工作窃取线程池
+export {
+  WorkStealingPool,
+  getWorkStealingPool,
+  type Task as WorkStealingTask,
+  type TaskResult,
+  type WorkStealingConfig,
+} from './work-stealing-pool';
+
 // 超级向量引擎（时刻超越 AVX-512）
 export {
   SuperVectorEngine,
@@ -698,6 +725,16 @@ export {
   type ProEngineConfig,
   type ProEngineCapabilities,
 } from './super-vector-engine-pro';
+
+// 超级向量引擎 Pro Max（全面优化）
+export {
+  SuperVectorEngineProMax,
+  getSuperVectorEngineProMax,
+  initSuperVectorEngineProMax,
+  type ProMaxEngineLevel,
+  type ProMaxEngineConfig,
+  type ProMaxEngineCapabilities,
+} from './super-vector-engine-pro-max';
 
 // 完整性验证和原生模块加载
 export {
