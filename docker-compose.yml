@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  yuanling:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yuanling-api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - EMBEDDING_API_KEY=${EMBEDDING_API_KEY}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+        reservations:
+          cpus: '2'
+          memory: 2G
+
+  # 可选: Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: yuanling-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  redis-data:
