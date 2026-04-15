@@ -618,6 +618,29 @@ export {
   type WebGPUBuffer,
 } from './webgpu-engine';
 
+// 分布式搜索
+export {
+  DistributedSearchEngine as P3DistributedSearchEngine,
+  ShardManager as P3ShardManager,
+  LocalShard as P3LocalShard,
+  createDistributedSearchEngine,
+  type ShardConfig as P3ShardConfig,
+  type DistributedSearchConfig as P3DistributedSearchConfig,
+  type DistributedSearchResult as P3DistributedSearchResult,
+  type SearchRequest as P3SearchRequest,
+  type SearchResponse as P3SearchResponse,
+} from './distributed-search-engine';
+
+// HNSW 自动调参
+export {
+  HNSWAutoTuner,
+  createHNSWAutoTuner,
+  type HNSWTuningParams,
+  type TuningConfig,
+  type TuningResult,
+  type BenchmarkResult,
+} from './hnsw-auto-tuner';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
