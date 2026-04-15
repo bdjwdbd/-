@@ -670,6 +670,15 @@ export {
   type QuantizedIndex,
 } from './int8-quantizer';
 
+// INT4 量化器
+export {
+  Int4Quantizer,
+  createInt4Index,
+  quantizeToInt4,
+  type Int4Vector,
+  type Int4Index,
+} from './int4-quantizer';
+
 // 超级向量引擎（时刻超越 AVX-512）
 export {
   SuperVectorEngine,
@@ -679,6 +688,16 @@ export {
   type SuperEngineConfig,
   type SuperEngineCapabilities,
 } from './super-vector-engine';
+
+// 超级向量引擎 Pro（达到硬件上限）
+export {
+  SuperVectorEnginePro,
+  getSuperVectorEnginePro,
+  initSuperVectorEnginePro,
+  type ProEngineLevel,
+  type ProEngineConfig,
+  type ProEngineCapabilities,
+} from './super-vector-engine-pro';
 
 // 完整性验证和原生模块加载
 export {
