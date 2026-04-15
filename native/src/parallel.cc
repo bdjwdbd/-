@@ -220,6 +220,9 @@ Napi::Value TopKSearchParallel(const Napi::CallbackInfo& info) {
     Napi::Float32Array scores = Napi::Float32Array::New(env, k);
     Napi::Uint32Array indices = Napi::Uint32Array::New(env, k);
     
+    // 创建临时 size_t 数组
+    std::vector<size_t> indicesTemp(k);
+    
     topKSearchParallel(
         query.Data(),
         vectors.Data(),
@@ -227,8 +230,13 @@ Napi::Value TopKSearchParallel(const Napi::CallbackInfo& info) {
         dim,
         k,
         scores.Data(),
-        indices.Data()
+        indicesTemp.data()
     );
+    
+    // 复制到 Uint32Array
+    for (size_t i = 0; i < k; i++) {
+        indices[i] = static_cast<uint32_t>(indicesTemp[i]);
+    }
     
     Napi::Object result = Napi::Object::New(env);
     result.Set("scores", scores);
@@ -255,19 +263,19 @@ Napi::Value SetThreadCount(const Napi::CallbackInfo& info) {
     return env.Undefined();
 }
 
-// ============================================================
-// 模块初始化
-// ============================================================
-
-Napi::Object Init(Napi::Env env, Napi::Object exports) {
-    exports.Set("cosineSimilarityBatchParallel", Napi::Function::New(env, CosineSimilarityBatchParallel));
-    exports.Set("topKSearchParallel", Napi::Function::New(env, TopKSearchParallel));
-    exports.Set("getThreadCount", Napi::Function::New(env, GetThreadCount));
-    exports.Set("setThreadCount", Napi::Function::New(env, SetThreadCount));
-    return exports;
-}
-
 }  // namespace parallel
 }  // namespace yuanling
 
-NODE_API_MODULE(parallel, yuanling::parallel::Init)
+// ============================================================
+// 模块初始化（必须在命名空间外）
+// ============================================================
+
+Napi::Object InitParallelModule(Napi::Env env, Napi::Object exports) {
+    exports.Set("cosineSimilarityBatchParallel", Napi::Function::New(env, yuanling::parallel::CosineSimilarityBatchParallel));
+    exports.Set("topKSearchParallel", Napi::Function::New(env, yuanling::parallel::TopKSearchParallel));
+    exports.Set("getThreadCount", Napi::Function::New(env, yuanling::parallel::GetThreadCount));
+    exports.Set("setThreadCount", Napi::Function::New(env, yuanling::parallel::SetThreadCount));
+    return exports;
+}
+
+NODE_API_MODULE(parallel, InitParallelModule)
