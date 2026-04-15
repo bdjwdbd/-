@@ -1,102 +1,135 @@
 /**
  * 向量计算 Worker
  * 
- * 在独立线程中执行向量计算任务
+ * 在 Worker 线程中执行向量运算
  */
 
-import { parentPort, workerData } from 'worker_threads';
+import { parentPort } from 'worker_threads';
 
 // ============================================================
-// 向量计算函数
+// 类型定义
 // ============================================================
 
-function cosineSimilarity(query: number[], vec: number[]): number {
-  let dot = 0;
-  let normQ = 0;
-  let normV = 0;
-  
-  for (let i = 0; i < query.length; i++) {
-    dot += query[i] * vec[i];
-    normQ += query[i] * query[i];
-    normV += vec[i] * vec[i];
-  }
-  
-  return dot / (Math.sqrt(normQ) * Math.sqrt(normV));
+interface VectorTask {
+  type: 'cosineSimilarity' | 'euclideanDistance' | 'dotProduct' | 'batchSearch';
+  data: {
+    a?: number[];
+    b?: number[];
+    query?: number[];
+    vectors?: number[][];
+    k?: number;
+  };
 }
 
-function euclideanDistance(query: number[], vec: number[]): number {
+interface VectorResult {
+  type: string;
+  result: number | number[] | Array<{ index: number; score: number }>;
+}
+
+// ============================================================
+// 向量运算函数
+// ============================================================
+
+function cosineSimilarity(a: number[], b: number[]): number {
+  let dot = 0;
+  let normA = 0;
+  let normB = 0;
+  const len = Math.min(a.length, b.length);
+
+  for (let i = 0; i < len; i++) {
+    dot += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+
+  const denom = Math.sqrt(normA) * Math.sqrt(normB);
+  return denom === 0 ? 0 : dot / denom;
+}
+
+function euclideanDistance(a: number[], b: number[]): number {
   let sum = 0;
-  for (let i = 0; i < query.length; i++) {
-    const diff = query[i] - vec[i];
+  const len = Math.min(a.length, b.length);
+
+  for (let i = 0; i < len; i++) {
+    const diff = a[i] - b[i];
     sum += diff * diff;
   }
+
   return Math.sqrt(sum);
 }
 
-function dotProduct(query: number[], vec: number[]): number {
-  let dot = 0;
-  for (let i = 0; i < query.length; i++) {
-    dot += query[i] * vec[i];
+function dotProduct(a: number[], b: number[]): number {
+  let sum = 0;
+  const len = Math.min(a.length, b.length);
+
+  for (let i = 0; i < len; i++) {
+    sum += a[i] * b[i];
   }
-  return dot;
+
+  return sum;
+}
+
+function batchSearch(
+  query: number[],
+  vectors: number[][],
+  k: number
+): Array<{ index: number; score: number }> {
+  const results: Array<{ index: number; score: number }> = [];
+
+  for (let i = 0; i < vectors.length; i++) {
+    const score = cosineSimilarity(query, vectors[i]);
+    results.push({ index: i, score });
+  }
+
+  // 排序并返回 Top-K
+  results.sort((a, b) => b.score - a.score);
+  return results.slice(0, k);
 }
 
 // ============================================================
-// Worker 消息处理
+// 消息处理
 // ============================================================
 
-parentPort?.on('message', (msg: any) => {
-  if (msg.type === 'execute') {
-    const { taskId, taskType, data } = msg;
-    
-    try {
-      let result: any;
-      
-      if (taskType === 'search') {
-        const { query, vectors, operation, startIdx } = data;
-        const scores: number[] = [];
-        const indices: number[] = [];
-        
-        for (let i = 0; i < vectors.length; i++) {
-          let score: number;
-          
-          switch (operation) {
-            case 'cosine':
-              score = cosineSimilarity(query, vectors[i]);
-              break;
-            case 'euclidean':
-              score = euclideanDistance(query, vectors[i]);
-              break;
-            case 'dot':
-              score = dotProduct(query, vectors[i]);
-              break;
-            default:
-              throw new Error(`Unknown operation: ${operation}`);
-          }
-          
-          scores.push(score);
-          indices.push(startIdx + i);
-        }
-        
-        result = { scores, indices };
-      } else {
-        throw new Error(`Unknown task type: ${taskType}`);
-      }
-      
-      parentPort?.postMessage({
-        type: 'result',
-        taskId,
-        result,
-      });
-    } catch (err: any) {
-      parentPort?.postMessage({
-        type: 'error',
-        taskId,
-        error: err.message,
-      });
-    }
-  }
-});
+if (parentPort) {
+  parentPort.on('message', (task: VectorTask) => {
+    let result: VectorResult;
 
-// 通知主线程 Worker 已就绪
-parentPort?.postMessage({ type: 'ready' });
+    switch (task.type) {
+      case 'cosineSimilarity':
+        result = {
+          type: task.type,
+          result: cosineSimilarity(task.data.a!, task.data.b!),
+        };
+        break;
+
+      case 'euclideanDistance':
+        result = {
+          type: task.type,
+          result: euclideanDistance(task.data.a!, task.data.b!),
+        };
+        break;
+
+      case 'dotProduct':
+        result = {
+          type: task.type,
+          result: dotProduct(task.data.a!, task.data.b!),
+        };
+        break;
+
+      case 'batchSearch':
+        result = {
+          type: task.type,
+          result: batchSearch(task.data.query!, task.data.vectors!, task.data.k!),
+        };
+        break;
+
+      default:
+        throw new Error(`未知任务类型: ${(task as any).type}`);
+    }
+
+    parentPort!.postMessage(result);
+  });
+}
+
+// 导出（用于测试）
+export { cosineSimilarity, euclideanDistance, dotProduct, batchSearch };

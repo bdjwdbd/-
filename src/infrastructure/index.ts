@@ -587,6 +587,18 @@ export {
   type SearchEngine,
 } from './query-result-cache';
 
+// 线程池
+export {
+  ThreadPool,
+  createVectorThreadPool,
+  getThreadPool,
+  executeInPool,
+  type ThreadPoolConfig,
+  type Task,
+  type WorkerInfo,
+  type ThreadPoolStats,
+} from './thread-pool';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,

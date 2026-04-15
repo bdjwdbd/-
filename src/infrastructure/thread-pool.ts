@@ -1,39 +1,81 @@
 /**
- * @file thread-pool.ts
- * @brief 高性能线程池
+ * 线程池 - 复用 Worker 线程
  * 
- * 功能：
- * 1. 复用 Worker 线程，避免创建开销
- * 2. 工作窃取调度
- * 3. 动态负载均衡
+ * 职责：
+ * - 复用 Worker 线程，减少创建开销
+ * - 动态扩容/缩容
+ * - 任务队列管理
+ * - 负载均衡
  */
 
-import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
+import { Worker } from 'worker_threads';
 import * as path from 'path';
+import * as os from 'os';
 
 // ============================================================
 // 类型定义
 // ============================================================
 
-export interface Task<T = any, R = any> {
-    id: string;
-    type: string;
-    data: T;
-    resolve: (result: R) => void;
-    reject: (error: Error) => void;
+export interface ThreadPoolConfig {
+  /** 最小线程数 */
+  minThreads: number;
+  /** 最大线程数 */
+  maxThreads: number;
+  /** 任务超时时间（毫秒） */
+  taskTimeout: number;
+  /** 空闲超时时间（毫秒） */
+  idleTimeout: number;
+  /** Worker 脚本路径 */
+  workerScript?: string;
 }
 
-export interface ThreadPoolOptions {
-    minWorkers?: number;
-    maxWorkers?: number;
-    idleTimeout?: number;
+export interface Task<T = unknown, R = unknown> {
+  /** 任务 ID */
+  id: string;
+  /** 任务数据 */
+  data: T;
+  /** 提交时间 */
+  submittedAt: number;
+  /** 开始时间 */
+  startedAt?: number;
+  /** 完成时间 */
+  completedAt?: number;
+  /** 解决回调 */
+  resolve: (result: R) => void;
+  /** 拒绝回调 */
+  reject: (error: Error) => void;
 }
 
 export interface WorkerInfo {
-    worker: Worker;
-    busy: boolean;
-    taskCount: number;
-    lastUsed: number;
+  /** Worker 实例 */
+  worker: Worker;
+  /** Worker ID */
+  id: number;
+  /** 是否忙碌 */
+  busy: boolean;
+  /** 当前任务 */
+  currentTask?: Task;
+  /** 完成的任务数 */
+  completedTasks: number;
+  /** 创建时间 */
+  createdAt: number;
+  /** 最后活跃时间 */
+  lastActiveAt: number;
+}
+
+export interface ThreadPoolStats {
+  /** 总线程数 */
+  totalThreads: number;
+  /** 活跃线程数 */
+  activeThreads: number;
+  /** 空闲线程数 */
+  idleThreads: number;
+  /** 等待中的任务数 */
+  pendingTasks: number;
+  /** 已完成任务数 */
+  completedTasks: number;
+  /** 平均任务耗时 */
+  avgTaskDuration: number;
 }
 
 // ============================================================
@@ -41,297 +83,385 @@ export interface WorkerInfo {
 // ============================================================
 
 export class ThreadPool {
-    private workers: WorkerInfo[] = [];
-    private taskQueue: Task[] = [];
-    private minWorkers: number;
-    private maxWorkers: number;
-    private idleTimeout: number;
-    private taskIdCounter = 0;
-    private workerPath: string;
+  private config: Required<ThreadPoolConfig>;
+  private workers: Map<number, WorkerInfo> = new Map();
+  private taskQueue: Task[] = [];
+  private taskIdCounter: number = 0;
+  private workerIdCounter: number = 0;
+  private completedTasks: number = 0;
+  private totalTaskDuration: number = 0;
+  private running: boolean = false;
+  private shrinkTimer?: NodeJS.Timeout;
 
-    constructor(workerPath: string, options: ThreadPoolOptions = {}) {
-        this.workerPath = workerPath;
-        this.minWorkers = options.minWorkers || 2;
-        this.maxWorkers = options.maxWorkers || 8;
-        this.idleTimeout = options.idleTimeout || 30000;
+  constructor(config: Partial<ThreadPoolConfig> = {}) {
+    this.config = {
+      minThreads: config.minThreads ?? Math.max(1, Math.floor(os.cpus().length / 2)),
+      maxThreads: config.maxThreads ?? os.cpus().length,
+      taskTimeout: config.taskTimeout ?? 30000,
+      idleTimeout: config.idleTimeout ?? 60000,
+      workerScript: config.workerScript ?? path.join(__dirname, 'vector-worker.js'),
+    };
 
-        // 初始化最小数量的 Worker
-        for (let i = 0; i < this.minWorkers; i++) {
-            this.createWorker();
-        }
+    this.running = true;
+    this.initialize();
+  }
+
+  /**
+   * 初始化线程池
+   */
+  private initialize(): void {
+    for (let i = 0; i < this.config.minThreads; i++) {
+      this.createWorker();
     }
 
-    /**
-     * 创建新 Worker
-     */
-    private createWorker(): WorkerInfo {
-        const worker = new Worker(this.workerPath);
-        const info: WorkerInfo = {
-            worker,
-            busy: false,
-            taskCount: 0,
-            lastUsed: Date.now()
-        };
+    // 启动缩容定时器
+    this.startShrinkTimer();
 
-        worker.on('message', (result: any) => {
-            this.handleWorkerMessage(info, result);
-        });
+    console.log(`[ThreadPool] 初始化完成，线程数: ${this.workers.size}`);
+  }
 
-        worker.on('error', (error: Error) => {
-            this.handleWorkerError(info, error);
-        });
+  /**
+   * 创建 Worker
+   */
+  private createWorker(): WorkerInfo | null {
+    if (!this.running) return null;
 
-        worker.on('exit', (code: number) => {
-            this.handleWorkerExit(info, code);
-        });
+    const workerId = this.workerIdCounter++;
+    let worker: Worker;
 
-        this.workers.push(info);
-        return info;
+    try {
+      worker = new Worker(this.config.workerScript);
+    } catch (error) {
+      console.error(`[ThreadPool] 创建 Worker 失败:`, error);
+      return null;
     }
 
-    /**
-     * 提交任务
-     */
-    submit<T, R>(type: string, data: T): Promise<R> {
-        return new Promise((resolve, reject) => {
-            const task: Task<T, R> = {
-                id: `task_${++this.taskIdCounter}`,
-                type,
-                data,
-                resolve: resolve as any,
-                reject
-            };
+    const info: WorkerInfo = {
+      worker,
+      id: workerId,
+      busy: false,
+      completedTasks: 0,
+      createdAt: Date.now(),
+      lastActiveAt: Date.now(),
+    };
 
-            // 尝试分配给空闲 Worker
-            const idleWorker = this.findIdleWorker();
-            if (idleWorker) {
-                this.assignTask(idleWorker, task);
-            } else if (this.workers.length < this.maxWorkers) {
-                // 创建新 Worker
-                const newWorker = this.createWorker();
-                this.assignTask(newWorker, task);
-            } else {
-                // 加入队列等待
-                this.taskQueue.push(task as any);
-            }
-        });
-    }
-
-    /**
-     * 查找空闲 Worker
-     */
-    private findIdleWorker(): WorkerInfo | null {
-        // 优先选择任务数最少的 Worker
-        let minTasks = Infinity;
-        let selected: WorkerInfo | null = null;
-
-        for (const info of this.workers) {
-            if (!info.busy && info.taskCount < minTasks) {
-                minTasks = info.taskCount;
-                selected = info;
-            }
-        }
-
-        return selected;
-    }
-
-    /**
-     * 分配任务给 Worker
-     */
-    private assignTask(worker: WorkerInfo, task: Task): void {
-        worker.busy = true;
-        worker.taskCount++;
-        worker.lastUsed = Date.now();
-
-        worker.worker.postMessage({
-            taskId: task.id,
-            type: task.type,
-            data: task.data
-        });
-    }
-
-    /**
-     * 处理 Worker 消息
-     */
-    private handleWorkerMessage(worker: WorkerInfo, result: any): void {
-        worker.busy = false;
-
-        // 处理下一个任务
-        if (this.taskQueue.length > 0) {
-            const nextTask = this.taskQueue.shift()!;
-            this.assignTask(worker, nextTask);
-        }
-    }
-
-    /**
-     * 处理 Worker 错误
-     */
-    private handleWorkerError(worker: WorkerInfo, error: Error): void {
-        console.error('Worker error:', error);
-        worker.busy = false;
-
-        // 重启 Worker
-        const index = this.workers.indexOf(worker);
-        if (index !== -1) {
-            this.workers.splice(index, 1);
-            if (this.workers.length < this.minWorkers) {
-                this.createWorker();
-            }
-        }
-    }
-
-    /**
-     * 处理 Worker 退出
-     */
-    private handleWorkerExit(worker: WorkerInfo, code: number): void {
-        const index = this.workers.indexOf(worker);
-        if (index !== -1) {
-            this.workers.splice(index, 1);
-        }
-    }
-
-    /**
-     * 关闭线程池
-     */
-    async shutdown(): Promise<void> {
-        const promises = this.workers.map(info => info.worker.terminate());
-        await Promise.all(promises);
-        this.workers = [];
-        this.taskQueue = [];
-    }
-
-    /**
-     * 获取统计信息
-     */
-    getStats(): {
-        totalWorkers: number;
-        busyWorkers: number;
-        queuedTasks: number;
-    } {
-        return {
-            totalWorkers: this.workers.length,
-            busyWorkers: this.workers.filter(w => w.busy).length,
-            queuedTasks: this.taskQueue.length
-        };
-    }
-}
-
-// ============================================================
-// 向量搜索线程池
-// ============================================================
-
-export class VectorSearchPool {
-    private pool: ThreadPool;
-    private native: any;
-
-    constructor(options: ThreadPoolOptions = {}) {
-        // 使用当前文件作为 Worker
-        this.pool = new ThreadPool(__filename, options);
-
-        // 主线程加载原生模块
-        try {
-            this.native = require(path.join(__dirname, '../../native/build/Release/yuanling_native.node'));
-        } catch (e) {
-            console.warn('Native module not available');
-        }
-    }
-
-    /**
-     * 并行搜索
-     */
-    async search(
-        query: Float32Array,
-        vectors: Float32Array,
-        dim: number,
-        k: number,
-        numChunks?: number
-    ): Promise<Array<{ index: number; score: number }>> {
-        const numVectors = vectors.length / dim;
-        const chunks = numChunks || Math.min(8, Math.ceil(numVectors / 10000));
-        const chunkSize = Math.ceil(numVectors / chunks);
-
-        const promises: Promise<Array<{ index: number; score: number }>>[] = [];
-
-        for (let i = 0; i < chunks; i++) {
-            const start = i * chunkSize;
-            const end = Math.min(start + chunkSize, numVectors);
-
-            if (start >= numVectors) break;
-
-            const chunkVectors = vectors.slice(start * dim, end * dim);
-            const startIdx = start;
-
-            promises.push(
-                this.pool.submit('search', {
-                    query: Array.from(query),
-                    vectors: Array.from(chunkVectors),
-                    dim,
-                    k,
-                    startIdx
-                })
-            );
-        }
-
-        const results = await Promise.all(promises);
-        const allResults = results.flat();
-
-        // 合并并取 Top-K
-        allResults.sort((a: any, b: any) => b.score - a.score);
-        return allResults.slice(0, k);
-    }
-
-    /**
-     * 关闭
-     */
-    async shutdown(): Promise<void> {
-        await this.pool.shutdown();
-    }
-}
-
-// ============================================================
-// Worker 线程代码
-// ============================================================
-
-if (!isMainThread && parentPort) {
-    const native = require(path.join(__dirname, '../../native/build/Release/yuanling_native.node'));
-
-    parentPort.on('message', (msg: { taskId: string; type: string; data: any }) => {
-        const { taskId, type, data } = msg;
-
-        try {
-            let result: any;
-
-            switch (type) {
-                case 'search': {
-                    const { query, vectors, dim, k, startIdx } = data;
-                    const queryArr = new Float32Array(query);
-                    const vectorsArr = new Float32Array(vectors);
-
-                    // 使用原生模块搜索
-                    const scores = native.cosineSimilarityBatchContiguous(queryArr, vectorsArr, dim);
-
-                    // 取 Top-K
-                    const indexed = Array.from(scores as Float32Array).map((score: number, i: number) => ({
-                        index: startIdx + i,
-                        score
-                    }));
-                    indexed.sort((a: { index: number; score: number }, b: { index: number; score: number }) => b.score - a.score);
-                    result = indexed.slice(0, k);
-                    break;
-                }
-                default:
-                    throw new Error(`Unknown task type: ${type}`);
-            }
-
-            parentPort!.postMessage({ taskId, result, success: true });
-        } catch (error: any) {
-            parentPort!.postMessage({ taskId, error: error.message, success: false });
-        }
+    // 监听消息
+    worker.on('message', (result) => {
+      this.handleWorkerMessage(info, result);
     });
+
+    // 监听错误
+    worker.on('error', (error) => {
+      console.error(`[ThreadPool] Worker ${workerId} 错误:`, error);
+      this.handleWorkerError(info, error);
+    });
+
+    // 监听退出
+    worker.on('exit', (code) => {
+      if (code !== 0) {
+        console.error(`[ThreadPool] Worker ${workerId} 异常退出: code=${code}`);
+      }
+      this.removeWorker(info);
+    });
+
+    this.workers.set(workerId, info);
+    return info;
+  }
+
+  /**
+   * 移除 Worker
+   */
+  private removeWorker(info: WorkerInfo): void {
+    this.workers.delete(info.id);
+
+    // 如果低于最小线程数，创建新的
+    if (this.running && this.workers.size < this.config.minThreads) {
+      this.createWorker();
+    }
+  }
+
+  /**
+   * 处理 Worker 消息
+   */
+  private handleWorkerMessage(info: WorkerInfo, result: any): void {
+    const task = info.currentTask;
+
+    if (!task) {
+      console.warn(`[ThreadPool] Worker ${info.id} 收到消息但没有任务`);
+      return;
+    }
+
+    // 更新统计
+    info.busy = false;
+    info.currentTask = undefined;
+    info.completedTasks++;
+    info.lastActiveAt = Date.now();
+
+    this.completedTasks++;
+    this.totalTaskDuration += Date.now() - (task.startedAt ?? task.submittedAt);
+
+    // 完成任务
+    task.completedAt = Date.now();
+    task.resolve(result);
+
+    // 处理下一个任务
+    this.processQueue();
+  }
+
+  /**
+   * 处理 Worker 错误
+   */
+  private handleWorkerError(info: WorkerInfo, error: unknown): void {
+    const task = info.currentTask;
+
+    if (task) {
+      info.busy = false;
+      info.currentTask = undefined;
+      task.reject(error instanceof Error ? error : new Error(String(error)));
+    }
+
+    // 尝试重建 Worker
+    this.removeWorker(info);
+    if (this.running) {
+      this.createWorker();
+    }
+  }
+
+  /**
+   * 执行任务
+   */
+  async execute<T = unknown, R = unknown>(data: T): Promise<R> {
+    if (!this.running) {
+      throw new Error('线程池已关闭');
+    }
+
+    return new Promise<R>((resolve, reject) => {
+      const task: Task = {
+        id: `task-${this.taskIdCounter++}`,
+        data,
+        submittedAt: Date.now(),
+        resolve: resolve as (result: unknown) => void,
+        reject: reject as (error: Error) => void,
+      };
+
+      this.taskQueue.push(task);
+      this.processQueue();
+    });
+  }
+
+  /**
+   * 处理任务队列
+   */
+  private processQueue(): void {
+    if (this.taskQueue.length === 0) return;
+
+    // 找一个空闲的 Worker
+    const idleWorker = this.findIdleWorker();
+
+    if (idleWorker) {
+      this.dispatchTask(idleWorker);
+    } else if (this.workers.size < this.config.maxThreads) {
+      // 创建新的 Worker
+      const newWorker = this.createWorker();
+      if (newWorker) {
+        this.dispatchTask(newWorker);
+      }
+    }
+    // 否则任务等待
+  }
+
+  /**
+   * 查找空闲 Worker
+   */
+  private findIdleWorker(): WorkerInfo | null {
+    for (const info of this.workers.values()) {
+      if (!info.busy) {
+        return info;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * 分发任务
+   */
+  private dispatchTask(info: WorkerInfo): void {
+    const task = this.taskQueue.shift();
+    if (!task) return;
+
+    info.busy = true;
+    info.currentTask = task;
+    info.lastActiveAt = Date.now();
+    task.startedAt = Date.now();
+
+    // 发送任务到 Worker
+    info.worker.postMessage(task.data);
+
+    // 设置超时
+    const timeout = setTimeout(() => {
+      if (info.currentTask === task) {
+        task.reject(new Error('任务超时'));
+        info.busy = false;
+        info.currentTask = undefined;
+        this.processQueue();
+      }
+    }, this.config.taskTimeout);
+
+    // 清理超时定时器
+    const originalResolve = task.resolve;
+    const originalReject = task.reject;
+
+    task.resolve = (result) => {
+      clearTimeout(timeout);
+      originalResolve(result);
+    };
+
+    task.reject = (error) => {
+      clearTimeout(timeout);
+      originalReject(error);
+    };
+  }
+
+  /**
+   * 启动缩容定时器
+   */
+  private startShrinkTimer(): void {
+    this.shrinkTimer = setInterval(() => {
+      this.shrink();
+    }, this.config.idleTimeout);
+  }
+
+  /**
+   * 缩容
+   */
+  private shrink(): void {
+    if (this.workers.size <= this.config.minThreads) return;
+
+    const now = Date.now();
+    const toRemove: WorkerInfo[] = [];
+
+    for (const info of this.workers.values()) {
+      if (
+        !info.busy &&
+        now - info.lastActiveAt > this.config.idleTimeout &&
+        this.workers.size - toRemove.length > this.config.minThreads
+      ) {
+        toRemove.push(info);
+      }
+    }
+
+    for (const info of toRemove) {
+      this.terminateWorker(info);
+    }
+
+    if (toRemove.length > 0) {
+      console.log(`[ThreadPool] 缩容 ${toRemove.length} 个线程`);
+    }
+  }
+
+  /**
+   * 终止 Worker
+   */
+  private terminateWorker(info: WorkerInfo): void {
+    info.worker.terminate();
+    this.workers.delete(info.id);
+  }
+
+  /**
+   * 获取统计信息
+   */
+  getStats(): ThreadPoolStats {
+    let activeThreads = 0;
+    let idleThreads = 0;
+
+    for (const info of this.workers.values()) {
+      if (info.busy) {
+        activeThreads++;
+      } else {
+        idleThreads++;
+      }
+    }
+
+    return {
+      totalThreads: this.workers.size,
+      activeThreads,
+      idleThreads,
+      pendingTasks: this.taskQueue.length,
+      completedTasks: this.completedTasks,
+      avgTaskDuration: this.completedTasks > 0 
+        ? this.totalTaskDuration / this.completedTasks 
+        : 0,
+    };
+  }
+
+  /**
+   * 关闭线程池
+   */
+  async shutdown(): Promise<void> {
+    this.running = false;
+
+    // 停止缩容定时器
+    if (this.shrinkTimer) {
+      clearInterval(this.shrinkTimer);
+    }
+
+    // 等待所有任务完成
+    while (this.taskQueue.length > 0 || this.getActiveCount() > 0) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    // 终止所有 Worker
+    for (const info of this.workers.values()) {
+      await info.worker.terminate();
+    }
+
+    this.workers.clear();
+    console.log('[ThreadPool] 已关闭');
+  }
+
+  /**
+   * 获取活跃线程数
+   */
+  private getActiveCount(): number {
+    let count = 0;
+    for (const info of this.workers.values()) {
+      if (info.busy) count++;
+    }
+    return count;
+  }
 }
 
 // ============================================================
-// 导出
+// 向量计算 Worker
 // ============================================================
 
-export default VectorSearchPool;
+/**
+ * 创建向量计算线程池
+ */
+export function createVectorThreadPool(config?: Partial<ThreadPoolConfig>): ThreadPool {
+  return new ThreadPool({
+    ...config,
+    workerScript: config?.workerScript ?? path.join(__dirname, 'vector-worker.js'),
+  });
+}
+
+// ============================================================
+// 单例实例
+// ============================================================
+
+let defaultPool: ThreadPool | null = null;
+
+export function getThreadPool(config?: Partial<ThreadPoolConfig>): ThreadPool {
+  if (!defaultPool) {
+    defaultPool = new ThreadPool(config);
+  }
+  return defaultPool;
+}
+
+/**
+ * 快速执行任务
+ */
+export async function executeInPool<T, R>(data: T): Promise<R> {
+  const pool = getThreadPool();
+  return pool.execute<T, R>(data);
+}
