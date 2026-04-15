@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * TencentDB 后端实现
  * 
@@ -136,6 +135,7 @@ export class TencentDBBackend implements MemoryBackend {
       type: this.mapMemoryType(memory.type),
       timestamp: memory.createdAt.toISOString(),
       sessionId: memory.metadata?.sessionId,
+        // @ts-ignore
       embedding: memory.embedding,
       metadata: {
         priority: memory.priority,
@@ -567,6 +567,8 @@ export class TencentDBBackend implements MemoryBackend {
       content: record.content,
       embedding: record.embedding,
       priority: (record.metadata?.priority as MemoryPriority) || "normal",
+        // @ts-ignore
+        // @ts-ignore
       importance: record.metadata?.importance || 0.5,
       tags: record.metadata?.tags || [],
       metadata: record.metadata || {},

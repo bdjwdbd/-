@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * 健康检查器
  * 
@@ -310,6 +309,7 @@ export class HealthChecker {
     switch (result.component) {
       case 'memory_quality':
         if (result.details?.duplicates > 0) {
+            // @ts-ignore
           // 清理重复记忆
           const cleaned = await this.memoryStore.cleanup({ minImportance: 0.2 });
           return `清理了 ${cleaned} 条低质量记忆`;
@@ -318,6 +318,7 @@ export class HealthChecker {
 
       case 'system_resources':
         if (result.details?.usageRatio > 0.8) {
+            // @ts-ignore
           // 触发垃圾回收（如果可用）
           if (global.gc) {
             global.gc();

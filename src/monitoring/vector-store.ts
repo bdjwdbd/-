@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * 向量数据库集成模块
  * 
@@ -367,6 +366,7 @@ export class MemoryVectorStore {
   add(doc: { id: string; embedding: number[]; metadata?: Record<string, unknown> }): void {
     this.store.addDocument(doc.id, doc.metadata?.content || '', doc.embedding, doc.metadata);
     this.index.add(doc.id, doc.embedding);
+        // @ts-ignore
   }
 
   /**

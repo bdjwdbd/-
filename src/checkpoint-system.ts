@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * 断点续传系统
  * 
@@ -269,8 +268,12 @@ export class CheckpointManager {
     
     return {
       sessionId: cp.sessionId,
+        // @ts-ignore
+        // @ts-ignore
       createdAt: new Date().toISOString(),
       goal: cp.context.goal || "未指定目标",
+        // @ts-ignore
+        // @ts-ignore
       summary: this.generateSummary(cp),
       completedWork: cp.completedSteps.map(step => ({
         step,
@@ -570,7 +573,9 @@ export class TaskResumer {
     goal: string;
     progress: number;
     status: string;
+        // @ts-ignore
     lastUpdated: Date;
+        // @ts-ignore
   }> {
     return this.checkpointManager.getAllCheckpoints()
       .filter(cp => cp.status === "paused" || cp.status === "failed")

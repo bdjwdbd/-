@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * 执行与工具组件
  * 
@@ -368,6 +367,7 @@ export class ToolExecutor {
       const filePath = args.path || args.filePath || args.file || args.dir;
       const operation = name.includes('write') || name.includes('save') || name.includes('delete') ? 'write' : 'read';
       const fileSecurity = this.securityGuard.checkFileAccess(filePath, operation);
+        // @ts-ignore
       if (!fileSecurity.allowed) {
         call.error = `安全拦截: ${fileSecurity.message}`;
         this.recordCall(call);
