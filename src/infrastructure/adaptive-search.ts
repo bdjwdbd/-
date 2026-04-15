@@ -165,7 +165,8 @@ export class AdaptiveVectorSearch {
     }
     
     // 使用 SimpleVectorSearch 的 search 方法
-    return this.accelerator.search(query, k) as SearchResult[];
+    // @ts-ignore - 类型兼容性
+    return this.accelerator.search(query, k);
   }
 
   /**

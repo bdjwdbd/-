@@ -57,6 +57,7 @@ export class EmbeddingClient {
 
     private async initClient(): Promise<void> {
         try {
+            // @ts-ignore - openai 是可选依赖
             const OpenAI = (await import('openai')).default;
             this.client = new OpenAI({
                 baseURL: this.config.baseUrl,
