@@ -3,4 +3,4 @@
 export builddir_name ?= ./build/.
 .PHONY: all
 all:
-	$(MAKE) yuanling_native parallel memory
+	$(MAKE) vector_ops

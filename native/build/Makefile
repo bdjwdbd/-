@@ -333,18 +333,8 @@ $(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
 
 ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
     $(findstring $(join ^,$(prefix)),\
-                 $(join ^,memory.target.mk)))),)
-  include memory.target.mk
-endif
-ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
-    $(findstring $(join ^,$(prefix)),\
-                 $(join ^,parallel.target.mk)))),)
-  include parallel.target.mk
-endif
-ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
-    $(findstring $(join ^,$(prefix)),\
-                 $(join ^,yuanling_native.target.mk)))),)
-  include yuanling_native.target.mk
+                 $(join ^,vector_ops.target.mk)))),)
+  include vector_ops.target.mk
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@

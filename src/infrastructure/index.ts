@@ -486,6 +486,13 @@ export {
   type NativeVectorOps,
   type NativeModuleInfo
 } from './native-vector';
+export {
+  MKLBridge,
+  getMKLBridge,
+  isMKLAvailable,
+  type MKLConfig,
+  type MKLInfo
+} from './mkl-bridge';
 export { HugePageManager, HighPerformanceMemoryPool, VectorMemoryManager, getHugePageManager, type HugePageInfo, type MemoryPoolConfig } from './hugepage-manager';
 export { HardwareOptimizer, AMXAccelerator, NeuralEngineAccelerator, NEONAccelerator, getHardwareOptimizer, type HardwareInfo, type Optimizations } from './hardware-optimize';
 export { LanguageDetector, CrossLingualEncoder, CrossLingualSearcher, type LanguageCode, type CrossLingualConfig } from './cross-lingual';
