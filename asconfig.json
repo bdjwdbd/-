@@ -1,0 +1,29 @@
+{
+  "targets": {
+    "release": {
+      "outFile": "build/release.wasm",
+      "optimizeLevel": 3,
+      "shrinkLevel": 0,
+      "converge": false,
+      "noAssert": false,
+      "simd": true,
+      "bindings": "esm"
+    },
+    "debug": {
+      "outFile": "build/debug.wasm",
+      "optimizeLevel": 0,
+      "shrinkLevel": 0,
+      "converge": false,
+      "noAssert": true,
+      "simd": true,
+      "bindings": "esm"
+    }
+  },
+  "options": {
+    "exportRuntime": true,
+    "initialMemory": 256,
+    "maximumMemory": 4096,
+    "sharedMemory": false,
+    "importMemory": false
+  }
+}

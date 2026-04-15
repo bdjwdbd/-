@@ -6,6 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:wasm": "npx asc assembly/index.ts -o build/release.wasm --optimize --simd",
+    "build:wasm:debug": "npx asc assembly/index.ts -o build/debug.wasm --debug",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint src --ext .ts",

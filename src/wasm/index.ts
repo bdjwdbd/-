@@ -9,3 +9,14 @@ export {
   type SIMDConfig,
   type SIMDInfo,
 } from './simd-vector';
+
+export {
+  WasmSimdLoader,
+  getWasmSimdLoader,
+  loadWasmSimd,
+  getWasmExports,
+  isWasmAvailable,
+  type WasmExports,
+  type WasmInfo,
+  type WasmLoadResult,
+} from './wasm-simd-loader';
