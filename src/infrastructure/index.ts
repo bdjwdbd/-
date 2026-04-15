@@ -496,7 +496,39 @@ export {
 export {
   MKLDirect,
   getMKLDirect,
+  initMKL,
   isMKLDirectAvailable,
+  getMKLDirectInfo,
+  // Level 1
+  mklDotProduct,
+  mklNorm,
+  mklAsum,
+  mklAxpy,
+  mklScal,
+  mklCopy,
+  mklRot,
+  mklSwap,
+  mklIdamax,
+  mklIdamin,
+  // 相似度
+  mklCosineSimilarity,
+  mklEuclideanDistance,
+  mklBatchCosineSimilarity,
+  // Level 2
+  mklGemv,
+  mklSymv,
+  mklTrmv,
+  mklGer,
+  // Level 3
+  mklGemm,
+  mklSymm,
+  mklSyrk,
+  mklTrmm,
+  mklTrsm,
+  // 控制
+  mklSetThreads,
+  mklGetThreads,
+  mklFreeBuffers,
   type MKLDirectConfig,
   type MKLDirectInfo
 } from './mkl-direct';
