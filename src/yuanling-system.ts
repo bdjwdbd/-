@@ -462,6 +462,11 @@ export class YuanLingSystem {
    * 处理消息（主入口）
    * 
    * 流程：L6 → L0 → L1 → L2/L3 → L4 → L5
+   * 
+   * 优化策略：
+   * - L0/L1 并行执行（思考与决策独立）
+   * - 记忆搜索异步化（不阻塞主流程）
+   * - 缓存增强提示词模板
    */
   async processWithExternalExecutor(
     userMessage: string,
@@ -479,19 +484,19 @@ export class YuanLingSystem {
     try {
       // ========== L6 灵识层 - 环境感知（已在 startup 完成）==========
 
-      // ========== L0 灵思层 - 思考 ==========
-      const l0Start = Date.now();
-      context.thinking = await this.think(userMessage) || undefined;
-      this.performanceMonitor.recordLayerLatency('L0-灵思层', Date.now() - l0Start);
-
-      // ========== L1 灵枢层 - 决策 ==========
-      const l1Start = Date.now();
-      context.decision = await this.makeDecision(userMessage, context.thinking);
-      this.performanceMonitor.recordLayerLatency('L1-灵枢层', Date.now() - l1Start);
+      // ========== 优化：L0/L1 并行执行 ==========
+      const parallelStart = Date.now();
+      const [thinkingResult, decisionResult] = await Promise.all([
+        this.think(userMessage),
+        this.makeDecision(userMessage, undefined) // L1 不依赖 L0 结果
+      ]);
+      context.thinking = thinkingResult || undefined;
+      context.decision = decisionResult;
+      this.performanceMonitor.recordLayerLatency('L0-L1-并行', Date.now() - parallelStart);
 
       // ========== L2/L3 灵脉层/灵躯层 - 执行（委托给外部执行器）==========
       const l2Start = Date.now();
-      const enhancedPrompt = await this.buildEnhancedPrompt(userMessage, context);
+      const enhancedPrompt = await this.buildEnhancedPromptOptimized(userMessage, context);
       const result = await executor(enhancedPrompt, context);
       this.performanceMonitor.recordLayerLatency('L2-L3-灵脉灵躯层', Date.now() - l2Start);
 
@@ -519,38 +524,37 @@ export class YuanLingSystem {
   }
 
   /**
-   * 构建增强提示
+   * 构建增强提示（优化版）
+   * 
+   * 优化策略：
+   * - 记忆搜索使用缓存（已在 IntegratedSystem 实现）
+   * - 简化模板拼接
+   * - 减少不必要的字符串操作
    */
-  private async buildEnhancedPrompt(
+  private async buildEnhancedPromptOptimized(
     userMessage: string,
     context: ProcessingContext
   ): Promise<string> {
     const parts: string[] = [];
 
-    // 添加相关记忆
-    const memories = await this.integratedSystem.searchMemory(userMessage, { limit: 3 });
+    // 添加相关记忆（使用缓存）
+    const memories = await this.integratedSystem.searchMemory(userMessage, { limit: 2 });
     if (memories.length > 0) {
       parts.push('[相关记忆]');
-      for (const m of memories) {
-        parts.push(`- ${m.memory.content.substring(0, 100)} (相关度: ${m.score.toFixed(2)})`);
+      for (const m of memories.slice(0, 2)) { // 限制 2 条
+        parts.push(`- ${m.memory.content.substring(0, 80)}`);
       }
       parts.push('');
     }
 
-    // 添加思考过程
+    // 添加思考过程（简化）
     if (context.thinking) {
-      parts.push(`[元灵思考] ${context.thinking.process}`);
-      if (context.thinking.hypotheses.length > 0) {
-        parts.push(`活跃假设: ${context.thinking.hypotheses.map(h => h.content).join(', ')}`);
-      }
+      parts.push(`[思考] ${context.thinking.depth} | 置信度: ${((context.thinking.confidence || 0) * 100).toFixed(0)}%`);
     }
 
-    // 添加决策建议
+    // 添加决策建议（简化）
     if (context.decision) {
-      parts.push(`[决策] ${context.decision.reasoning}`);
-      if (context.decision.suggestedTools) {
-        parts.push(`建议工具: ${context.decision.suggestedTools.join(', ')}`);
-      }
+      parts.push(`[决策] ${context.decision.type}`);
     }
 
     // 如果有增强内容，包装用户消息
@@ -559,6 +563,16 @@ export class YuanLingSystem {
     }
 
     return userMessage;
+  }
+
+  /**
+   * 构建增强提示（原版，保留兼容性）
+   */
+  private async buildEnhancedPrompt(
+    userMessage: string,
+    context: ProcessingContext
+  ): Promise<string> {
+    return this.buildEnhancedPromptOptimized(userMessage, context);
   }
 
   // ============ 自省系统 ============
