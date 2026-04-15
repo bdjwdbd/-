@@ -599,6 +599,25 @@ export {
   type ThreadPoolStats,
 } from './thread-pool';
 
+// 磁盘持久化 HNSW
+export {
+  DiskHNSWIndex,
+  createDiskHNSWIndex,
+  type DiskHNSWConfig,
+  type IndexMetadata as DiskIndexMetadata,
+  type DiskNode,
+} from './disk-hnsw';
+
+// WebGPU 引擎
+export {
+  WebGPUEngine,
+  getWebGPUEngine,
+  initWebGPU,
+  type WebGPUConfig,
+  type WebGPUCapabilities,
+  type WebGPUBuffer,
+} from './webgpu-engine';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
