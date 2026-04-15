@@ -572,6 +572,21 @@ export {
   type PQStats,
 } from './product-quantizer';
 
+// 查询结果缓存
+export {
+  QueryCache,
+  VectorSearchCache as QueryVectorSearchCache,
+  CachedSearchEngine as QueryCachedSearchEngine,
+  getQueryCache,
+  getVectorSearchCache,
+  type CacheEntry as QueryCacheEntry,
+  type CacheConfig as QueryCacheConfig,
+  type CacheStats as QueryCacheStats,
+  type QueryCacheOptions,
+  type VectorSearchResult as QueryVectorSearchResult,
+  type SearchEngine,
+} from './query-result-cache';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,
