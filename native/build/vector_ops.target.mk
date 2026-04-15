@@ -15,6 +15,10 @@ DEFS_Debug := \
 	'-DOPENSSL_THREADS' \
 	'-DNAPI_DISABLE_CPP_EXCEPTIONS' \
 	'-DNAPI_VERSION=4' \
+	'-D__AVX512F__=1' \
+	'-D__AVX512DQ__=1' \
+	'-D__AVX512BW__=1' \
+	'-D__AVX512VL__=1' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
 	'-D_DEBUG'
@@ -29,10 +33,18 @@ CFLAGS_Debug := \
 	-O3 \
 	-march=native \
 	-ffast-math \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-O3 \
 	-march=native \
 	-ffast-math \
 	-fPIC \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-m64 \
 	-g \
 	-O0
@@ -48,10 +60,18 @@ CFLAGS_CC_Debug := \
 	-O3 \
 	-march=native \
 	-ffast-math \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-O3 \
 	-march=native \
 	-ffast-math \
-	-fPIC
+	-fPIC \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl
 
 INCS_Debug := \
 	-I/home/sandbox/.cache/node-gyp/24.14.0/include/node \
@@ -76,6 +96,10 @@ DEFS_Release := \
 	'-DOPENSSL_THREADS' \
 	'-DNAPI_DISABLE_CPP_EXCEPTIONS' \
 	'-DNAPI_VERSION=4' \
+	'-D__AVX512F__=1' \
+	'-D__AVX512DQ__=1' \
+	'-D__AVX512BW__=1' \
+	'-D__AVX512VL__=1' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
@@ -88,10 +112,18 @@ CFLAGS_Release := \
 	-O3 \
 	-march=native \
 	-ffast-math \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-O3 \
 	-march=native \
 	-ffast-math \
 	-fPIC \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-m64 \
 	-O3 \
 	-fno-omit-frame-pointer
@@ -107,10 +139,18 @@ CFLAGS_CC_Release := \
 	-O3 \
 	-march=native \
 	-ffast-math \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl \
 	-O3 \
 	-march=native \
 	-ffast-math \
-	-fPIC
+	-fPIC \
+	-mavx512f \
+	-mavx512dq \
+	-mavx512bw \
+	-mavx512vl
 
 INCS_Release := \
 	-I/home/sandbox/.cache/node-gyp/24.14.0/include/node \

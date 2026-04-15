@@ -14,6 +14,22 @@
 // SIMD 检测
 // ============================================================
 
+inline bool hasAVX512F() {
+#if defined(__AVX512F__)
+    return true;
+#else
+    return false;
+#endif
+}
+
+inline bool hasAVX2() {
+#if defined(__AVX2__)
+    return true;
+#else
+    return false;
+#endif
+}
+
 inline bool hasAVX() {
 #if defined(__AVX__)
     return true;
@@ -24,6 +40,14 @@ inline bool hasAVX() {
 
 inline bool hasSSE2() {
 #if defined(__SSE2__)
+    return true;
+#else
+    return false;
+#endif
+}
+
+inline bool hasFMA() {
+#if defined(__FMA__)
     return true;
 #else
     return false;
@@ -310,8 +334,22 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set("batchCosineSimilarity", Napi::Function::New(env, BatchCosineSimilarity));
     
     // 导出 SIMD 支持信息
+    exports.Set("hasAVX512F", Napi::Boolean::New(env, hasAVX512F()));
+    exports.Set("hasAVX2", Napi::Boolean::New(env, hasAVX2()));
     exports.Set("hasAVX", Napi::Boolean::New(env, hasAVX()));
     exports.Set("hasSSE2", Napi::Boolean::New(env, hasSSE2()));
+    exports.Set("hasFMA", Napi::Boolean::New(env, hasFMA()));
+    
+    // 导出能力对象
+    Napi::Object capabilities = Napi::Object::New(env);
+    capabilities.Set("avx512f", Napi::Boolean::New(env, hasAVX512F()));
+    capabilities.Set("avx2", Napi::Boolean::New(env, hasAVX2()));
+    capabilities.Set("avx", Napi::Boolean::New(env, hasAVX()));
+    capabilities.Set("sse2", Napi::Boolean::New(env, hasSSE2()));
+    capabilities.Set("fma", Napi::Boolean::New(env, hasFMA()));
+    exports.Set("getCapabilities", Napi::Function::New(env, [capabilities](const Napi::CallbackInfo& info) {
+        return capabilities;
+    }));
     
     return exports;
 }
