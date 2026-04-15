@@ -8,9 +8,26 @@
  * 3. 混合索引优化 (IVF + HNSW + PQ)
  */
 
-import * as simd from '../../native/build/Release/yuanling_native.node';
-import * as parallel from '../../native/build/Release/parallel.node';
 import { IVFIndex, IVFConfig } from './ivf-index';
+
+// ============================================================
+// 原生模块条件导入
+// ============================================================
+
+let simd: any = null;
+let parallel: any = null;
+
+try {
+    simd = require('../../native/build/Release/yuanling_native.node');
+} catch (e) {
+    // 原生模块不可用，使用降级实现
+}
+
+try {
+    parallel = require('../../native/build/Release/parallel.node');
+} catch (e) {
+    // 原生模块不可用，使用降级实现
+}
 
 // ============================================================
 // 类型定义

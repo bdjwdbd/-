@@ -311,11 +311,11 @@ if (!isMainThread && parentPort) {
                     const scores = native.cosineSimilarityBatchContiguous(queryArr, vectorsArr, dim);
 
                     // 取 Top-K
-                    const indexed = Array.from(scores).map((score, i) => ({
+                    const indexed = Array.from(scores).map((score: number, i: number) => ({
                         index: startIdx + i,
                         score
                     }));
-                    indexed.sort((a, b) => b.score - a.score);
+                    indexed.sort((a: { index: number; score: number }, b: { index: number; score: number }) => b.score - a.score);
                     result = indexed.slice(0, k);
                     break;
                 }
