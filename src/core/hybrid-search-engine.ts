@@ -227,7 +227,7 @@ export class HybridSearchEngine {
   async initialize(): Promise<boolean> {
     if (this.initialized) return true;
     
-    // console.log("[HybridSearchEngine] 初始化中...");
+    console.log("[HybridSearchEngine] 初始化中...");
     
     // 检查数据库文件
     if (!fs.existsSync(this.config.dbPath)) {
@@ -242,7 +242,7 @@ export class HybridSearchEngine {
       // 加载 sqlite-vec 扩展
       await this.loadVectorExtension();
       
-      // console.log("[HybridSearchEngine] ✅ 初始化完成");
+      console.log("[HybridSearchEngine] ✅ 初始化完成");
       this.initialized = true;
       return true;
     } catch (error) {
@@ -263,7 +263,7 @@ export class HybridSearchEngine {
         try {
           this.db!.enableLoadExtension(true);
           this.db!.loadExtension(extPath);
-          // console.log("[HybridSearchEngine] ✅ sqlite-vec 扩展已加载");
+          console.log("[HybridSearchEngine] ✅ sqlite-vec 扩展已加载");
           return;
         } catch (error) {
           console.warn("[HybridSearchEngine] 扩展加载失败:", error);
@@ -441,7 +441,7 @@ export class HybridSearchEngine {
       mode = "balanced",
     } = options;
     
-    // console.log(`[HybridSearchEngine] 混合搜索: "${query}" (mode: ${mode})`);
+    console.log(`[HybridSearchEngine] 混合搜索: "${query}" (mode: ${mode})`);
     
     // 并行执行搜索
     const [vectorResults, ftsResults] = await Promise.all([
@@ -449,13 +449,13 @@ export class HybridSearchEngine {
       useFTS ? Promise.resolve(this.ftsSearch(query, limit * 2)) : Promise.resolve([]),
     ]);
     
-    // console.log(`[HybridSearchEngine] 向量搜索: ${vectorResults.length} 条`);
-    // console.log(`[HybridSearchEngine] FTS 搜索: ${ftsResults.length} 条`);
+    console.log(`[HybridSearchEngine] 向量搜索: ${vectorResults.length} 条`);
+    console.log(`[HybridSearchEngine] FTS 搜索: ${ftsResults.length} 条`);
     
     // RRF 融合
     const fused = this.rrfFusion(vectorResults, ftsResults, limit, this.config.rrfK);
     
-    // console.log(`[HybridSearchEngine] 融合结果: ${fused.length} 条`);
+    console.log(`[HybridSearchEngine] 融合结果: ${fused.length} 条`);
     
     return fused;
   }

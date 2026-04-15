@@ -479,16 +479,16 @@ export class ContextQualityMonitor {
 // ============================================================
 
 function demo() {
-  // console.log("=".repeat(60));
-  // console.log("ContextQualityMonitor 长上下文质量监控演示");
-  // console.log("=".repeat(60));
+  console.log("=".repeat(60));
+  console.log("ContextQualityMonitor 长上下文质量监控演示");
+  console.log("=".repeat(60));
   
   const monitor = new ContextQualityMonitor({
     persistencePath: "./experiment-results/context-quality",
   });
   
   // 模拟不同长度的上下文
-  // console.log("\n1. 模拟上下文质量变化");
+  console.log("\n1. 模拟上下文质量变化");
   
   const scenarios = [
     { messages: 5, tokens: 5000, desc: "短上下文" },
@@ -506,40 +506,40 @@ function demo() {
     
     const snapshot = monitor.sample({ messages, tokenCount: scenario.tokens });
     
-    // console.log(`\n   ${scenario.desc}:`);
-    // console.log(`   Token: ${snapshot.tokenCount}, 质量: ${(snapshot.qualityScore * 100).toFixed(1)}%`);
-    // console.log(`   等级: ${snapshot.qualityLevel}`);
+    console.log(`\n   ${scenario.desc}:`);
+    console.log(`   Token: ${snapshot.tokenCount}, 质量: ${(snapshot.qualityScore * 100).toFixed(1)}%`);
+    console.log(`   等级: ${snapshot.qualityLevel}`);
     if (snapshot.recommendations.length > 0) {
-      // console.log(`   建议: ${snapshot.recommendations[0]}`);
+      console.log(`   建议: ${snapshot.recommendations[0]}`);
     }
   }
   
   // 趋势分析
-  // console.log("\n2. 趋势分析");
+  console.log("\n2. 趋势分析");
   
   const trend = monitor.getTrend();
-  // console.log(`   方向: ${trend.direction}`);
-  // console.log(`   预测: ${(trend.prediction * 100).toFixed(1)}%`);
-  // console.log(`   置信度: ${(trend.confidence * 100).toFixed(1)}%`);
+  console.log(`   方向: ${trend.direction}`);
+  console.log(`   预测: ${(trend.prediction * 100).toFixed(1)}%`);
+  console.log(`   置信度: ${(trend.confidence * 100).toFixed(1)}%`);
   
   // 统计信息
-  // console.log("\n3. 统计信息");
+  console.log("\n3. 统计信息");
   
   const stats = monitor.getStats();
-  // console.log(`   总采样: ${stats.totalSnapshots}`);
-  // console.log(`   平均质量: ${(stats.avgQuality * 100).toFixed(1)}%`);
-  // console.log(`   压缩触发: ${stats.compressionsTriggered}`);
-  // console.log(`   重置触发: ${stats.resetsTriggered}`);
+  console.log(`   总采样: ${stats.totalSnapshots}`);
+  console.log(`   平均质量: ${(stats.avgQuality * 100).toFixed(1)}%`);
+  console.log(`   压缩触发: ${stats.compressionsTriggered}`);
+  console.log(`   重置触发: ${stats.resetsTriggered}`);
   
   // 生成报告
-  // console.log("\n4. 生成报告");
+  console.log("\n4. 生成报告");
   
   const report = monitor.generateReport();
   const reportPath = "./experiment-results/context-quality/report.md";
   fs.writeFileSync(reportPath, report);
-  // console.log(`   报告已保存: ${reportPath}`);
+  console.log(`   报告已保存: ${reportPath}`);
   
-  // console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

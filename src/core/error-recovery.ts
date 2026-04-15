@@ -393,29 +393,29 @@ export class ErrorRecoveryManager {
     const stats = this.getStats();
     const learning = this.learnFromErrors();
     
-    // console.log("\n=== 错误恢复报告 ===");
-    // console.log(`\n【统计】`);
-    // console.log(`  总错误数: ${stats.total}`);
-    // console.log(`  恢复率: ${(stats.recoveryRate * 100).toFixed(1)}%`);
+    console.log("\n=== 错误恢复报告 ===");
+    console.log(`\n【统计】`);
+    console.log(`  总错误数: ${stats.total}`);
+    console.log(`  恢复率: ${(stats.recoveryRate * 100).toFixed(1)}%`);
     
-    // console.log(`\n【按类别】`);
+    console.log(`\n【按类别】`);
     for (const [category, count] of Object.entries(stats.byCategory)) {
       if (count > 0) {
-        // console.log(`  ${category}: ${count}`);
+        console.log(`  ${category}: ${count}`);
       }
     }
     
-    // console.log(`\n【按严重程度】`);
+    console.log(`\n【按严重程度】`);
     for (const [severity, count] of Object.entries(stats.bySeverity)) {
       if (count > 0) {
-        // console.log(`  ${severity}: ${count}`);
+        console.log(`  ${severity}: ${count}`);
       }
     }
     
     if (learning.suggestions.length > 0) {
-      // console.log(`\n【建议】`);
+      console.log(`\n【建议】`);
       for (const suggestion of learning.suggestions) {
-        // console.log(`  • ${suggestion}`);
+        console.log(`  • ${suggestion}`);
       }
     }
   }

@@ -275,7 +275,7 @@ export class EntropyGovernance {
       const backupPath = path.join(backupDir, path.basename(item.location));
       fs.copyFileSync(item.location, backupPath);
       fs.unlinkSync(item.location);
-      // console.log(`[EntropyGovernance] 已清理: ${item.location}`);
+      console.log(`[EntropyGovernance] 已清理: ${item.location}`);
     }
   }
 

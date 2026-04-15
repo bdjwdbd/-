@@ -184,7 +184,7 @@ export class WALOptimizer {
   sync(): void {
     // 在实际实现中，这里会调用 fsync
     // 这里只是模拟
-    // console.log(`WAL sync: ${this.entries.length} entries`);
+    console.log(`WAL sync: ${this.entries.length} entries`);
   }
 
   /**

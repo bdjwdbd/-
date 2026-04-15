@@ -63,7 +63,7 @@ export async function autoEnable(
     return { shouldReport: false, state };
   }
   
-  // console.log('[AutoEnable] 检测到变更，运行自省...');
+  console.log('[AutoEnable] 检测到变更，运行自省...');
   
   // 运行自省
   const report = await system.introspect();

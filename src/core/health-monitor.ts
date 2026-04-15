@@ -99,7 +99,7 @@ export class HealthMonitor {
     
     try {
       this.db = new DatabaseSync(this.config.dbPath);
-      // console.log("[HealthMonitor] ✅ 初始化完成");
+      console.log("[HealthMonitor] ✅ 初始化完成");
       return true;
     } catch (error) {
       console.error("[HealthMonitor] 初始化失败:", error);

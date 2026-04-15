@@ -853,9 +853,9 @@ export class MultimodalVectorStore {
 // ============================================================
 
 async function demo() {
-  // console.log("=".repeat(60));
-  // console.log("多模态向量支持演示");
-  // console.log("=".repeat(60));
+  console.log("=".repeat(60));
+  console.log("多模态向量支持演示");
+  console.log("=".repeat(60));
   
   const embeddingConfig: EmbeddingConfig = {
     provider: "gitee",
@@ -870,79 +870,79 @@ async function demo() {
   });
   
   // 添加文本
-  // console.log("\n1. 添加文本条目");
+  console.log("\n1. 添加文本条目");
   
   const textId1 = await store.addText("一只可爱的猫咪在阳光下睡觉", ["动物", "猫"]);
-  // console.log(`   添加: ${textId1}`);
+  console.log(`   添加: ${textId1}`);
   
   const textId2 = await store.addText("美丽的日落风景，海边沙滩", ["风景", "日落"]);
-  // console.log(`   添加: ${textId2}`);
+  console.log(`   添加: ${textId2}`);
   
   const textId3 = await store.addText("现代城市夜景，霓虹灯闪烁", ["城市", "夜景"]);
-  // console.log(`   添加: ${textId3}`);
+  console.log(`   添加: ${textId3}`);
   
   // 添加图像
-  // console.log("\n2. 添加图像条目");
+  console.log("\n2. 添加图像条目");
   
   const imageId1 = await store.addImage("https://example.com/cat.jpg", ["动物", "猫"]);
-  // console.log(`   添加: ${imageId1}`);
+  console.log(`   添加: ${imageId1}`);
   
   const imageId2 = await store.addImage("https://example.com/sunset.jpg", ["风景", "日落"]);
-  // console.log(`   添加: ${imageId2}`);
+  console.log(`   添加: ${imageId2}`);
   
   // 添加多模态
-  // console.log("\n3. 添加多模态条目");
+  console.log("\n3. 添加多模态条目");
   
   const mmId = await store.addMultimodal(
     "一只金毛犬在公园里奔跑",
     "https://example.com/dog.jpg",
     ["动物", "狗"]
   );
-  // console.log(`   添加: ${mmId}`);
+  console.log(`   添加: ${mmId}`);
   
   // 文本搜索
-  // console.log("\n4. 文本搜索: '可爱的动物'");
+  console.log("\n4. 文本搜索: '可爱的动物'");
   
   const textResults = await store.searchText("可爱的动物", 3);
   for (const r of textResults) {
-    // console.log(`   - ${r.id}: ${r.score.toFixed(3)} (${r.type})`);
-    if (r.text) // console.log(`     文本: ${r.text.substring(0, 30)}...`);
+    console.log(`   - ${r.id}: ${r.score.toFixed(3)} (${r.type})`);
+    if (r.text) console.log(`     文本: ${r.text.substring(0, 30)}...`);
   }
   
   // 图像搜索
-  // console.log("\n5. 图像搜索");
+  console.log("\n5. 图像搜索");
   
   const imageResults = await store.searchImage("https://example.com/cat.jpg", 3);
   for (const r of imageResults) {
-    // console.log(`   - ${r.id}: ${r.score.toFixed(3)} (${r.type})`);
+    console.log(`   - ${r.id}: ${r.score.toFixed(3)} (${r.type})`);
   }
   
   // 跨模态搜索
-  // console.log("\n6. 跨模态搜索: 文本 → 图像");
+  console.log("\n6. 跨模态搜索: 文本 → 图像");
   
   const crossResults = await store.textToImage("日落", 3);
   for (const r of crossResults) {
-    // console.log(`   - ${r.id}: ${r.score.toFixed(3)}`);
-    if (r.imageUrl) // console.log(`     图像: ${r.imageUrl}`);
+    console.log(`   - ${r.id}: ${r.score.toFixed(3)}`);
+    if (r.imageUrl) console.log(`     图像: ${r.imageUrl}`);
   }
   
   // 统计信息
-  // console.log("\n7. 统计信息");
+  console.log("\n7. 统计信息");
   
   const stats = store.getStats();
-  // console.log(`   总条目: ${stats.totalEntries}`);
-  // console.log(`   纯文本: ${stats.textOnly}`);
-  // console.log(`   纯图像: ${stats.imageOnly}`);
-  // console.log(`   多模态: ${stats.multimodal}`);
-  // console.log(`   标签: ${stats.tags.join(", ")}`);
+  console.log(`   总条目: ${stats.totalEntries}`);
+  console.log(`   纯文本: ${stats.textOnly}`);
+  console.log(`   纯图像: ${stats.imageOnly}`);
+  console.log(`   多模态: ${stats.multimodal}`);
+  console.log(`   标签: ${stats.tags.join(", ")}`);
   
   // 保存
-  // console.log("\n8. 保存存储");
+  console.log("\n8. 保存存储");
   
   const savedPath = store.save();
-  // console.log(`   已保存: ${savedPath}`);
+  console.log(`   已保存: ${savedPath}`);
   
-  // console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

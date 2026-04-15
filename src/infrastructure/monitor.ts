@@ -221,7 +221,7 @@ export class Monitor {
      * 告警回调（可覆盖）
      */
     protected onAlert(alert: Alert): void {
-        // console.log(`[${alert.level.toUpperCase()}] ${alert.message}`);
+        console.log(`[${alert.level.toUpperCase()}] ${alert.message}`);
     }
 
     // ============================================================

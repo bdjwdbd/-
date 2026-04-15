@@ -52,28 +52,28 @@ const testMessages: HumanMessage[] = [
 // ============================================================
 
 async function testDecisionCenterV3() {
-  // console.log("\n=== 测试 DecisionCenterV3 ===\n");
+  console.log("\n=== 测试 DecisionCenterV3 ===\n");
 
   const decisionCenter = new DecisionCenterV3();
 
   for (const message of testMessages) {
-    // console.log(`处理消息: "${message.content.substring(0, 40)}..."`);
+    console.log(`处理消息: "${message.content.substring(0, 40)}..."`);
 
     const decision = await decisionCenter.makeDecision({ 
       message
     } as any);
 
-    // console.log(`  决策类型: ${decision.type}`);
-    // console.log(`  思考深度: ${decision.thinkingDepth}`);
-    // console.log(`  思考置信度: ${(decision.confidence * 100).toFixed(0)}%`);
-    // console.log(`  活跃假设: ${decision.activeHypotheses}`);
-    // console.log(`  思考耗时: ${decision.thinkingDuration}ms`);
-    // console.log();
+    console.log(`  决策类型: ${decision.type}`);
+    console.log(`  思考深度: ${decision.thinkingDepth}`);
+    console.log(`  思考置信度: ${(decision.confidence * 100).toFixed(0)}%`);
+    console.log(`  活跃假设: ${decision.activeHypotheses}`);
+    console.log(`  思考耗时: ${decision.thinkingDuration}ms`);
+    console.log();
   }
 
   // 获取历史
   const history = decisionCenter.getEnhancedHistory();
-  // console.log(`历史决策数量: ${history.length}`);
+  console.log(`历史决策数量: ${history.length}`);
 }
 
 // ============================================================
@@ -81,7 +81,7 @@ async function testDecisionCenterV3() {
 // ============================================================
 
 async function testLearningValidatorV3() {
-  // console.log("\n=== 测试 LearningValidatorV3 ===\n");
+  console.log("\n=== 测试 LearningValidatorV3 ===\n");
 
   const validator = new LearningValidatorV3();
   const thinkingEngine = validator.getHypothesisManager();
@@ -127,22 +127,22 @@ async function testLearningValidatorV3() {
   const input = "请分析这段代码的性能问题";
   const output = "这段代码使用了 append 和 str() 进行字符串拼接，建议使用列表推导式或 join() 方法来提高性能。";
 
-  // console.log("输入:", input);
-  // console.log("输出:", output);
-  // console.log();
+  console.log("输入:", input);
+  console.log("输出:", output);
+  console.log();
 
   const result = await validator.validateWithThinking(input, output, mockThinking as any);
 
-  // console.log("验证结果:");
-  // console.log(`  有效: ${result.valid}`);
-  // console.log(`  分数: ${result.score.toFixed(2)}`);
-  // console.log(`  思考质量: ${result.thinkingQuality.toFixed(2)}`);
-  // console.log(`  问题: ${result.issues.join(", ") || "无"}`);
-  // console.log();
+  console.log("验证结果:");
+  console.log(`  有效: ${result.valid}`);
+  console.log(`  分数: ${result.score.toFixed(2)}`);
+  console.log(`  思考质量: ${result.thinkingQuality.toFixed(2)}`);
+  console.log(`  问题: ${result.issues.join(", ") || "无"}`);
+  console.log();
 
-  // console.log("假设验证:");
+  console.log("假设验证:");
   result.hypothesisValidation.forEach((h) => {
-    // console.log(`  - [${h.confirmed ? "✓" : "✗"}] ${h.content}`);
+    console.log(`  - [${h.confirmed ? "✓" : "✗"}] ${h.content}`);
   });
 }
 
@@ -151,7 +151,7 @@ async function testLearningValidatorV3() {
 // ============================================================
 
 async function testThinkingOrchestrator() {
-  // console.log("\n=== 测试 ThinkingOrchestrator ===\n");
+  console.log("\n=== 测试 ThinkingOrchestrator ===\n");
 
   const orchestrator = new ThinkingOrchestrator();
 
@@ -163,27 +163,27 @@ async function testThinkingOrchestrator() {
     sessionId: "test",
   };
 
-  // console.log("完整流程测试:");
-  // console.log(`消息: "${message.content}"`);
-  // console.log();
+  console.log("完整流程测试:");
+  console.log(`消息: "${message.content}"`);
+  console.log();
 
   const result = await orchestrator.process(message);
 
-  // console.log("=== 思考结果 ===");
-  // console.log(`深度: ${result.thinking.depth}`);
-  // console.log(`置信度: ${(result.thinking.confidence * 100).toFixed(0)}%`);
-  // console.log(`洞察: ${result.thinking.insights.length} 个`);
-  // console.log(`耗时: ${result.thinking.duration}ms`);
+  console.log("=== 思考结果 ===");
+  console.log(`深度: ${result.thinking.depth}`);
+  console.log(`置信度: ${(result.thinking.confidence * 100).toFixed(0)}%`);
+  console.log(`洞察: ${result.thinking.insights.length} 个`);
+  console.log(`耗时: ${result.thinking.duration}ms`);
 
-  // console.log("\n=== 决策结果 ===");
-  // console.log(`类型: ${result.decision.type}`);
-  // console.log(`推理: ${result.decision.reasoning}`);
-  // console.log(`置信度: ${(result.decision.confidence * 100).toFixed(0)}%`);
+  console.log("\n=== 决策结果 ===");
+  console.log(`类型: ${result.decision.type}`);
+  console.log(`推理: ${result.decision.reasoning}`);
+  console.log(`置信度: ${(result.decision.confidence * 100).toFixed(0)}%`);
 
-  // console.log("\n=== 验证结果 ===");
-  // console.log(`有效: ${result.validation.valid}`);
-  // console.log(`分数: ${result.validation.score.toFixed(2)}`);
-  // console.log(`思考质量: ${result.validation.thinkingQuality.toFixed(2)}`);
+  console.log("\n=== 验证结果 ===");
+  console.log(`有效: ${result.validation.valid}`);
+  console.log(`分数: ${result.validation.score.toFixed(2)}`);
+  console.log(`思考质量: ${result.validation.thinkingQuality.toFixed(2)}`);
 }
 
 // ============================================================
@@ -191,7 +191,7 @@ async function testThinkingOrchestrator() {
 // ============================================================
 
 async function testQuickProcess() {
-  // console.log("\n=== 测试快速处理 ===\n");
+  console.log("\n=== 测试快速处理 ===\n");
 
   const orchestrator = new ThinkingOrchestrator();
 
@@ -212,11 +212,11 @@ async function testQuickProcess() {
 
     const result = await orchestrator.quickProcess(message);
 
-    // console.log(`消息: "${content}"`);
-    // console.log(`  思考深度: ${result.thinking.depth}`);
-    // console.log(`  决策类型: ${result.decision.type}`);
-    // console.log(`  总耗时: ${result.thinking.duration + result.decision.thinkingDuration}ms`);
-    // console.log();
+    console.log(`消息: "${content}"`);
+    console.log(`  思考深度: ${result.thinking.depth}`);
+    console.log(`  决策类型: ${result.decision.type}`);
+    console.log(`  总耗时: ${result.thinking.duration + result.decision.thinkingDuration}ms`);
+    console.log();
   }
 }
 
@@ -225,7 +225,7 @@ async function testQuickProcess() {
 // ============================================================
 
 async function testHypothesisTracking() {
-  // console.log("\n=== 测试假设追踪 ===\n");
+  console.log("\n=== 测试假设追踪 ===\n");
 
   const orchestrator = new ThinkingOrchestrator();
   const hypothesisManager = orchestrator.getThinkingEngine().getHypothesisManager();
@@ -250,8 +250,8 @@ async function testHypothesisTracking() {
   }
 
   // 查看假设状态
-  // console.log("假设摘要:");
-  // console.log(hypothesisManager.generateSummary());
+  console.log("假设摘要:");
+  console.log(hypothesisManager.generateSummary());
 }
 
 // ============================================================
@@ -259,10 +259,10 @@ async function testHypothesisTracking() {
 // ============================================================
 
 async function runAllTests() {
-  // console.log("╔══════════════════════════════════════════════╗");
-  // console.log("║     灵思层集成测试套件                        ║");
-  // console.log("║  测试 DecisionCenterV3 + LearningValidatorV3 ║");
-  // console.log("╚══════════════════════════════════════════════╝");
+  console.log("╔══════════════════════════════════════════════╗");
+  console.log("║     灵思层集成测试套件                        ║");
+  console.log("║  测试 DecisionCenterV3 + LearningValidatorV3 ║");
+  console.log("╚══════════════════════════════════════════════╝");
 
   try {
     await testDecisionCenterV3();
@@ -271,9 +271,9 @@ async function runAllTests() {
     await testQuickProcess();
     await testHypothesisTracking();
 
-    // console.log("\n╔══════════════════════════════════════════════╗");
-    // console.log("║           所有集成测试通过 ✅                 ║");
-    // console.log("╚══════════════════════════════════════════════╝\n");
+    console.log("\n╔══════════════════════════════════════════════╗");
+    console.log("║           所有集成测试通过 ✅                 ║");
+    console.log("╚══════════════════════════════════════════════╝\n");
   } catch (error) {
     console.error("\n❌ 测试失败:", error);
     process.exit(1);

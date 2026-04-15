@@ -307,7 +307,7 @@ export class ClusterManager {
       this.loadBalancer.healthCheck();
     }, 30000);
 
-    // console.log('Cluster manager started');
+    console.log('Cluster manager started');
   }
 
   /**
@@ -319,7 +319,7 @@ export class ClusterManager {
       this.healthCheckInterval = null;
     }
 
-    // console.log('Cluster manager stopped');
+    console.log('Cluster manager stopped');
   }
 
   /**

@@ -155,7 +155,7 @@ export class StructuredLogger {
   }
   
   private log(level: string, layer: string, message: string, data?: unknown): void {
-    // console.log(`[${level}] [${layer}] ${message}`, data || '');
+    console.log(`[${level}] [${layer}] ${message}`, data || '');
   }
   
   debug(layer: string, message: string, data?: unknown): void {

@@ -307,28 +307,28 @@ export class FeedbackLearningSystem {
     printReport(): void {
         const report = this.getReport();
 
-        // console.log('========================================');
-        // console.log('  反馈学习报告');
-        // console.log('========================================\n');
+        console.log('========================================');
+        console.log('  反馈学习报告');
+        console.log('========================================\n');
 
-        // console.log(`总查询数: ${report.totalQueries}`);
-        // console.log(`总点击数: ${report.totalClicks}`);
-        // console.log(`平均点击率: ${(report.avgCtr * 100).toFixed(1)}%`);
+        console.log(`总查询数: ${report.totalQueries}`);
+        console.log(`总点击数: ${report.totalClicks}`);
+        console.log(`平均点击率: ${(report.avgCtr * 100).toFixed(1)}%`);
 
-        // console.log('\n当前权重:');
-        // console.log(`  向量: ${(report.weights.vectorWeight * 100).toFixed(1)}%`);
-        // console.log(`  FTS: ${(report.weights.ftsWeight * 100).toFixed(1)}%`);
-        // console.log(`  LLM: ${(report.weights.llmWeight * 100).toFixed(1)}%`);
-        // console.log(`  原因: ${report.weights.reason}`);
+        console.log('\n当前权重:');
+        console.log(`  向量: ${(report.weights.vectorWeight * 100).toFixed(1)}%`);
+        console.log(`  FTS: ${(report.weights.ftsWeight * 100).toFixed(1)}%`);
+        console.log(`  LLM: ${(report.weights.llmWeight * 100).toFixed(1)}%`);
+        console.log(`  原因: ${report.weights.reason}`);
 
-        // console.log('\n热门查询:');
+        console.log('\n热门查询:');
         report.topQueries.forEach((q, i) => {
-            // console.log(`  ${i + 1}. "${q.query}" - ${q.count} 次, CTR: ${(q.ctr * 100).toFixed(1)}%`);
+            console.log(`  ${i + 1}. "${q.query}" - ${q.count} 次, CTR: ${(q.ctr * 100).toFixed(1)}%`);
         });
 
-        // console.log('\n高点击率结果:');
+        console.log('\n高点击率结果:');
         report.topResults.forEach((r, i) => {
-            // console.log(`  ${i + 1}. ${r.resultId} - CTR: ${(r.ctr * 100).toFixed(1)}%, 展示: ${r.impressions} 次`);
+            console.log(`  ${i + 1}. ${r.resultId} - CTR: ${(r.ctr * 100).toFixed(1)}%, 展示: ${r.impressions} 次`);
         });
     }
 

@@ -283,23 +283,23 @@ export class ResourceManager {
   printReport(): void {
     const stats = this.getStats();
     
-    // console.log("\n=== 资源管理报告 ===");
-    // console.log(`\n【内存】`);
-    // console.log(`  RSS: ${stats.memory.rss} MB`);
-    // console.log(`  Heap: ${stats.memory.heapUsed}/${stats.memory.heapTotal} MB (${stats.memory.usagePercent}%)`);
-    // console.log(`  External: ${stats.memory.external} MB`);
+    console.log("\n=== 资源管理报告 ===");
+    console.log(`\n【内存】`);
+    console.log(`  RSS: ${stats.memory.rss} MB`);
+    console.log(`  Heap: ${stats.memory.heapUsed}/${stats.memory.heapTotal} MB (${stats.memory.usagePercent}%)`);
+    console.log(`  External: ${stats.memory.external} MB`);
     
-    // console.log(`\n【缓存】`);
-    // console.log(`  大小: ${stats.cache.size}/${stats.cache.maxSize}`);
-    // console.log(`  命中率: ${(stats.cache.hitRate * 100).toFixed(1)}%`);
-    // console.log(`  命中: ${stats.cache.hits}, 未命中: ${stats.cache.misses}`);
+    console.log(`\n【缓存】`);
+    console.log(`  大小: ${stats.cache.size}/${stats.cache.maxSize}`);
+    console.log(`  命中率: ${(stats.cache.hitRate * 100).toFixed(1)}%`);
+    console.log(`  命中: ${stats.cache.hits}, 未命中: ${stats.cache.misses}`);
     
-    // console.log(`\n【运行时间】`);
-    // console.log(`  ${stats.uptime} 秒`);
+    console.log(`\n【运行时间】`);
+    console.log(`  ${stats.uptime} 秒`);
     
     const memStatus = this.checkMemoryStatus();
-    // console.log(`\n【状态】`);
-    // console.log(`  内存: ${memStatus === "ok" ? "✅ 正常" : memStatus === "warning" ? "⚠️ 警告" : "🔴 临界"}`);
+    console.log(`\n【状态】`);
+    console.log(`  内存: ${memStatus === "ok" ? "✅ 正常" : memStatus === "warning" ? "⚠️ 警告" : "🔴 临界"}`);
   }
 }
 

@@ -338,7 +338,7 @@ export class CodeValidator {
       });
     }
     
-    // // console.log 残留
+    // console.log 残留
     const consolePattern = /console\.(log|debug|info)\(/g;
     while ((match = consolePattern.exec(code)) !== null) {
       issues.push({
@@ -564,7 +564,7 @@ print(json.dumps(result))
 ${input.code}
 
 const result = solution(${JSON.stringify(testCase.input)});
-// console.log(JSON.stringify(result));
+console.log(JSON.stringify(result));
 `;
   }
   
@@ -680,16 +680,16 @@ const result = solution(${JSON.stringify(testCase.input)});
 // ============================================================
 
 async function demo() {
-  // console.log("=".repeat(60));
-  // console.log("CodeValidator 代码正确性验证组件演示");
-  // console.log("=".repeat(60));
+  console.log("=".repeat(60));
+  console.log("CodeValidator 代码正确性验证组件演示");
+  console.log("=".repeat(60));
   
   const validator = new CodeValidator({
     tempDir: "./experiment-results/temp-validator",
   });
   
   // 测试 1：正确代码
-  // console.log("\n1. 验证正确代码");
+  console.log("\n1. 验证正确代码");
   
   const validCode: CodeInput = {
     id: "valid-1",
@@ -706,12 +706,12 @@ function solution(arr: number[]): number {
     { name: "空数组", input: [], expected: 0 },
   ]);
   
-  // console.log(`   总体: ${result1.overall}`);
-  // console.log(`   分数: ${result1.score}`);
-  // console.log(`   问题: ${result1.issues.length}`);
+  console.log(`   总体: ${result1.overall}`);
+  console.log(`   分数: ${result1.score}`);
+  console.log(`   问题: ${result1.issues.length}`);
   
   // 测试 2：有问题的代码
-  // console.log("\n2. 验证有问题的代码");
+  console.log("\n2. 验证有问题的代码");
   
   const problematicCode: CodeInput = {
     id: "problematic-1",
@@ -719,7 +719,7 @@ function solution(arr: number[]): number {
 function solution(arr: any[]): any {
   // 使用 any 类型
   let result = eval("arr[0]");  // 使用 eval
-  // console.log("debug", result);  // console 残留
+  console.log("debug", result);  // console 残留
   return result;
 }
 `,
@@ -728,26 +728,26 @@ function solution(arr: any[]): any {
   
   const result2 = await validator.validate(problematicCode);
   
-  // console.log(`   总体: ${result2.overall}`);
-  // console.log(`   分数: ${result2.score}`);
-  // console.log(`   问题: ${result2.issues.length}`);
+  console.log(`   总体: ${result2.overall}`);
+  console.log(`   分数: ${result2.score}`);
+  console.log(`   问题: ${result2.issues.length}`);
   
   for (const issue of result2.issues) {
-    // console.log(`   - ${issue.type} (${issue.severity}): ${issue.message}`);
+    console.log(`   - ${issue.type} (${issue.severity}): ${issue.message}`);
   }
   
   // 生成报告
-  // console.log("\n3. 生成报告");
+  console.log("\n3. 生成报告");
   
   const report = validator.generateReport(result2);
   const reportPath = "./experiment-results/code-validator-report.md";
   fs.writeFileSync(reportPath, report);
-  // console.log(`   报告已保存: ${reportPath}`);
+  console.log(`   报告已保存: ${reportPath}`);
   
   // 清理
   validator.cleanup();
   
-  // console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

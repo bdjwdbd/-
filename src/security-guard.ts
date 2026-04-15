@@ -562,9 +562,9 @@ export class SecurityGuard {
 // ============================================================
 
 function demo() {
-  // console.log("=".repeat(60));
-  // console.log("SecurityGuard 安全防护组件演示");
-  // console.log("=".repeat(60));
+  console.log("=".repeat(60));
+  console.log("SecurityGuard 安全防护组件演示");
+  console.log("=".repeat(60));
   
   const guard = new SecurityGuard({
     auditLogPath: "./experiment-results/security-audit.log",
@@ -572,7 +572,7 @@ function demo() {
   });
   
   // 测试命令检查
-  // console.log("\n1. 命令安全检查");
+  console.log("\n1. 命令安全检查");
   
   const commands = [
     "ls -la",
@@ -585,12 +585,12 @@ function demo() {
   
   for (const cmd of commands) {
     const result = guard.checkCommand(cmd);
-    // console.log(`   ${result.allowed ? "✅" : "❌"} ${cmd.substring(0, 40)}`);
-    // console.log(`      风险: ${result.riskLevel}, 规则: ${result.matchedRules.join(", ") || "无"}`);
+    console.log(`   ${result.allowed ? "✅" : "❌"} ${cmd.substring(0, 40)}`);
+    console.log(`      风险: ${result.riskLevel}, 规则: ${result.matchedRules.join(", ") || "无"}`);
   }
   
   // 测试文件访问
-  // console.log("\n2. 文件访问检查");
+  console.log("\n2. 文件访问检查");
   
   const fileAccess = [
     { path: "./src/index.ts", op: "read" as const },
@@ -602,12 +602,12 @@ function demo() {
   
   for (const { path, op } of fileAccess) {
     const result = guard.checkFileAccess(path, op);
-    // console.log(`   ${result.allowed ? "✅" : "❌"} ${op}: ${path}`);
-    // console.log(`      风险: ${result.riskLevel}, 消息: ${result.message}`);
+    console.log(`   ${result.allowed ? "✅" : "❌"} ${op}: ${path}`);
+    console.log(`      风险: ${result.riskLevel}, 消息: ${result.message}`);
   }
   
   // 测试内容检查
-  // console.log("\n3. 内容安全检查");
+  console.log("\n3. 内容安全检查");
   
   const contents = [
     "这是一段普通文本",
@@ -618,19 +618,19 @@ function demo() {
   
   for (const content of contents) {
     const result = guard.checkContent(content);
-    // console.log(`   ${result.allowed ? "✅" : "❌"} ${content.substring(0, 40)}...`);
-    // console.log(`      风险: ${result.riskLevel}, 规则: ${result.matchedRules.join(", ") || "无"}`);
+    console.log(`   ${result.allowed ? "✅" : "❌"} ${content.substring(0, 40)}...`);
+    console.log(`      风险: ${result.riskLevel}, 规则: ${result.matchedRules.join(", ") || "无"}`);
   }
   
   // 统计信息
-  // console.log("\n4. 安全统计");
+  console.log("\n4. 安全统计");
   
   const stats = guard.getStats();
-  // console.log(`   总检查次数: ${stats.totalChecks}`);
-  // console.log(`   允许: ${stats.allowedCount}, 警告: ${stats.warnedCount}, 阻止: ${stats.blockedCount}`);
-  // console.log(`   风险分布: 低=${stats.topRiskLevels.low}, 中=${stats.topRiskLevels.medium}, 高=${stats.topRiskLevels.high}, 严重=${stats.topRiskLevels.critical}`);
+  console.log(`   总检查次数: ${stats.totalChecks}`);
+  console.log(`   允许: ${stats.allowedCount}, 警告: ${stats.warnedCount}, 阻止: ${stats.blockedCount}`);
+  console.log(`   风险分布: 低=${stats.topRiskLevels.low}, 中=${stats.topRiskLevels.medium}, 高=${stats.topRiskLevels.high}, 严重=${stats.topRiskLevels.critical}`);
   
-  // console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

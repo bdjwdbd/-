@@ -935,34 +935,34 @@ export class AgentCoordinator {
 // ============================================================
 
 function demo() {
-  // console.log("=".repeat(60));
-  // console.log("AgentCoordinator 多 Agent 协调组件演示");
-  // console.log("=".repeat(60));
+  console.log("=".repeat(60));
+  console.log("AgentCoordinator 多 Agent 协调组件演示");
+  console.log("=".repeat(60));
   
   const coordinator = new AgentCoordinator({
     persistencePath: "./experiment-results/coordinator",
   });
   
   // 注册资源
-  // console.log("\n1. 注册资源");
+  console.log("\n1. 注册资源");
   
   coordinator.registerResource("file-1", "数据文件", "file");
   coordinator.registerResource("api-1", "LLM API", "api");
   coordinator.registerResource("tool-1", "执行工具", "tool");
   
-  // console.log("   已注册 3 个资源");
+  console.log("   已注册 3 个资源");
   
   // 注册 Agent
-  // console.log("\n2. 注册 Agent");
+  console.log("\n2. 注册 Agent");
   
   const agent1 = coordinator.registerAgent("agent-1", "数据分析 Agent", ["analysis", "read"]);
   const agent2 = coordinator.registerAgent("agent-2", "执行 Agent", ["execute", "write"]);
   const agent3 = coordinator.registerAgent("agent-3", "监控 Agent", ["monitor"]);
   
-  // console.log(`   已注册 ${coordinator.getAllAgents().length} 个 Agent`);
+  console.log(`   已注册 ${coordinator.getAllAgents().length} 个 Agent`);
   
   // 添加任务
-  // console.log("\n3. 添加任务");
+  console.log("\n3. 添加任务");
   
   const task1 = coordinator.addTask("读取数据文件", {
     priority: "high",
@@ -982,45 +982,45 @@ function demo() {
     requiredResources: ["tool-1"],
   });
   
-  // console.log(`   已添加 ${coordinator.getStats().totalTasks} 个任务`);
+  console.log(`   已添加 ${coordinator.getStats().totalTasks} 个任务`);
   
   // 模拟执行
-  // console.log("\n4. 模拟任务执行");
+  console.log("\n4. 模拟任务执行");
   
   // Agent 1 请求资源
   const locked = coordinator.requestResource("agent-1", "file-1");
-  // console.log(`   Agent 1 请求 file-1: ${locked ? "成功" : "等待"}`);
+  console.log(`   Agent 1 请求 file-1: ${locked ? "成功" : "等待"}`);
   
   // Agent 2 尝试请求同一资源
   const locked2 = coordinator.requestResource("agent-2", "file-1");
-  // console.log(`   Agent 2 请求 file-1: ${locked2 ? "成功" : "等待（排队）"}`);
+  console.log(`   Agent 2 请求 file-1: ${locked2 ? "成功" : "等待（排队）"}`);
   
   // 获取消息
   const messages = coordinator.getMessages("agent-2");
-  // console.log(`   Agent 2 收到 ${messages.length} 条消息`);
+  console.log(`   Agent 2 收到 ${messages.length} 条消息`);
   
   // 释放资源
   coordinator.releaseResource("agent-1", "file-1");
-  // console.log("   Agent 1 释放 file-1");
+  console.log("   Agent 1 释放 file-1");
   
   // 统计信息
-  // console.log("\n5. 统计信息");
+  console.log("\n5. 统计信息");
   
   const stats = coordinator.getStats();
-  // console.log(`   总 Agent: ${stats.totalAgents}`);
-  // console.log(`   活跃 Agent: ${stats.activeAgents}`);
-  // console.log(`   总任务: ${stats.totalTasks}`);
-  // console.log(`   已完成: ${stats.completedTasks}`);
-  // console.log(`   锁定资源: ${stats.lockedResources}`);
-  // console.log(`   消息处理: ${stats.messagesProcessed}`);
+  console.log(`   总 Agent: ${stats.totalAgents}`);
+  console.log(`   活跃 Agent: ${stats.activeAgents}`);
+  console.log(`   总任务: ${stats.totalTasks}`);
+  console.log(`   已完成: ${stats.completedTasks}`);
+  console.log(`   锁定资源: ${stats.lockedResources}`);
+  console.log(`   消息处理: ${stats.messagesProcessed}`);
   
   // 生成报告
-  // console.log("\n6. 生成报告");
+  console.log("\n6. 生成报告");
   
   const report = coordinator.generateReport();
   const reportPath = "./experiment-results/coordinator/report.md";
   fs.writeFileSync(reportPath, report);
-  // console.log(`   报告已保存: ${reportPath}`);
+  console.log(`   报告已保存: ${reportPath}`);
   
   // 保存状态
   coordinator.save();
@@ -1028,7 +1028,7 @@ function demo() {
   // 停止
   coordinator.stop();
   
-  // console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(60));
 }
 
 if (require.main === module) {

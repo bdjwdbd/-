@@ -32,19 +32,19 @@ import {
 // ============================================================
 
 function log(message: string): void {
-  // console.log(message);
+  console.log(message);
 }
 
 function logHeader(title: string): void {
-  // console.log("\n" + "═".repeat(60));
-  // console.log(`  ${title}`);
-  // console.log("═".repeat(60) + "\n");
+  console.log("\n" + "═".repeat(60));
+  console.log(`  ${title}`);
+  console.log("═".repeat(60) + "\n");
 }
 
 function logSubHeader(title: string): void {
-  // console.log("\n" + "─".repeat(40));
-  // console.log(`  ${title}`);
-  // console.log("─".repeat(40) + "\n");
+  console.log("\n" + "─".repeat(40));
+  console.log(`  ${title}`);
+  console.log("─".repeat(40) + "\n");
 }
 
 // ============================================================
@@ -220,7 +220,7 @@ async function demo4_HypothesisManagement(): Promise<void> {
   log(`   已拒绝: ${rejected.length}`);
 
   log("\n📋 假设摘要:");
-  // console.log(manager.generateSummary());
+  console.log(manager.generateSummary());
 }
 
 // ============================================================
@@ -294,15 +294,15 @@ async function demo6_Visualization(): Promise<void> {
 
   logSubHeader("ASCII 格式");
   const ascii = thinkingVisualizer.toASCII(result);
-  // console.log(ascii.split("\n").slice(0, 20).join("\n"));
+  console.log(ascii.split("\n").slice(0, 20).join("\n"));
 
   logSubHeader("Markdown 格式");
   const markdown = thinkingVisualizer.toMarkdown(result);
-  // console.log(markdown.split("\n").slice(0, 25).join("\n"));
+  console.log(markdown.split("\n").slice(0, 25).join("\n"));
 
   logSubHeader("JSON 格式");
   const json = thinkingVisualizer.toJSON(result);
-  // console.log(json.split("\n").slice(0, 15).join("\n"));
+  console.log(json.split("\n").slice(0, 15).join("\n"));
 }
 
 // ============================================================
@@ -415,11 +415,11 @@ async function demo8_ContextManagement(): Promise<void> {
 // ============================================================
 
 async function runAllDemos(): Promise<void> {
-  // console.log("\n");
-  // console.log("╔══════════════════════════════════════════════════════════════╗");
-  // console.log("║           灵思层（L0）功能演示                                 ║");
-  // console.log("║        基于 Thinking Claude 协议设计                           ║");
-  // console.log("╚══════════════════════════════════════════════════════════════╝");
+  console.log("\n");
+  console.log("╔══════════════════════════════════════════════════════════════╗");
+  console.log("║           灵思层（L0）功能演示                                 ║");
+  console.log("║        基于 Thinking Claude 协议设计                           ║");
+  console.log("╚══════════════════════════════════════════════════════════════╝");
 
   try {
     await demo1_BasicUsage();
@@ -431,10 +431,10 @@ async function runAllDemos(): Promise<void> {
     await demo7_TokenAware();
     await demo8_ContextManagement();
 
-    // console.log("\n");
-    // console.log("═".repeat(60));
-    // console.log("  🎉 所有演示完成！");
-    // console.log("═".repeat(60) + "\n");
+    console.log("\n");
+    console.log("═".repeat(60));
+    console.log("  🎉 所有演示完成！");
+    console.log("═".repeat(60) + "\n");
   } catch (error) {
     console.error("\n❌ 演示失败:", error);
     process.exit(1);

@@ -230,7 +230,7 @@ export class LocalInferenceEngine {
     if (!model || !device) return false;
 
     // 模拟模型加载
-    // console.log(`Loading model ${model.name} on device ${device.name}`);
+    console.log(`Loading model ${model.name} on device ${device.name}`);
     
     // 缓存模型
     this.modelCache.set(`${deviceId}-${modelId}`, {
