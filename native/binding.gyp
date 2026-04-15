@@ -13,10 +13,10 @@
       ],
       "cflags!": ["-fno-exceptions"],
       "cflags_cc!": ["-fno-exceptions"],
-      "cflags_cc": ["-std=c++17", "-fPIC"],
+      "cflags_cc": ["-std=c++17", "-fPIC", "-O3"],
       "conditions": [
         ["OS=='linux'", {
-          "cflags_cc": ["-mavx512f", "-mavx512vl", "-mavx512dq", "-mavx512bw", "-mavx512vnni"]
+          "cflags_cc": ["-mavx2", "-mfma", "-mavx512f", "-mavx512vl", "-mavx512dq", "-mavx512bw", "-mavx512vnni"]
         }],
         ["OS=='mac'", {
           "xcode_settings": {
@@ -29,7 +29,7 @@
           "msvs_settings": {
             "VCCLCompilerTool": {
               "ExceptionHandling": 1,
-              "AdditionalOptions": ["/arch:AVX512"]
+              "AdditionalOptions": ["/arch:AVX2"]
             }
           }
         }]
@@ -44,7 +44,7 @@
       ],
       "cflags!": ["-fno-exceptions"],
       "cflags_cc!": ["-fno-exceptions"],
-      "cflags_cc": ["-std=c++17", "-fPIC"]
+      "cflags_cc": ["-std=c++17", "-fPIC", "-O3"]
     }
   ]
 }
