@@ -218,6 +218,9 @@ export class YuanLingSystem {
     });
     this.performanceMonitor = new PerformanceMonitor();
     this.logger = new StructuredLogger({ minLevel: this.config.logLevel });
+    
+    // 共享 PerformanceMonitor 到 IntegratedSystem
+    this.integratedSystem.setPerformanceMonitor(this.performanceMonitor);
   }
 
   // ============ L6 灵识层 - 环境感知 ============

@@ -67,6 +67,7 @@ export interface SystemHealth {
 export class IntegratedSystem {
   private logger: StructuredLogger;
   private config: Required<IntegratedSystemConfig>;
+  private performanceMonitor: any = null;
   
   // 记忆系统
   private memoryStore: MemoryStore;
@@ -95,6 +96,14 @@ export class IntegratedSystem {
   private causalReasoner: CausalReasoner;
   private autonomousLearner: AutonomousLearner;
   private knowledgeTransfer: KnowledgeTransfer;
+  
+  // 缓存系统
+  private cache: Map<string, { value: any; expiresAt: number }> = new Map();
+  
+  /** 设置 PerformanceMonitor */
+  setPerformanceMonitor(monitor: any): void {
+    this.performanceMonitor = monitor;
+  }
   
   /** 获取在线学习器实例 */
   get onlineLearner(): OnlineLearner {
@@ -224,6 +233,15 @@ export class IntegratedSystem {
   }): Promise<Array<{ memory: Memory; score: number }>> {
     await this.ensureInitialized();
     
+    // 检查缓存
+    const cacheKey = `search:${query}:${JSON.stringify(options)}`;
+    const cached = this.getFromCache(cacheKey);
+    if (cached) {
+      this.performanceMonitor?.recordCacheHit();
+      return cached;
+    }
+    this.performanceMonitor?.recordCacheMiss();
+    
     // 文本搜索
     const textResults = await this.memoryStore.search(query, options);
     
@@ -253,9 +271,45 @@ export class IntegratedSystem {
       }
     }
     
-    return Array.from(mergedResults.values())
+    const results = Array.from(mergedResults.values())
       .sort((a, b) => b.score - a.score)
       .slice(0, options?.limit || 10);
+    
+    // 存入缓存
+    this.setCache(cacheKey, results, 60000); // 1分钟缓存
+    
+    return results;
+  }
+  
+  /**
+   * 从缓存获取
+   */
+  private getFromCache(key: string): any | null {
+    const entry = this.cache.get(key);
+    if (!entry) return null;
+    if (Date.now() > entry.expiresAt) {
+      this.cache.delete(key);
+      return null;
+    }
+    return entry.value;
+  }
+  
+  /**
+   * 存入缓存
+   */
+  private setCache(key: string, value: any, ttlMs: number): void {
+    // LRU 淘汰
+    if (this.cache.size >= 100) {
+      const oldest = Array.from(this.cache.entries())
+        .sort((a, b) => a[1].expiresAt - b[1].expiresAt)[0];
+      if (oldest) {
+        this.cache.delete(oldest[0]);
+      }
+    }
+    this.cache.set(key, {
+      value,
+      expiresAt: Date.now() + ttlMs
+    });
   }
 
   /**
