@@ -5,13 +5,36 @@
  * 提供简洁的 API 封装，隐藏底层复杂性
  */
 
-import * as simd from '../../native/build/Release/yuanling_native.node';
-import * as parallel from '../../native/build/Release/parallel.node';
-import * as int8 from '../../native/build/Release/int8.node';
 import { IVFIndex } from './ivf-index';
 import { HybridIndex } from './hybrid-index';
 import { MatryoshkaEmbedding, PRESETS } from './matryoshka';
 import { EmbeddingClient, QWEN3_EMBEDDING_CONFIG } from './embedding-config';
+
+// ============================================================
+// 原生模块条件导入
+// ============================================================
+
+let simd: any = null;
+let parallel: any = null;
+let int8: any = null;
+
+try {
+    simd = require('../../native/build/Release/yuanling_native.node');
+} catch (e) {
+    // 原生模块不可用
+}
+
+try {
+    parallel = require('../../native/build/Release/parallel.node');
+} catch (e) {
+    // 原生模块不可用
+}
+
+try {
+    int8 = require('../../native/build/Release/int8.node');
+} catch (e) {
+    // 原生模块不可用
+}
 
 // ============================================================
 // 类型定义

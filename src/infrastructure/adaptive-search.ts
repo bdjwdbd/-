@@ -24,6 +24,37 @@ export interface SearchResult {
   score: number;
 }
 
+// 简单向量搜索（降级实现）
+class SimpleVectorSearch {
+    private vectors: Float32Array[] = [];
+    
+    add(vector: Float32Array): void {
+        this.vectors.push(vector);
+    }
+    
+    search(query: Float32Array, k: number): SearchResult[] {
+        const scores = this.vectors.map((v, i) => ({
+            index: i,
+            score: this.cosineSimilarity(query, v)
+        }));
+        scores.sort((a, b) => b.score - a.score);
+        return scores.slice(0, k);
+    }
+    
+    private cosineSimilarity(a: Float32Array, b: Float32Array): number {
+        let dot = 0, normA = 0, normB = 0;
+        for (let i = 0; i < a.length; i++) {
+            dot += a[i] * b[i];
+            normA += a[i] * a[i];
+            normB += b[i] * b[i];
+        }
+        return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
+}
+
+// 加速器类型（降级实现）
+type Accelerator = SimpleVectorSearch | ParallelSearch;
+
 // ============================================================
 // 默认配置
 // ============================================================
@@ -122,7 +153,7 @@ export class AdaptiveVectorSearch {
    * 中数据量搜索
    */
   private async mediumSearch(query: Float32Array, k: number): Promise<SearchResult[]> {
-    const search = new ParallelVectorSearch({ numWorkers: this.config.numWorkers });
+    const search = new ParallelSearch({ numWorkers: this.config.numWorkers });
     search.addVectors(this.vectors);
     return search.search(query, k);
   }
