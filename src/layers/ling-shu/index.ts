@@ -12,6 +12,12 @@
 
 // 从 core/ 导入组件
 export { DecisionCenter, MemoryCenter, SecurityAssessment } from "../../core/decision";
+export { 
+  ContractValidator, 
+  ValidationResult, 
+  ValidationReport 
+} from "./DecisionCenter";
+export type { Decision, Intent, Priority, IntentType, TaskQueue } from "./DecisionCenter";
 export { MemoryCenterV2 } from "../../core";
 export { AgentCoordinator } from "../../agent-coordinator";
 

@@ -20,6 +20,7 @@ import { quickThink, L0Manager, getL0Manager } from './l0-integration';
 import { SimpleIntrospection } from './introspection/simple-tracker';
 import { IntrospectionSystem } from './introspection';
 import { IntegratedSystem, SystemHealth } from './integrated-system';
+import { PerformanceMonitor, StructuredLogger } from './infrastructure/index';
 
 // ============ 类型定义 ============
 
@@ -197,6 +198,8 @@ export class YuanLingSystem {
   private tools: Map<string, Tool> = new Map();
   private llmConfig?: LLMConfig;
   private integratedSystem: IntegratedSystem;
+  private performanceMonitor: PerformanceMonitor;
+  private logger: StructuredLogger;
 
   /** 获取 L0 思考协议管理器 */
   get l0Manager(): L0Manager {
@@ -213,6 +216,8 @@ export class YuanLingSystem {
       enableLearning: true,
       enableHealthCheck: true
     });
+    this.performanceMonitor = new PerformanceMonitor();
+    this.logger = new StructuredLogger({ minLevel: this.config.logLevel });
   }
 
   // ============ L6 灵识层 - 环境感知 ============
@@ -465,29 +470,49 @@ export class YuanLingSystem {
   }> {
     void sessionHistory; // 参数保留用于扩展
     const context: ProcessingContext = {};
+    const startTime = Date.now();
+    let success = true;
 
-    // ========== L6 灵识层 - 环境感知（已在 startup 完成）==========
+    try {
+      // ========== L6 灵识层 - 环境感知（已在 startup 完成）==========
 
-    // ========== L0 灵思层 - 思考 ==========
-    context.thinking = await this.think(userMessage) || undefined;
+      // ========== L0 灵思层 - 思考 ==========
+      const l0Start = Date.now();
+      context.thinking = await this.think(userMessage) || undefined;
+      this.performanceMonitor.recordLayerLatency('L0-灵思层', Date.now() - l0Start);
 
-    // ========== L1 灵枢层 - 决策 ==========
-    context.decision = await this.makeDecision(userMessage, context.thinking);
+      // ========== L1 灵枢层 - 决策 ==========
+      const l1Start = Date.now();
+      context.decision = await this.makeDecision(userMessage, context.thinking);
+      this.performanceMonitor.recordLayerLatency('L1-灵枢层', Date.now() - l1Start);
 
-    // ========== L2/L3 灵脉层/灵躯层 - 执行（委托给外部执行器）==========
-    const enhancedPrompt = await this.buildEnhancedPrompt(userMessage, context);
-    const result = await executor(enhancedPrompt, context);
+      // ========== L2/L3 灵脉层/灵躯层 - 执行（委托给外部执行器）==========
+      const l2Start = Date.now();
+      const enhancedPrompt = await this.buildEnhancedPrompt(userMessage, context);
+      const result = await executor(enhancedPrompt, context);
+      this.performanceMonitor.recordLayerLatency('L2-L3-灵脉灵躯层', Date.now() - l2Start);
 
-    // ========== L4 灵盾层 - 验证 ==========
-    context.validation = this.validateOutput(result, userMessage);
+      // ========== L4 灵盾层 - 验证 ==========
+      const l4Start = Date.now();
+      context.validation = this.validateOutput(result, userMessage);
+      this.performanceMonitor.recordLayerLatency('L4-灵盾层', Date.now() - l4Start);
 
-    // ========== L5 灵韵层 - 反馈 ==========
-    context.feedback = this.generateFeedback(context.validation, result);
+      // ========== L5 灵韵层 - 反馈 ==========
+      context.feedback = this.generateFeedback(context.validation, result);
 
-    // ========== L5 学习反馈 ==========
-    await this.learnFromFeedback(userMessage, result, context.validation);
+      // ========== L5 学习反馈 ==========
+      await this.learnFromFeedback(userMessage, result, context.validation);
 
-    return { result, context };
+      return { result, context };
+    } catch (error) {
+      success = false;
+      throw error;
+    } finally {
+      // 记录请求指标
+      const latency = Date.now() - startTime;
+      this.performanceMonitor.recordRequest(success, latency);
+      this.logger.info('YuanLingSystem', `处理完成: ${latency}ms, 成功: ${success}`);
+    }
   }
 
   /**
@@ -626,14 +651,46 @@ export class YuanLingSystem {
     hasLLMConfig: boolean;
     l0Enabled: boolean;
     introspectionEnabled: boolean;
+    performance: {
+      health: number;
+      avgLatency: number;
+      cacheHitRate: number;
+      successRate: number;
+      totalRequests: number;
+    };
   } {
+    const perfMetrics = this.performanceMonitor.getSystemMetrics();
+    
+    // 根据性能指标判断健康状态
+    let health: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    if (perfMetrics.health < 0.7) {
+      health = 'unhealthy';
+    } else if (perfMetrics.health < 0.9) {
+      health = 'degraded';
+    }
+
     return {
-      health: 'healthy',
+      health,
       toolCount: this.tools.size,
       hasLLMConfig: !!this.llmConfig,
       l0Enabled: this.config.enableL0,
       introspectionEnabled: this.config.enableIntrospection,
+      performance: perfMetrics,
     };
+  }
+
+  /**
+   * 获取性能报告
+   */
+  getPerformanceReport(): string {
+    return this.performanceMonitor.getFullReport();
+  }
+
+  /**
+   * 获取性能监控器
+   */
+  getPerformanceMonitor(): PerformanceMonitor {
+    return this.performanceMonitor;
   }
 
   /**

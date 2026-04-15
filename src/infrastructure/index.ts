@@ -356,8 +356,174 @@ export class SprintContractManager {
     const contract = this.contracts.get(id);
     if (contract) {
       contract.status = 'executing';
+      contract.startedAt = new Date();
       this.logger.info('SprintContract', `开始执行: ${contract.goal}`);
     }
+  }
+  
+  /**
+   * 验证单个标准
+   */
+  validateCriterion(id: string, criterionName: string, passed: boolean, evidence?: string): {
+    success: boolean;
+    criterion: any;
+    passed: boolean;
+    evidence?: string;
+  } {
+    const contract = this.contracts.get(id);
+    if (!contract) {
+      return { success: false, criterion: null, passed: false };
+    }
+
+    const criterion = contract.criteria.find((c: any) => c.name === criterionName);
+    if (!criterion) {
+      return { success: false, criterion: null, passed: false };
+    }
+
+    // 记录验证结果
+    if (!contract.validationResults) {
+      contract.validationResults = {};
+    }
+    contract.validationResults[criterionName] = {
+      passed,
+      evidence,
+      validatedAt: new Date(),
+    };
+
+    this.logger.info('SprintContract', `验证标准 [${criterionName}]: ${passed ? '✅ 通过' : '❌ 未通过'}`);
+
+    return { success: true, criterion, passed, evidence };
+  }
+
+  /**
+   * 获取验证进度
+   */
+  getValidationProgress(id: string): {
+    total: number;
+    validated: number;
+    passed: number;
+    failed: number;
+    pending: number;
+    progress: number;
+    criteria: Array<{
+      name: string;
+      required: boolean;
+      status: 'pending' | 'passed' | 'failed';
+      evidence?: string;
+    }>;
+  } {
+    const contract = this.contracts.get(id);
+    if (!contract) {
+      return { total: 0, validated: 0, passed: 0, failed: 0, pending: 0, progress: 0, criteria: [] };
+    }
+
+    const results = contract.validationResults || {};
+    const criteria = contract.criteria.map((c: any) => {
+      const result = results[c.name];
+      return {
+        name: c.name,
+        required: c.required,
+        status: result ? (result.passed ? 'passed' : 'failed') : 'pending',
+        evidence: result?.evidence,
+      };
+    });
+
+    const total = criteria.length;
+    const validated = criteria.filter(c => c.status !== 'pending').length;
+    const passed = criteria.filter(c => c.status === 'passed').length;
+    const failed = criteria.filter(c => c.status === 'failed').length;
+    const pending = criteria.filter(c => c.status === 'pending').length;
+
+    return {
+      total,
+      validated,
+      passed,
+      failed,
+      pending,
+      progress: total > 0 ? (validated / total) * 100 : 0,
+      criteria,
+    };
+  }
+
+  /**
+   * 完成验证并生成报告
+   */
+  completeWithValidation(id: string): {
+    success: boolean;
+    report: string;
+    summary: {
+      total: number;
+      passed: number;
+      failed: number;
+      passRate: number;
+    };
+  } {
+    const contract = this.contracts.get(id);
+    if (!contract) {
+      return {
+        success: false,
+        report: 'Contract not found',
+        summary: { total: 0, passed: 0, failed: 0, passRate: 0 },
+      };
+    }
+
+    const progress = this.getValidationProgress(id);
+    const allPassed = progress.failed === 0 && progress.pending === 0;
+    
+    contract.status = allPassed ? 'completed' : 'failed';
+    contract.completedAt = new Date();
+
+    // 生成报告
+    const report = this.generateValidationReport(contract, progress);
+    
+    this.logger.info('SprintContract', `验证完成: ${contract.goal} (${allPassed ? '✅ 成功' : '❌ 失败'})`);
+
+    return {
+      success: allPassed,
+      report,
+      summary: {
+        total: progress.total,
+        passed: progress.passed,
+        failed: progress.failed,
+        passRate: progress.total > 0 ? (progress.passed / progress.total) * 100 : 0,
+      },
+    };
+  }
+
+  /**
+   * 生成验证报告
+   */
+  private generateValidationReport(contract: any, progress: any): string {
+    const lines: string[] = [];
+    
+    lines.push(`# Sprint Contract 验收报告`);
+    lines.push('');
+    lines.push(`**任务**: ${contract.goal}`);
+    lines.push(`**状态**: ${contract.status === 'completed' ? '✅ 完成' : '❌ 失败'}`);
+    lines.push('');
+    lines.push(`## 验收结果`);
+    lines.push('');
+    lines.push(`| 序号 | 验收标准 | 必填 | 状态 | 证据 |`);
+    lines.push(`|------|----------|------|------|------|`);
+
+    progress.criteria.forEach((c: any, i: number) => {
+      const required = c.required ? '✅' : '⚠️';
+      const status = c.status === 'passed' ? '✅ 通过' : 
+                     c.status === 'failed' ? '❌ 未通过' : '⏳ 待验证';
+      const evidence = c.evidence || '-';
+      lines.push(`| ${i + 1} | ${c.name} | ${required} | ${status} | ${evidence} |`);
+    });
+
+    lines.push('');
+    lines.push(`## 统计`);
+    lines.push('');
+    lines.push(`- 总标准数: ${progress.total}`);
+    lines.push(`- 通过: ${progress.passed}`);
+    lines.push(`- 未通过: ${progress.failed}`);
+    lines.push(`- 待验证: ${progress.pending}`);
+    lines.push(`- 通过率: ${progress.total > 0 ? ((progress.passed / progress.total) * 100).toFixed(1) : 0}%`);
+
+    return lines.join('\n');
   }
   
   complete(id: string, results: Record<string, boolean>): boolean {
@@ -391,6 +557,19 @@ export { HealthChecker as SystemHealthChecker, HealthCheckResult, HealthReport, 
 export { VectorStore, Vector, VectorSearchResult, VectorStoreConfig, SimpleTextVectorizer } from './vector-store';
 export { PredictiveMaintenance, GrowthPrediction, MaintenancePlan, MaintenanceType, MaintenanceStats } from './predictive-maintenance';
 export { CloudSync, SyncConfig, SyncResult, SyncStatus } from './cloud-sync';
+
+// ============ 验收标准推断引擎 ============
+
+export { 
+  CriteriaInferenceEngine, 
+  InferredCriteria, 
+  InferenceResult as CriteriaInferenceResult, 
+  DomainKnowledge,
+  inferCriteria,
+  inferAndCreateContract,
+  inferCriteriaAsTable,
+  inferCriteriaForTable,
+} from './criteria-inference-engine';
 
 // ============ 学习系统模块 ============
 

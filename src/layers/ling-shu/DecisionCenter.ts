@@ -6,7 +6,16 @@
  * - 决策推理：基于规则和上下文做出决策
  * - 优先级排序：多任务时的优先级判断
  * - 资源分配：分配执行资源
+ * - 验收合同：自动推断验收标准并启用 Sprint Contract
  */
+
+import { 
+  CriteriaInferenceEngine, 
+  InferredCriteria,
+  inferCriteriaAsTable 
+} from '../../infrastructure/criteria-inference-engine';
+import { SprintContractManager } from '../../infrastructure/index';
+import { StructuredLogger } from '../../infrastructure/index';
 
 // ============================================================
 // 类型定义
@@ -39,6 +48,136 @@ export interface Decision {
   dependencies: string[];
   riskLevel: "safe" | "moderate" | "risky";
   reasoning: string;
+  // 验收合同相关
+  sprintContract?: {
+    id: string;
+    goal: string;
+    criteria: InferredCriteria[];
+    confidence: number;
+    table: string;
+  };
+}
+
+// ============================================================
+// 验收验证器
+// ============================================================
+
+export interface ValidationResult {
+  criterionName: string;
+  passed: boolean;
+  evidence?: string;
+}
+
+export interface ValidationReport {
+  contractId: string;
+  success: boolean;
+  report: string;
+  summary: {
+    total: number;
+    passed: number;
+    failed: number;
+    passRate: number;
+  };
+}
+
+export class ContractValidator {
+  private sprintContractManager: SprintContractManager;
+  private logger: StructuredLogger;
+
+  constructor() {
+    this.logger = new StructuredLogger();
+    this.sprintContractManager = new SprintContractManager(this.logger);
+  }
+
+  /**
+   * 获取 SprintContractManager 实例
+   */
+  getManager(): SprintContractManager {
+    return this.sprintContractManager;
+  }
+
+  /**
+   * 验证单个标准
+   */
+  validateCriterion(
+    contractId: string,
+    criterionName: string,
+    passed: boolean,
+    evidence?: string
+  ): { success: boolean; criterion: any; passed: boolean } {
+    return this.sprintContractManager.validateCriterion(contractId, criterionName, passed, evidence);
+  }
+
+  /**
+   * 批量验证
+   */
+  validateBatch(contractId: string, results: ValidationResult[]): {
+    validated: number;
+    passed: number;
+    failed: number;
+  } {
+    let validated = 0;
+    let passed = 0;
+    let failed = 0;
+
+    for (const result of results) {
+      this.sprintContractManager.validateCriterion(
+        contractId,
+        result.criterionName,
+        result.passed,
+        result.evidence
+      );
+      validated++;
+      if (result.passed) passed++;
+      else failed++;
+    }
+
+    return { validated, passed, failed };
+  }
+
+  /**
+   * 获取验证进度
+   */
+  getProgress(contractId: string) {
+    return this.sprintContractManager.getValidationProgress(contractId);
+  }
+
+  /**
+   * 完成验证并生成报告
+   */
+  complete(contractId: string): ValidationReport {
+    const result = this.sprintContractManager.completeWithValidation(contractId);
+    return {
+      contractId,
+      success: result.success,
+      report: result.report,
+      summary: result.summary,
+    };
+  }
+
+  /**
+   * 生成验证报告表格
+   */
+  generateProgressTable(contractId: string): string {
+    const progress = this.sprintContractManager.getValidationProgress(contractId);
+    
+    const lines: string[] = [];
+    lines.push(`| 序号 | 验收标准 | 必填 | 状态 |`);
+    lines.push(`|------|----------|------|------|`);
+
+    progress.criteria.forEach((c: any, i: number) => {
+      const required = c.required ? '✅' : '⚠️';
+      const status = c.status === 'passed' ? '✅ 通过' : 
+                     c.status === 'failed' ? '❌ 未通过' : '⏳ 待验证';
+      lines.push(`| ${i + 1} | ${c.name} | ${required} | ${status} |`);
+    });
+
+    lines.push('');
+    lines.push(`**进度**: ${progress.validated}/${progress.total} (${progress.progress.toFixed(1)}%)`);
+    lines.push(`**通过**: ${progress.passed} | **未通过**: ${progress.failed} | **待验证**: ${progress.pending}`);
+
+    return lines.join('\n');
+  }
 }
 
 export interface TaskQueue {
@@ -103,7 +242,10 @@ export class IntentEngine {
       lower.includes("执行") ||
       lower.includes("运行") ||
       lower.includes("删除") ||
-      lower.includes("创建")
+      lower.includes("创建") ||
+      lower.includes("修复") ||
+      lower.includes("修改") ||
+      lower.includes("重构")
     ) {
       return "action";
     }
@@ -113,7 +255,9 @@ export class IntentEngine {
       lower.includes("写") ||
       lower.includes("生成") ||
       lower.includes("制作") ||
-      lower.includes("设计")
+      lower.includes("设计") ||
+      lower.includes("实现") ||
+      lower.includes("开发")
     ) {
       return "creation";
     }
@@ -301,6 +445,9 @@ export class DecisionReasoningEngine {
     // 生成推理说明
     const reasoning = this.generateReasoning(intent, action, priority);
 
+    // 判断是否需要 Sprint Contract
+    const sprintContract = this.shouldUseSprintContract(intent, estimatedComplexity, message);
+
     return {
       action,
       priority,
@@ -309,7 +456,94 @@ export class DecisionReasoningEngine {
       dependencies,
       riskLevel,
       reasoning,
+      sprintContract,
     };
+  }
+
+  /**
+   * 判断是否需要 Sprint Contract
+   */
+  private shouldUseSprintContract(
+    intent: Intent, 
+    complexity: "low" | "medium" | "high",
+    message: string
+  ): Decision['sprintContract'] | undefined {
+    // 不需要 Sprint Contract 的场景
+    const skipTypes: IntentType[] = ['conversation', 'clarification', 'information'];
+    if (skipTypes.includes(intent.type)) {
+      return undefined;
+    }
+
+    // 创建类任务始终启用
+    if (intent.type === 'creation') {
+      return this.createSprintContract(message);
+    }
+
+    // 多步骤任务始终启用
+    if (intent.type === 'multi_step') {
+      return this.createSprintContract(message);
+    }
+
+    // 执行类任务：检查是否包含开发关键词
+    if (intent.type === 'action') {
+      const devKeywords = ['实现', '开发', '写', '生成', '创建', '设计', '重构', '修复', '修改'];
+      if (devKeywords.some(k => message.includes(k))) {
+        return this.createSprintContract(message);
+      }
+    }
+
+    // 中高复杂度任务启用
+    if (complexity === 'high' || complexity === 'medium') {
+      return this.createSprintContract(message);
+    }
+
+    return undefined;
+  }
+
+  /**
+   * 创建 Sprint Contract
+   */
+  private createSprintContract(message: string): Decision['sprintContract'] {
+    const engine = new CriteriaInferenceEngine();
+    const result = engine.infer(message);
+
+    if (result.criteria.length === 0) {
+      return undefined;
+    }
+
+    // 使用共享的 SprintContractManager 实例
+    const contractManager = this.getSharedContractManager();
+    const contract = contractManager.create(message, result.criteria);
+
+    return {
+      id: contract.id,
+      goal: message,
+      criteria: result.criteria,
+      confidence: result.confidence,
+      table: inferCriteriaAsTable(message),
+    };
+  }
+
+  /**
+   * 获取共享的 SprintContractManager 实例
+   */
+  private static sharedContractManager: SprintContractManager | null = null;
+  
+  private getSharedContractManager(): SprintContractManager {
+    if (!DecisionReasoningEngine.sharedContractManager) {
+      DecisionReasoningEngine.sharedContractManager = new SprintContractManager(new StructuredLogger());
+    }
+    return DecisionReasoningEngine.sharedContractManager;
+  }
+
+  /**
+   * 获取 ContractValidator（用于验证）
+   */
+  getContractValidator(): ContractValidator {
+    const validator = new ContractValidator();
+    // 同步共享的 manager
+    (validator as any).sprintContractManager = this.getSharedContractManager();
+    return validator;
   }
 
   /**
@@ -359,9 +593,14 @@ export class DecisionReasoningEngine {
       return "high";
     }
 
-    // 创建和分析任务复杂度中等
+    // 创建和分析任务复杂度中等或高
     if (intent.type === "creation" || intent.type === "analysis") {
       return message.length > 100 ? "high" : "medium";
+    }
+
+    // 执行操作任务复杂度中等
+    if (intent.type === "action") {
+      return message.length > 50 ? "medium" : "low";
     }
 
     // 长消息复杂度中等
