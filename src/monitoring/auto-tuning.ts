@@ -333,14 +333,14 @@ export class BayesianOptimizer {
     const params: Record<string, unknown> = {};
 
     for (const [name, param] of this.parameters) {
-      const (bestValue as number) = best.params[name];
+      const bestValue = best.params[name] as number;
       
       switch (param.type) {
         case 'float':
           const range = ((param.max || 1) - (param.min || 0)) * 0.2;
           params[name] = Math.max(
             param.min || 0,
-            Math.min(param.max || 1, (bestValue as number) + (Math.random() - 0.5) * range)
+            Math.min(param.max || 1, bestValue + (Math.random() - 0.5) * range)
           );
           break;
         case 'int':
