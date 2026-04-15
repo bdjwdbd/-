@@ -28,8 +28,6 @@ export { ClusterManager, getClusterManager, LoadBalancer, FailoverManager } from
 
 export { ModelHotSwapper, getModelHotSwapper, ModelPool } from './model-hot-swapper';
 
-export { VectorStore, FAISSIndex, MemoryVectorStore, getVectorStore, getMemoryVectorStore } from './vector-store';
-
 export { StreamingThinker, ThinkingProcessGenerator, StreamingOutputManager, getStreamingOutputManager } from './streaming-output';
 
 export { ImageProcessor, AudioProcessor, MultimodalManager, getMultimodalManager } from './multimodal-support';
@@ -37,8 +35,6 @@ export { ImageProcessor, AudioProcessor, MultimodalManager, getMultimodalManager
 export { ExtensionPointManager, HookSystem, Plugin, PluginManager, getExtensionPointManager, getHookSystem, getPluginManager } from './extension-points';
 
 export { CodeAnalyzer, TestGenerator, TestCodeGenerator, getTestGenerator, getTestCodeGenerator } from './test-generator';
-
-export { KnowledgeGraphManager, KnowledgeGraphStore, KnowledgeGraphQuery, getKnowledgeGraphManager } from './knowledge-graph';
 
 export { EdgeDeviceManager, LocalInferenceEngine, CloudEdgeCoordinator, getEdgeDeviceManager, getCloudEdgeCoordinator } from './edge-computing';
 

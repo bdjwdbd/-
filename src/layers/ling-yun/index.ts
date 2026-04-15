@@ -12,7 +12,7 @@
 
 // 从 core/ 导入组件
 export { FeedbackCenter, RegulationCenter, StressResponse } from "../../core/feedback";
-export { AutoTuner } from "../../auto-tuner";
+export { AutoTuner } from "../../infrastructure/auto-tuner";
 
 // 导出实践认识论
 export { PracticeCognition, practiceCognition } from "./PracticeCognition";

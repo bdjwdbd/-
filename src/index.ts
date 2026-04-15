@@ -130,7 +130,6 @@ export { QueryUnderstander } from './infrastructure/query-understander';
 export { FeedbackLearner } from './infrastructure/feedback-learner';
 export { ResultExplainer } from './infrastructure/result-explainer';
 export { ResultSummarizer } from './infrastructure/result-summarizer';
-export { PersonaManager as InfraPersonaManager } from './infrastructure/persona-manager';
 export { MemoryUpgrader } from './infrastructure/memory-upgrader';
 export { VectorCoverageMonitor } from './infrastructure/vector-coverage-monitor';
 export { ExtensionManager } from './infrastructure/extension-manager';

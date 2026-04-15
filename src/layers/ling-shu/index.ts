@@ -17,7 +17,6 @@ export {
   ValidationResult, 
   ValidationReport 
 } from "./DecisionCenter";
-export type { Decision, Intent, Priority, IntentType, TaskQueue } from "./DecisionCenter";
 export { MemoryCenterV2 } from "../../core";
 export { AgentCoordinator } from "../../agent-coordinator";
 
@@ -40,11 +39,11 @@ export {
 } from "./DecisionCenter";
 
 export type {
-  IntentType,
-  Priority,
-  Intent,
-  Decision,
-  TaskQueue,
+  IntentType as LingShuIntentType,
+  Priority as LingShuPriority,
+  Intent as LingShuIntent,
+  Decision as LingShuDecision,
+  TaskQueue as LingShuTaskQueue,
 } from "./DecisionCenter";
 
 // 导出类型

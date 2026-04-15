@@ -590,10 +590,10 @@ export class SprintContractManager {
     });
 
     const total = criteria.length;
-    const validated = criteria.filter(c => c.status !== 'pending').length;
-    const passed = criteria.filter(c => c.status === 'passed').length;
-    const failed = criteria.filter(c => c.status === 'failed').length;
-    const pending = criteria.filter(c => c.status === 'pending').length;
+    const validated = criteria.filter((c: any) => c.status !== 'pending').length;
+    const passed = criteria.filter((c: any) => c.status === 'passed').length;
+    const failed = criteria.filter((c: any) => c.status === 'failed').length;
+    const pending = criteria.filter((c: any) => c.status === 'pending').length;
 
     return {
       total,
@@ -760,6 +760,10 @@ export { HybridSearchEngine, SearchResult } from './hybrid-search';
 export { MemoryCompressor } from './memory-compressor';
 export { MemoryUpgrader } from './memory-upgrader';
 export { MultiModelRouter } from './multi-model-router';
+export { MultiDimensionalRouter } from './multi-dimensional-router';
+export { CodeValidator } from './code-validator';
+export { CodeValidatorV2 } from './code-validator-v2';
+export { ContextQualityMonitor } from './context-quality-monitor';
 
 // ============ 搜索系统模块（LLM Memory Integration 融合）============
 
