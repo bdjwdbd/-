@@ -440,14 +440,14 @@ export { ANNIndex, BruteForceANN, HNSWIndex, IVFIndex, createANNIndex, type ANNA
 export { OPQQuantizer, createOPQQuantizer, type OPQConfig, type OPQIndex } from './opq-quantization';
 export { WALOptimizer, createWALOptimizer, type WALConfig, type WALEntry, type Checkpoint } from './wal-optimizer';
 export { ParallelSearch, type ParallelSearchOptions, type SearchResult } from './parallel-search';
-export { AdaptiveVectorSearch, createAdaptiveSearch, type AdaptiveSearchConfig, type SearchResult as AdaptiveSearchResult } from './adaptive-search';
+export { AdaptiveVectorSearch, createAdaptiveSearch, type AdaptiveSearchConfig } from './adaptive-search';
 export { GPUAccelerator, createGPUAccelerator, type GPUConfig, type GPUSearchResult } from './gpu-accelerator';
 export { LoggerManager, getLogger, initLogger, startTimer, PerformanceTimer, type LoggerConfig, type LogLevel } from './logger';
 export { CacheManager, getCacheManager, type CacheConfig as AdvancedCacheConfig, type CacheStats } from './cache-manager';
 export { Quantizer, FP16Quantizer, INT8Quantizer, ScalarQuantizer, ProductQuantizer, BinaryQuantizer, createQuantizer, type QuantizationType, type QuantizerConfig } from './quantization';
 export { LRUCache, VectorQueryCache, CachedSearchEngine, type CacheOptions, type CacheEntry } from './query-cache';
 export { AsyncVectorSearch, AsyncLLMClient, AsyncEmbeddingClient, AsyncMemoryPipeline, type AsyncSearchResult, type AsyncSearchConfig, type LLMConfig, type LLMResponse } from './async-ops';
-export { VectorSharder, DistributedSearcher, type ShardConfig, type DistributedSearchResult, type NodeConfig } from './distributed-search';
+export { DistributedSearchEngine, LocalShard, ShardManager, type DistributedSearchResult, type ShardConfig } from './distributed-search';
 export { HealthChecker, FailoverManager, NodeStatus, type Node, type HealthCheckConfig } from './failover';
 export { ModelRouter, TaskType, ModelCapability, type Model, type RoutingDecision as ModelRoutingDecision, type ModelRouterConfig } from './model-router';
 export { CPUOptimizer, getOptimizer, optimizeForIntelXeon, type CPUInfo, type CPUOptimizerConfig } from './cpu-optimizer';

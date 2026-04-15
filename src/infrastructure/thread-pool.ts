@@ -311,7 +311,7 @@ if (!isMainThread && parentPort) {
                     const scores = native.cosineSimilarityBatchContiguous(queryArr, vectorsArr, dim);
 
                     // 取 Top-K
-                    const indexed = Array.from(scores).map((score: number, i: number) => ({
+                    const indexed = Array.from(scores as Float32Array).map((score: number, i: number) => ({
                         index: startIdx + i,
                         score
                     }));
