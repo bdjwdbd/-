@@ -153,8 +153,7 @@ export class AdaptiveVectorSearch {
    */
   private async mediumSearch(query: Float32Array, k: number): Promise<SearchResult[]> {
     const search = new ParallelSearch({ numWorkers: this.config.numWorkers });
-    this.vectors.forEach(v => search.add(v));
-    return search.search(query, k);
+    return search.search(query, this.vectors, k);
   }
 
   /**
