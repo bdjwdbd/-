@@ -333,26 +333,26 @@ export class BayesianOptimizer {
     const params: Record<string, unknown> = {};
 
     for (const [name, param] of this.parameters) {
-      const bestValue = best.params[name];
+      const (bestValue as number) = best.params[name];
       
       switch (param.type) {
         case 'float':
           const range = ((param.max || 1) - (param.min || 0)) * 0.2;
           params[name] = Math.max(
             param.min || 0,
-            Math.min(param.max || 1, bestValue + (Math.random() - 0.5) * range)
+            Math.min(param.max || 1, (bestValue as number) + (Math.random() - 0.5) * range)
           );
           break;
         case 'int':
           const intRange = Math.floor(((param.max || 10) - (param.min || 0)) * 0.2);
           params[name] = Math.max(
             param.min || 0,
-            Math.min(param.max || 10, bestValue + Math.floor((Math.random() - 0.5) * intRange * 2))
+            Math.min(param.max || 10, (bestValue as number) + Math.floor((Math.random() - 0.5) * intRange * 2))
           );
           break;
         case 'categorical':
           // 70% 概率选择最佳值，30% 随机
-          params[name] = Math.random() < 0.7 ? bestValue : this.randomChoice(param.choices || []);
+          params[name] = Math.random() < 0.7 ? (bestValue as number) : this.randomChoice(param.choices || []);
           break;
       }
     }
