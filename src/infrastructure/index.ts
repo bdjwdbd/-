@@ -641,6 +641,16 @@ export {
   type BenchmarkResult,
 } from './hnsw-auto-tuner';
 
+// 并行向量引擎（替代 AVX-512）
+export {
+  ParallelVectorEngine,
+  getParallelVectorEngine,
+  initParallelVectorEngine,
+  type ParallelEngineConfig,
+  type VectorTask,
+  type VectorResult,
+} from './parallel-vector-engine';
+
 // 完整性验证和原生模块加载
 export {
   IntegrityValidator,

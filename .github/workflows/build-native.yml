@@ -32,9 +32,6 @@ jobs:
         run: |
           cd native
           npm install
-          # 启用 AVX-512 编译
-          export CFLAGS="-O3 -march=native -ffast-math -mavx512f -mavx512dq -mavx512bw -mavx512vl"
-          export CXXFLAGS="-O3 -march=native -ffast-math -mavx512f -mavx512dq -mavx512bw -mavx512vl"
           npx node-gyp rebuild
       
       - name: Calculate SHA256
