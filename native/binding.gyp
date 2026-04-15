@@ -1,11 +1,9 @@
 {
   "targets": [
     {
-      "target_name": "simd",
+      "target_name": "yuanling_native",
       "sources": [
-        "src/simd.cc",
-        "src/vnni.cc",
-        "src/vector_ops.cc"
+        "src/simd.cc"
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
@@ -16,7 +14,7 @@
       "cflags_cc": ["-std=c++17", "-fPIC", "-O3"],
       "conditions": [
         ["OS=='linux'", {
-          "cflags_cc": ["-mavx2", "-mfma", "-mavx512f", "-mavx512vl", "-mavx512dq", "-mavx512bw", "-mavx512vnni"]
+          "cflags_cc": ["-mavx2", "-mfma"]
         }],
         ["OS=='mac'", {
           "xcode_settings": {
