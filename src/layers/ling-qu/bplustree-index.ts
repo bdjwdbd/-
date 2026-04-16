@@ -175,20 +175,31 @@ export class BPlusTreeIndex {
 
     if (child.isLeaf()) {
       // 叶节点分裂
-      newNode.keys = child.keys.splice(mid);
-      newNode.values = child.values.splice(mid);
+      // 先保存中间键（分裂前）
+      const midKey = child.keys[mid];
+      
+      newNode.keys = child.keys.splice(mid + 1);  // mid+1 开始的键
+      newNode.values = child.values.splice(mid + 1);  // mid+1 开始的值
       newNode.next = child.next;
       child.next = newNode;
+      
+      // 提升中间键到父节点
+      parent.keys.splice(index, 0, midKey);
+      parent.children.splice(index + 1, 0, newNode);
     } else {
       // 内部节点分裂
+      const midKey = child.keys[mid];
+      
       newNode.keys = child.keys.splice(mid + 1);
       newNode.children = child.children.splice(mid + 1);
+      
+      // 移除中间键（已提升到父节点）
+      child.keys.pop();
+      
+      // 提升中间键到父节点
+      parent.keys.splice(index, 0, midKey);
+      parent.children.splice(index + 1, 0, newNode);
     }
-
-    // 提升中间键到父节点
-    const midKey = child.keys.pop()!;
-    parent.keys.splice(index, 0, midKey);
-    parent.children.splice(index + 1, 0, newNode);
   }
 
   /**
@@ -265,9 +276,29 @@ export class BPlusTreeIndex {
    * 前缀搜索
    */
   searchPrefix(prefix: string): SearchResult {
-    // 使用范围查询实现前缀搜索
-    const end = prefix + '\uffff';  // Unicode 最大字符
-    return this.range(prefix, end);
+    const startTime = Date.now();
+    const items: KnowledgeItem[] = [];
+    let comparisons = 0;
+
+    // 从最左边的叶节点开始遍历
+    let leaf: BPlusTreeNode | null = this.getLeftmostLeaf(this.root);
+
+    while (leaf) {
+      for (let i = 0; i < leaf.keys.length; i++) {
+        comparisons++;
+        if (leaf.keys[i].startsWith(prefix)) {
+          items.push(leaf.values[i]);
+        }
+      }
+      leaf = leaf.next;
+    }
+
+    return {
+      items,
+      exactMatch: false,
+      duration: Date.now() - startTime,
+      comparisons,
+    };
   }
 
   /**
@@ -291,8 +322,13 @@ export class BPlusTreeIndex {
       leaf = leaf.next;
     }
 
-    // 按距离排序
-    items.sort((a, b) => (a.metadata?.distance as number) - (b.metadata?.distance as number));
+    // 按距离排序，距离相同时按键排序
+    items.sort((a, b) => {
+      const distA = a.metadata?.distance as number;
+      const distB = b.metadata?.distance as number;
+      if (distA !== distB) return distA - distB;
+      return this.compare(a.key, b.key);
+    });
 
     return {
       items,

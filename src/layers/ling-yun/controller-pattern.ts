@@ -518,12 +518,12 @@ export class GarbageCollectionController extends BaseController<Reconcilable> {
  * 管理多个控制器的生命周期
  */
 export class ControllerManager {
-  private controllers: Map<string, Controller> = new Map();
+  private controllers: Map<string, Controller<Reconcilable>> = new Map();
 
   /**
    * 注册控制器
    */
-  register(controller: Controller): void {
+  register(controller: Controller<Reconcilable>): void {
     this.controllers.set(controller.name, controller);
   }
 
@@ -548,7 +548,7 @@ export class ControllerManager {
   /**
    * 获取控制器
    */
-  get(name: string): Controller | undefined {
+  get(name: string): Controller<Reconcilable> | undefined {
     return this.controllers.get(name);
   }
 
