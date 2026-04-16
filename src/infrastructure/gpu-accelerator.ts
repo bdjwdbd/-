@@ -7,7 +7,25 @@
  * 注意：在无 WebGL 环境时自动降级到 CPU 实现
  */
 
-import type { GPU as GPUType } from 'gpu.js';
+// gpu.js 是 optional dependency，可能未安装
+// 使用动态导入和类型声明
+
+interface GPUKernel {
+  setOutput: (output: number[]) => GPUKernel;
+  setPrecision: (precision: 'single' | 'unsigned') => GPUKernel;
+  setGraphical: (graphical: boolean) => GPUKernel;
+}
+
+interface GPUConstructor {
+  new (options?: { mode?: 'gpu' | 'cpu' }): GPUInstance;
+}
+
+interface GPUInstance {
+  createKernel: (kernel: Function) => GPUKernel;
+  destroy: () => void;
+}
+
+type GPUType = GPUInstance;
 
 // ============================================================
 // 类型定义
@@ -39,7 +57,7 @@ const MAX_CHUNK_SIZE = 4096;
 // GPU 可用性检测
 // ============================================================
 
-let GPU: typeof GPUType | null = null;
+let GPU: GPUConstructor | null = null;
 let gpuAvailable = false;
 
 try {
@@ -55,9 +73,9 @@ try {
 // ============================================================
 
 export class GPUAccelerator {
-  private gpu: GPUType | null = null;
+  private gpu: GPUInstance | null = null;
   private config: GPUConfig;
-  private kernels: Map<string, Function> = new Map();
+  private kernels: Map<string, unknown> = new Map();
   private useCPU: boolean = false;
   private chunkSize: number;
   private enableChunking: boolean;
@@ -92,8 +110,14 @@ export class GPUAccelerator {
 
     try {
       // GPU 模式：使用 gpu.js 内核
+      // 定义 kernel 上下文类型
+      interface KernelContext {
+        thread: { x: number; y: number; z: number };
+      }
+
       // 余弦相似度内核
-      this.kernels.set('cosineSimilarity', this.gpu.createKernel(function(
+      this.kernels.set('cosineSimilarity', this.gpu!.createKernel(function(
+        this: KernelContext,
         query: number[],
         vectors: number[][],
         dim: number
@@ -112,7 +136,8 @@ export class GPUAccelerator {
       }).setOutput([1000]));
 
       // 欧氏距离内核
-      this.kernels.set('euclideanDistance', this.gpu.createKernel(function(
+      this.kernels.set('euclideanDistance', this.gpu!.createKernel(function(
+        this: KernelContext,
         query: number[],
         vectors: number[][],
         dim: number
@@ -126,7 +151,8 @@ export class GPUAccelerator {
       }).setOutput([1000]));
 
       // 点积内核
-      this.kernels.set('dotProduct', this.gpu.createKernel(function(
+      this.kernels.set('dotProduct', this.gpu!.createKernel(function(
+        this: KernelContext,
         query: number[],
         vectors: number[][],
         dim: number
@@ -263,12 +289,13 @@ export class GPUAccelerator {
     
     if (this.useCPU) {
       // CPU 模式：直接调用
-      return (kernel as any)(query, vectors, query.length);
+      return (kernel as (q: number[], v: number[][], d: number) => number[])(query, vectors, query.length);
     }
     
     // GPU 模式：调整输出大小
-    (kernel as any).setOutput([vectors.length]);
-    return kernel(query, vectors, query.length) as number[];
+    const gpuKernel = kernel as GPUKernel & { (q: number[], v: number[][], d: number): number[] };
+    gpuKernel.setOutput([vectors.length]);
+    return gpuKernel(query, vectors, query.length);
   }
 
   /**
@@ -284,11 +311,12 @@ export class GPUAccelerator {
     }
     
     if (this.useCPU) {
-      return (kernel as any)(query, vectors, query.length);
+      return (kernel as (q: number[], v: number[][], d: number) => number[])(query, vectors, query.length);
     }
     
-    (kernel as any).setOutput([vectors.length]);
-    return kernel(query, vectors, query.length) as number[];
+    const gpuKernel = kernel as GPUKernel & { (q: number[], v: number[][], d: number): number[] };
+    gpuKernel.setOutput([vectors.length]);
+    return gpuKernel(query, vectors, query.length);
   }
 
   /**
@@ -304,11 +332,12 @@ export class GPUAccelerator {
     }
     
     if (this.useCPU) {
-      return (kernel as any)(query, vectors, query.length);
+      return (kernel as (q: number[], v: number[][], d: number) => number[])(query, vectors, query.length);
     }
     
-    (kernel as any).setOutput([vectors.length]);
-    return kernel(query, vectors, query.length) as number[];
+    const gpuKernel = kernel as GPUKernel & { (q: number[], v: number[][], d: number): number[] };
+    gpuKernel.setOutput([vectors.length]);
+    return gpuKernel(query, vectors, query.length);
   }
 
   /**
