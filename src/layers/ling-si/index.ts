@@ -29,8 +29,9 @@ export { ThinkingDepth, ThinkingContext, ThinkingResult } from './types';
 export { HNSWIndex } from './hnsw-index';
 export { VectorQuantizer } from './vector-quantizer';
 
-export * from './EmotionEngine';
-export * from './EnhancedThinkingSteps';
-export * from './MemoryEnhancedThinkingEngine';
-export * from './ThinkingSteps';
-export * from './ThoughtFlowSynthesizer';
+// 其他模块 - 使用命名空间避免冲突
+export * as EmotionEngine from './EmotionEngine';
+export * as EnhancedThinkingSteps from './EnhancedThinkingSteps';
+export * as MemoryEnhancedThinkingEngine from './MemoryEnhancedThinkingEngine';
+export * as ThinkingSteps from './ThinkingSteps';
+export * as ThoughtFlowSynthesizer from './ThoughtFlowSynthesizer';

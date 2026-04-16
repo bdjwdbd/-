@@ -944,12 +944,7 @@ export class YuanLingSystem {
     
     return this._harnessSystem;
   }
-  
-  /** 获取 Dashboard（自动初始化） */
-  get dashboard(): DashboardServer | undefined {
-    return this._dashboard;
-  }
-  
+
   /** 获取 Dashboard（自动初始化） */
   async getDashboardAsync(port: number = 3000): Promise<DashboardServer> {
     if (!this._dashboard) {
@@ -1213,10 +1208,7 @@ export class YuanLingSystem {
       // P2-4：完善模块预热
       this.warmupAllModules();
     }
-    
-    // 优化1：异步检查未集成模块（不阻塞启动）
-    setImmediate(() => this.checkUnintegratedModules());
-    
+
     // 优化6：启动模块健康检查（定期检查）
     this.startModuleHealthCheck();
     
@@ -1301,7 +1293,7 @@ export class YuanLingSystem {
         // 检查关键模块状态
         const issues: string[] = [];
         
-        if (health.status === 'unhealthy') {
+        if (health.overall < 0.5) {
           issues.push('集成系统不健康');
         }
         
@@ -1468,12 +1460,12 @@ export class YuanLingSystem {
       // 根据意图复杂度调整思考深度
       if (intelligence.intent.primary.confidence < 0.7) {
         depth = 'extensive';
-      } else if (intelligence.intent.primary.type === 'clarify') {
+      } else if (intelligence.intent.primary.type === 'clarification') {
         depth = 'minimal';
       }
     }
     
-    const result = await quickThink(message, depth);
+    const result = await quickThink(message);
     if (!result) return null;
 
     return {
@@ -1582,93 +1574,6 @@ export class YuanLingSystem {
   /**
    * 仅运行 L0 思考（不执行）
    */
-  async thinkOnly(message: string): Promise<ThinkingResult | null> {
-    return this.think(message);
-  }
-
-  // ============ L1 灵枢层 - 决策中心 ============
-        case 'persona-manager':
-          // 已自动初始化
-          break;
-        case 'entropy-governor':
-          // 已在 startup 中初始化
-          break;
-        case 'token-pipeline':
-          // 已在 startup 中初始化
-          break;
-      }
-    }
-    
-    console.log('[YuanLing] 全智能处理完成');
-    
-    return result;
-  }
-  
-  /**
-   * 检查未集成模块（运行时检测）
-   * 
-   * 修复问题3：改名，明确只做检测
-   * 修复问题5：添加缓存，避免重复扫描
-   */
-  private async checkUnintegratedModules(): Promise<void> {
-    // 使用缓存避免重复扫描
-    if (this._moduleCheckCache) {
-      return;
-    }
-    
-    const fs = await import('fs');
-    const path = await import('path');
-    
-    const srcDir = path.join(__dirname);
-    const mainFile = path.join(srcDir, 'yuanling-system.ts');
-    
-    try {
-      // 读取主文件
-      const mainContent = fs.readFileSync(mainFile, 'utf-8');
-      
-      // 扫描所有模块目录
-      const modules: string[] = [];
-      const scanDir = (dir: string) => {
-        const entries = fs.readdirSync(dir, { withFileTypes: true });
-        for (const entry of entries) {
-          if (entry.isDirectory() && !entry.name.startsWith('_') && !entry.name.startsWith('.')) {
-            const fullPath = path.join(dir, entry.name);
-            const indexPath = path.join(fullPath, 'index.ts');
-            if (fs.existsSync(indexPath)) {
-              modules.push(entry.name);
-            }
-            scanDir(fullPath);
-          }
-        }
-      };
-      
-      scanDir(srcDir);
-      
-      // 检查是否有未集成的模块
-      const unintegrated: string[] = [];
-      for (const module of modules) {
-        const typeName = module.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
-        const hasImport = mainContent.includes(`from './${module}`);
-        const hasInstance = mainContent.includes(`_${typeName.charAt(0).toLowerCase() + typeName.slice(1)}`);
-        
-        if (!hasImport || !hasInstance) {
-          unintegrated.push(module);
-        }
-      }
-      
-      if (unintegrated.length > 0) {
-        console.log(`[YuanLing] ⚠️ 发现 ${unintegrated.length} 个未集成的模块: ${unintegrated.join(', ')}`);
-        console.log('[YuanLing] 请运行: npm run discover');
-      }
-      
-      // 标记已检查（修复问题5：缓存）
-      this._moduleCheckCache = true;
-    } catch (error) {
-      // 忽略错误，不影响启动
-      this._moduleCheckCache = true;
-    }
-  }
-
   /**
    * 仅运行 L0 思考（不执行）
    */
@@ -2236,9 +2141,11 @@ export class YuanLingSystem {
 
       // L5 异步学习反馈
       setImmediate(() => {
-        this.learnFromFeedback(userMessage, result, context.validation).catch(err => {
-          this.logWarn(`[L5] 异步学习失败: ${err}`);
-        });
+        if (context.validation) {
+          this.learnFromFeedback(userMessage, result, context.validation).catch(err => {
+            this.logWarn(`[L5] 异步学习失败: ${err}`);
+          });
+        }
       });
 
       return { result, context };

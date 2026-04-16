@@ -29,6 +29,7 @@ export { FederatedEngine } from './federated-engine/engine';
 // 迁移组件 - 记忆升级
 export { SmartMemoryUpgrader } from './smart-memory-upgrader';
 
-export * from './MemoryEnhancedSelfImprovement';
-export * from './PracticeCognition';
-export * from './SelfImprovement';
+// 其他模块 - 使用命名空间避免冲突
+export * as MemoryEnhancedSelfImprovement from './MemoryEnhancedSelfImprovement';
+export * as PracticeCognition from './PracticeCognition';
+export * as SelfImprovement from './SelfImprovement';

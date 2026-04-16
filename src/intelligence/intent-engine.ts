@@ -29,6 +29,7 @@ export type IntentType =
   | 'read'          // 读取文件
   | 'monitor'       // 监控状态
   | 'analyze'       // 分析数据
+  | 'web_search'    // 网络搜索
   
   // 操作执行
   | 'create'        // 创建内容
@@ -36,6 +37,9 @@ export type IntentType =
   | 'delete'        // 删除内容
   | 'execute'       // 执行命令
   | 'deploy'        // 部署应用
+  | 'tool_call'     // 工具调用
+  | 'file_operation' // 文件操作
+  | 'command_execution' // 命令执行
   
   // 协作交互
   | 'collaborate'   // 多 Agent 协作
@@ -47,6 +51,7 @@ export type IntentType =
   | 'learn'         // 学习新知识
   | 'optimize'      // 优化系统
   | 'introspect'    // 自省检查
+  | 'clarification' // 需要澄清
   
   // 其他
   | 'unknown';      // 未知意图
@@ -532,6 +537,11 @@ export class IntentEngine {
       learn: [/学习(.+)|了解(.+)/i],
       optimize: [/优化(.+)|改进(.+)/i],
       introspect: [/检查(.+)|诊断(.+)/i],
+      web_search: [/搜索(.+)|查找(.+)/i],
+      tool_call: [],
+      file_operation: [/文件(.+)|目录(.+)/i],
+      command_execution: [/执行(.+)|运行(.+)/i],
+      clarification: [],
       unknown: [],
     };
     
