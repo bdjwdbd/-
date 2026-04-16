@@ -1,59 +1,34 @@
 /**
- * 灵韵层（L5）- 反馈与调节
- *
- * 职责：
- * - 反馈中心：收集反馈、分析反馈、响应反馈
- * - 调节中心：参数调节、策略调整、自动优化
- * - 应激响应：压力检测、自动降级、熔断保护
- * - 自我改进：学习改进、持续优化
- * - 实践认识论：螺旋上升的认识循环
- * - 质量评估：输出质量、响应质量评估
+ * L5 灵韵层 - 反馈与调节
+ * 
+ * 负责反馈收集、度量分析、演进优化、联邦学习
  */
 
-// 从 core/ 导入组件
-export { FeedbackCenter, RegulationCenter, StressResponse } from "../../core/feedback";
-export { AutoTuner } from "../../infrastructure/auto-tuner";
+// 原有组件（文件名大小写修正）
+export { FeedbackRegulationSystem } from './FeedbackRegulation';
+export { RatchetManager } from './RatchetManager';
+export { IndependentEvaluator } from './IndependentEvaluator';
+export { ResultCardGenerator } from './ResultCardGenerator';
+export { TestPromptFramework } from './TestPromptFramework';
 
-// 导出实践认识论
-export { PracticeCognition, practiceCognition } from "./PracticeCognition";
-export type { CognitionPhase, CognitionCycleResult } from "./PracticeCognition";
+// 从 IndependentEvaluator 导出类型
+export type { EvaluationResult } from './IndependentEvaluator';
 
-// 导出自我改进
-export { SelfImprovementEngine, selfImprovementEngine } from "./SelfImprovement";
-export type { LearningRecord, ImprovementSuggestion } from "./SelfImprovement";
+// 从 ResultCardGenerator 导出类型
+export type { CardTheme } from './ResultCardGenerator';
 
-// 导出反馈调节系统
-export {
-  FeedbackCollector,
-  QualityAssessor,
-  AdaptiveRegulator,
-  ImprovementTracker,
-  FeedbackRegulationSystem,
-  getFeedbackRegulationSystem,
-} from "./FeedbackRegulation";
+// 迁移组件 - 度量收集
+export { MetricsCollector } from './engine';
 
-export type {
-  FeedbackType as FeedbackTypeV2,
-  QualityDimension,
-  Feedback as FeedbackV2,
-  QualityScore,
-  Adjustment,
-  ImprovementRecord,
-} from "./FeedbackRegulation";
+// 迁移组件 - 演进优化
+export { EvolutionEngine } from './engine';
 
-// 导出类型
-export type {
-  FeedbackType,
-  FeedbackSource,
-  RegulationAction,
-  StressLevel,
-  Feedback,
-  RegulationRule,
-  RegulationEvent,
-  StressIndicator,
-} from "../../core/feedback";
+// 迁移组件 - 联邦学习
+export { FederatedEngine } from './federated-engine/engine';
 
-// 层级标识
-export const LING_YUN_NAME = "ling-yun";
-export const LING_YUN_LEVEL = 5;
-export const LING_YUN_DESCRIPTION = "反馈与调节层";
+// 迁移组件 - 记忆升级
+export { SmartMemoryUpgrader } from './smart-memory-upgrader';
+
+export * from './MemoryEnhancedSelfImprovement';
+export * from './PracticeCognition';
+export * from './SelfImprovement';

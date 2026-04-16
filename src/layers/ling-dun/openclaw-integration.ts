@@ -10,7 +10,7 @@
  * @author 元灵系统
  */
 
-import { getToolExecutionGuard, ToolExecutionGuard, ToolExecutionResult } from './index';
+import { ToolExecutionGuard, ToolExecutionResult } from './index';
 
 // 保存原始的 exec 函数引用
 let originalExec: ((command: string, options?: unknown) => Promise<unknown>) | null = null;
@@ -21,8 +21,8 @@ let guard: ToolExecutionGuard | null = null;
  * 
  * 在 OpenClaw 启动时调用此函数
  */
-export function initGuard(config?: Parameters<typeof getToolExecutionGuard>[0]): void {
-  guard = getToolExecutionGuard(config);
+export function initGuard(config?: any): void {
+  guard = new ToolExecutionGuard(config);
   console.log('[灵盾层] 已初始化，工具执行将被保护');
 }
 

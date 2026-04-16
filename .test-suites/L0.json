@@ -1,0 +1,40 @@
+{
+  "targetModule": "L0",
+  "prompts": [
+    {
+      "id": "l0_001",
+      "prompt": "如何设计一个高性能的分布式系统？",
+      "expected": "应该进行深度思考，分析多个维度（架构、性能、可用性等），生成多个假设",
+      "difficulty": "medium",
+      "category": "architecture",
+      "tags": [
+        "thinking",
+        "analysis"
+      ]
+    },
+    {
+      "id": "l0_002",
+      "prompt": "这段代码有什么问题？function add(a, b) { return a + b }",
+      "expected": "应该识别潜在问题（类型检查、边界条件），提出改进建议",
+      "difficulty": "easy",
+      "category": "code-review",
+      "tags": [
+        "thinking",
+        "code"
+      ]
+    },
+    {
+      "id": "l0_003",
+      "prompt": "用户反馈系统响应慢，如何排查？",
+      "expected": "应该系统化分析（前端、后端、数据库、网络），提出排查步骤",
+      "difficulty": "medium",
+      "category": "problem-diagnosis",
+      "tags": [
+        "thinking",
+        "debugging"
+      ]
+    }
+  ],
+  "createdAt": "2026-04-15T19:47:22.956Z",
+  "updatedAt": "2026-04-15T19:47:22.956Z"
+}

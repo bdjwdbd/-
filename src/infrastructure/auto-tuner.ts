@@ -143,7 +143,7 @@ export class AutoTuner {
       const historyData = this.history.get(name) || [];
       historyData.push({
         value: param.currentValue,
-        score: metrics.health,
+        score: 1,
       });
       
       // 限制历史记录

@@ -1,0 +1,29 @@
+{
+  "targetModule": "L5",
+  "prompts": [
+    {
+      "id": "l5_001",
+      "prompt": "评估上次任务执行的效果",
+      "expected": "应该分析执行结果，识别成功/失败点，提出改进建议",
+      "difficulty": "medium",
+      "category": "evaluation",
+      "tags": [
+        "feedback",
+        "learning"
+      ]
+    },
+    {
+      "id": "l5_002",
+      "prompt": "根据用户反馈优化响应策略",
+      "expected": "应该分析反馈内容，识别问题，生成优化方案",
+      "difficulty": "hard",
+      "category": "optimization",
+      "tags": [
+        "feedback",
+        "optimization"
+      ]
+    }
+  ],
+  "createdAt": "2026-04-15T19:47:22.957Z",
+  "updatedAt": "2026-04-15T19:47:22.957Z"
+}

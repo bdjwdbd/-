@@ -16,7 +16,7 @@ import * as fs from 'fs';
 export interface Memory {
   id: string;
   content: string;
-  type: MemoryType;
+  type: any;
   tags: string[];
   metadata: Record<string, unknown>;
   confidence: number;
@@ -234,7 +234,7 @@ export class MemoryStore {
 
     const memories = Array.from(this.memories.values());
 
-    const byType: Record<MemoryType, number> = {
+    const byType: Record<string, number> = {
       conversation: 0,
       fact: 0,
       preference: 0,
@@ -251,7 +251,7 @@ export class MemoryStore {
     let newestAt = 0;
 
     for (const memory of memories) {
-      byType[memory.type]++;
+      byType[memory.type as string]++;
       
       for (const tag of memory.tags) {
         byTag[tag] = (byTag[tag] || 0) + 1;

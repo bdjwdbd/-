@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "check:exports": "node scripts/check-exports.js",
+    "check:all": "npm run check:exports && npx tsc --noEmit",
+    "module:analyze": "node scripts/generate-module-analysis.js"
+  }
+}

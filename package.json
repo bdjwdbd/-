@@ -1,7 +1,7 @@
 {
   "name": "humanoid-agent",
-  "version": "4.3.0",
-  "description": "元灵系统 - 多Agent协作框架，融合 LLM Memory Integration",
+  "version": "4.9.6",
+  "description": "元灵系统 - 多Agent协作框架，集成 Harness Engineering",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -10,14 +10,36 @@
     "build:wasm:debug": "npx asc assembly/index.ts -o build/debug.wasm --debug",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "test:harness": "npx ts-node src/harness/__tests__/harness.test.ts && npx ts-node src/harness/__tests__/p1.test.ts && npx ts-node src/harness/__tests__/p2.test.ts",
+    "test:integration": "npx ts-node src/integration/__tests__/deep-integration.test.ts && npx ts-node src/integration/__tests__/validation.test.ts",
+    "test:main": "npx ts-node src/__tests__/main-flow.test.ts",
+    "test:all": "npm run test && npm run test:harness && npm run test:integration && npm run test:main",
     "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
     "benchmark": "ts-node src/benchmarks/index.ts",
-    "docs": "typedoc --out docs src/index.ts"
+    "benchmark:main": "ts-node src/benchmarks/main-flow.benchmark.ts",
+    "docs": "typedoc --out docs/api src/index.ts",
+    "docs:full": "typedoc --out docs/api src/index.ts --readme docs/API.md",
+    "check:exports": "node scripts/check-exports.js",
+    "check:integration": "node scripts/check-integration.js",
+    "check:dependencies": "node scripts/check-dependencies.js",
+    "check:all": "npm run check:exports && npm run check:integration && npm run typecheck && npm run version:check",
+    "integrate": "node scripts/auto-integrate.js",
+    "discover": "npx ts-node scripts/auto-discover.ts",
+    "version:check": "node scripts/check-version.js",
+    "release": "npm run check:all && npm run test:all && npm run build",
+    "example:basic": "ts-node examples/basic-usage.ts",
+    "example:executor": "ts-node examples/external-executor.ts",
+    "example:harness": "ts-node examples/harness-demo.ts"
   },
   "keywords": [
     "agent",
     "llm",
     "memory",
+    "harness",
+    "sandbox",
+    "tracing",
+    "metrics",
     "simd",
     "vector-search",
     "gpu",
@@ -31,6 +53,7 @@
   },
   "devDependencies": {
     "@types/benchmark": "^2.1.5",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/jest": "^29.5.14",
     "@types/node": "^25.6.0",
     "benchmark": "^2.1.4",
@@ -40,7 +63,7 @@
     "ts-jest": "^29.4.9",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@types/sqlite3": "^5.1.0",
@@ -62,10 +85,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yuanling/humanoid-agent.git"
+    "url": "https://github.com/bdjwbdb/humanoid-agent.git"
   },
   "bugs": {
-    "url": "https://github.com/yuanling/humanoid-agent/issues"
+    "url": "https://github.com/bdjwbdb/humanoid-agent/issues"
   },
-  "homepage": "https://github.com/yuanling/humanoid-agent#readme"
+  "homepage": "https://github.com/bdjwbdb/humanoid-agent#readme"
 }

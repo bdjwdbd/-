@@ -1,0 +1,29 @@
+{
+  "targetModule": "L3",
+  "prompts": [
+    {
+      "id": "l3_001",
+      "prompt": "读取 /etc/config.json 文件内容",
+      "expected": "应该调用文件读取工具，正确处理文件路径，返回文件内容",
+      "difficulty": "easy",
+      "category": "file-operation",
+      "tags": [
+        "tool",
+        "file"
+      ]
+    },
+    {
+      "id": "l3_002",
+      "prompt": "搜索关于 React Hooks 的最新文章",
+      "expected": "应该调用搜索工具，使用合适的关键词，返回相关结果",
+      "difficulty": "easy",
+      "category": "search",
+      "tags": [
+        "tool",
+        "search"
+      ]
+    }
+  ],
+  "createdAt": "2026-04-15T19:47:22.957Z",
+  "updatedAt": "2026-04-15T19:47:22.957Z"
+}

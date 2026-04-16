@@ -1,69 +1,16 @@
 /**
- * 灵盾层 (L4) - 执行安全防护
+ * L4 灵盾层 - 防护与验证
  * 
- * 这是元灵系统的第四层，负责在工具执行层面提供安全防护。
- * 
- * 核心功能：
- * 1. 循环检测 - 检测并中断无限循环
- * 2. 输出截断 - 防止上下文爆炸
- * 3. 强制中断 - 超时/超次自动终止
- * 
- * @author 元灵系统
- * @version 1.0.0
+ * 负责安全验证、沙盒隔离、风险评估
  */
 
-export { LoopDetector, getLoopDetector, resetLoopDetector } from './LoopDetector';
-export type { ToolCallFingerprint, LoopDetectionResult, LoopDetectorConfig } from './LoopDetector';
+// 原有组件
+export { ToolExecutionGuard } from './ToolExecutionGuard';
+export { LoopDetector } from './LoopDetector';
+export { OutputTruncator } from './OutputTruncator';
 
-export { OutputTruncator, getOutputTruncator, resetOutputTruncator } from './OutputTruncator';
-export type { TruncationConfig, TruncationResult } from './OutputTruncator';
+// 从 ToolExecutionGuard 导出类型
+export type { ToolExecutionContext, ToolExecutionResult, GuardConfig } from './ToolExecutionGuard';
 
-export { 
-  ToolExecutionGuard, 
-  getToolExecutionGuard, 
-  resetToolExecutionGuard,
-  guardToolExecution 
-} from './ToolExecutionGuard';
-export type { 
-  ToolExecutionContext, 
-  ToolExecutionResult, 
-  GuardConfig 
-} from './ToolExecutionGuard';
-
-/**
- * 快速集成示例
- * 
- * ```typescript
- * import { getToolExecutionGuard } from './layers/ling-dun';
- * 
- * // 在 OpenClaw 工具执行入口处
- * const guard = getToolExecutionGuard({
- *   enableLoopDetection: true,
- *   enableOutputTruncation: true,
- *   loopDetector: {
- *     interruptThreshold: 3,  // 重复 3 次自动中断
- *   },
- *   outputTruncator: {
- *     maxFileListItems: 100,  // 文件列表最多 100 项
- *   },
- * });
- * 
- * // 包装原有的执行函数
- * const guardedExec = guard.wrapExecutor(originalToolExecutor);
- * 
- * // 使用包装后的函数
- * const result = await guardedExec({
- *   toolName: 'exec',
- *   args: { command: 'ls /some/path' },
- *   messageId: 'msg-123',
- *   sessionId: 'session-456',
- * });
- * 
- * if (!result.success) {
- *   console.error('执行失败:', result.error);
- *   if (result.loopDetected) {
- *     console.warn('检测到循环:', result.loopDetected.reason);
- *   }
- * }
- * ```
- */
+export * from './manager';
+export * from './openclaw-integration';

@@ -1,0 +1,71 @@
+[
+  {
+    "id": "eval_1776282442959",
+    "targetType": "skill",
+    "targetName": "test-skill",
+    "dimensionScores": [
+      {
+        "dimension": "frontmatter",
+        "score": 7,
+        "weight": 8,
+        "weightedScore": 56,
+        "reason": "检查 name、description、触发词"
+      },
+      {
+        "dimension": "workflow_clarity",
+        "score": 8,
+        "weight": 15,
+        "weightedScore": 120,
+        "reason": "检查步骤明确性、有序号"
+      },
+      {
+        "dimension": "edge_cases",
+        "score": 6,
+        "weight": 10,
+        "weightedScore": 60,
+        "reason": "检查异常处理、fallback"
+      },
+      {
+        "dimension": "checkpoints",
+        "score": 3,
+        "weight": 7,
+        "weightedScore": 21,
+        "reason": "检查用户确认点"
+      },
+      {
+        "dimension": "specificity",
+        "score": 3,
+        "weight": 15,
+        "weightedScore": 45,
+        "reason": "检查指令具体性"
+      },
+      {
+        "dimension": "resource_integration",
+        "score": 5,
+        "weight": 5,
+        "weightedScore": 25,
+        "reason": "检查资源引用"
+      },
+      {
+        "dimension": "architecture",
+        "score": 6.333333333333333,
+        "weight": 15,
+        "weightedScore": 95,
+        "reason": "干跑验证架构"
+      },
+      {
+        "dimension": "actual_performance",
+        "score": 5,
+        "weight": 25,
+        "weightedScore": 125,
+        "reason": "干跑验证（无法实测）"
+      }
+    ],
+    "totalScore": 54.7,
+    "structureScore": 32.7,
+    "effectScore": 22,
+    "evalMode": "dry_run",
+    "evaluatedAt": "2026-04-15T19:47:22.960Z",
+    "evaluator": "main_agent"
+  }
+]

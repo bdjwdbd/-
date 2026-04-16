@@ -1,0 +1,52 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "exclude": [
+    "**/__tests__/**",
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/*.benchmark.ts"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "theme": "default",
+  "name": "元灵系统 API 文档",
+  "readme": "docs/API.md",
+  "gitRevision": "main",
+  "gaID": "",
+  "hideGenerator": true,
+  "toc": [
+    {
+      "YuanLingSystem": "主系统类"
+    },
+    {
+      "IntelligenceSystem": "智能系统"
+    },
+    {
+      "HarnessSystem": "Harness 系统"
+    },
+    {
+      "Coordinator": "多 Agent 协调器"
+    }
+  ],
+  "categorizeByGroup": true,
+  "defaultCategory": "其他",
+  "categoryOrder": [
+    "主系统",
+    "智能系统",
+    "Harness",
+    "多Agent",
+    "层级",
+    "基础设施",
+    "其他"
+  ],
+  "sort": ["source-order"],
+  "visibilityFilters": {
+    "protected": true,
+    "private": false
+  },
+  "searchInComments": true,
+  "includes": "docs",
+  "media": "docs/media"
+}

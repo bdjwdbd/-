@@ -1,0 +1,29 @@
+{
+  "targetModule": "L1",
+  "prompts": [
+    {
+      "id": "l1_001",
+      "prompt": "帮我写一个 Python 脚本处理 CSV 文件",
+      "expected": "应该识别任务类型（代码生成），选择合适的工具，规划执行步骤",
+      "difficulty": "easy",
+      "category": "task-planning",
+      "tags": [
+        "decision",
+        "planning"
+      ]
+    },
+    {
+      "id": "l1_002",
+      "prompt": "分析这个系统的性能瓶颈",
+      "expected": "应该识别需要分析工具，规划分析步骤，可能需要多轮交互",
+      "difficulty": "medium",
+      "category": "analysis",
+      "tags": [
+        "decision",
+        "analysis"
+      ]
+    }
+  ],
+  "createdAt": "2026-04-15T19:47:22.956Z",
+  "updatedAt": "2026-04-15T19:47:22.956Z"
+}

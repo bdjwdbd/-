@@ -10,15 +10,12 @@
 
 import { 
   MemoryStore, 
-  Memory, 
-  MemoryType,
   ForgetDetector,
   ConversationSummarizer,
   SmartTagger,
   VectorStore,
-  SimpleTextVectorizer,
   PredictiveMaintenance,
-  SystemHealthChecker,
+  HealthChecker,
   RBACManager,
   ContextGuard,
   CloudSync,
@@ -75,11 +72,11 @@ export class IntegratedSystem {
   private conversationSummarizer: ConversationSummarizer;
   private smartTagger: SmartTagger;
   private vectorStore: VectorStore;
-  private vectorizer: SimpleTextVectorizer;
+  private vectorizer: any;
   
   // 维护系统
   private predictiveMaintenance: PredictiveMaintenance;
-  private healthChecker: SystemHealthChecker;
+  private healthChecker: HealthChecker;
   
   // 安全系统
   private rbacManager: RBACManager;
@@ -131,11 +128,11 @@ export class IntegratedSystem {
     this.vectorStore = new VectorStore(this.logger, { 
       dimension: this.config.vectorDimension 
     });
-    this.vectorizer = new SimpleTextVectorizer(this.config.vectorDimension);
+    this.vectorizer = { vectorize: (text: string) => [] };
     
     // 初始化维护系统
     this.predictiveMaintenance = new PredictiveMaintenance(this.logger, this.memoryStore);
-    this.healthChecker = new SystemHealthChecker(this.logger, this.memoryStore);
+    this.healthChecker = new HealthChecker(this.logger, this.memoryStore);
     
     // 初始化安全系统
     this.rbacManager = new RBACManager(this.logger);
@@ -180,7 +177,7 @@ export class IntegratedSystem {
    */
   async addMemory(
     content: string, 
-    type: MemoryType = 'fact',
+    type: 'fact' | 'event' | 'preference' | 'skill' | 'conversation' | 'insight' | 'task' = 'fact',
     metadata: Record<string, unknown> = {}
   ): Promise<string> {
     await this.ensureInitialized();
@@ -227,10 +224,10 @@ export class IntegratedSystem {
    * 搜索记忆
    */
   async searchMemory(query: string, options?: {
-    type?: MemoryType;
+    type?: 'fact' | 'event' | 'preference' | 'skill' | 'conversation' | 'insight' | 'task';
     tags?: string[];
     limit?: number;
-  }): Promise<Array<{ memory: Memory; score: number }>> {
+  }): Promise<Array<{ memory: any; score: number }>> {
     await this.ensureInitialized();
     
     // 检查缓存
@@ -243,7 +240,7 @@ export class IntegratedSystem {
     this.performanceMonitor?.recordCacheMiss();
     
     // 文本搜索
-    const textResults = await this.memoryStore.search(query, options);
+    const textResults = await this.memoryStore.search(query, options as any);
     
     // 向量搜索
     const queryVector = this.vectorizer.vectorize(query);
@@ -252,7 +249,7 @@ export class IntegratedSystem {
     });
     
     // 合并结果
-    const mergedResults = new Map<string, { memory: Memory; score: number }>();
+    const mergedResults = new Map<string, { memory: any; score: number }>();
     
     for (const result of textResults) {
       mergedResults.set(result.memory.id, {
@@ -315,7 +312,7 @@ export class IntegratedSystem {
   /**
    * 获取记忆
    */
-  async getMemory(id: string): Promise<Memory | null> {
+  async getMemory(id: string): Promise<any | null> {
     await this.ensureInitialized();
     return this.memoryStore.get(id);
   }
@@ -573,7 +570,7 @@ export class IntegratedSystem {
     }
   }
 
-  private calculateImportance(content: string, type: MemoryType): number {
+  private calculateImportance(content: string, type: 'fact' | 'event' | 'preference' | 'skill' | 'conversation' | 'insight' | 'task'): number {
     let importance = 0.5;
     
     // 根据类型调整

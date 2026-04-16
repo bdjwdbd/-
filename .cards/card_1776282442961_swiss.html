@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test-skill - 成果卡片</title>
+  <style>
+    
+          :root {
+            --bg: #faf8f5;
+            --fg: #1a1a1a;
+            --muted: #6b7280;
+            --accent: #c2410c;
+            --card-bg: #f5f3f0;
+            --border: #e5e5e5;
+            --bar-bg: #e5e5e5;
+          }
+        
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+    
+    .card {
+      width: 880px;
+      background: var(--bg);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    
+    .brand {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .date {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+    }
+    
+    .score-section {
+      display: flex;
+      gap: 48px;
+      margin: 40px 0;
+      padding: 32px;
+      background: var(--card-bg);
+      border-radius: 16px;
+    }
+    
+    .score-main {
+      flex: 1;
+    }
+    
+    .score-label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    
+    .score-value {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    
+    .score-delta {
+      font-size: 24px;
+      font-weight: 600;
+      margin-left: 16px;
+    }
+    
+    .score-delta.positive {
+      color: #10b981;
+    }
+    
+    .score-delta.negative {
+      color: #ef4444;
+    }
+    
+    .score-delta.neutral {
+      color: var(--muted);
+    }
+    
+    .dimensions {
+      margin: 40px 0;
+    }
+    
+    .dimension {
+      margin-bottom: 24px;
+    }
+    
+    .dimension-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .dimension-name {
+      font-size: 14px;
+      color: var(--fg);
+    }
+    
+    .dimension-score {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .dimension-bar {
+      height: 8px;
+      background: var(--bar-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .dimension-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    .dimension-bar-before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--muted);
+      opacity: 0.3;
+      border-radius: 4px;
+    }
+    
+    .improvements {
+      margin: 40px 0;
+      padding: 24px;
+      background: var(--card-bg);
+      border-radius: 12px;
+    }
+    
+    .improvements-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+    
+    .improvement-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      color: var(--fg);
+    }
+    
+    .improvement-item::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-text {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
+    .footer-link {
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="brand">元灵系统 v4.4.0</div>
+      <div class="date">2026-04-15</div>
+    </div>
+    
+    <h1 class="title">test-skill</h1>
+    <p class="subtitle">Skill 优化结果</p>
+    
+    <div class="score-section">
+      <div class="score-main">
+        <div class="score-label">总分</div>
+        <div>
+          <span class="score-value">85.0</span>
+          <span class="score-delta positive">
+            +13.0
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dimensions">
+      
+        <div class="dimension">
+          <div class="dimension-header">
+            <span class="dimension-name">frontmatter</span>
+            <span class="dimension-score">8.0 / 10</span>
+          </div>
+          <div class="dimension-bar">
+            <div class="dimension-bar-before" style="width: 60%"></div>
+            <div class="dimension-bar-fill" style="width: 80%"></div>
+          </div>
+        </div>
+      
+        <div class="dimension">
+          <div class="dimension-header">
+            <span class="dimension-name">workflow_clarity</span>
+            <span class="dimension-score">7.0 / 10</span>
+          </div>
+          <div class="dimension-bar">
+            <div class="dimension-bar-before" style="width: 50%"></div>
+            <div class="dimension-bar-fill" style="width: 70%"></div>
+          </div>
+        </div>
+      
+        <div class="dimension">
+          <div class="dimension-header">
+            <span class="dimension-name">edge_cases</span>
+            <span class="dimension-score">6.0 / 10</span>
+          </div>
+          <div class="dimension-bar">
+            <div class="dimension-bar-before" style="width: 40%"></div>
+            <div class="dimension-bar-fill" style="width: 60%"></div>
+          </div>
+        </div>
+      
+        <div class="dimension">
+          <div class="dimension-header">
+            <span class="dimension-name">specificity</span>
+            <span class="dimension-score">8.0 / 10</span>
+          </div>
+          <div class="dimension-bar">
+            <div class="dimension-bar-before" style="width: 50%"></div>
+            <div class="dimension-bar-fill" style="width: 80%"></div>
+          </div>
+        </div>
+      
+    </div>
+    
+    <div class="improvements">
+      <div class="improvements-title">改进摘要</div>
+      
+        <div class="improvement-item">补充了边界条件处理</div>
+      
+        <div class="improvement-item">优化了工作流结构</div>
+      
+        <div class="improvement-item">增加了具体参数说明</div>
+      
+    </div>
+    
+    <div class="footer">
+      <div class="footer-text">Train your Skills like you train your models</div>
+      <a class="footer-link" href="https://github.com/bdjwbdb/humanoid-agent">https://github.com/bdjwbdb/humanoid-agent</a>
+    </div>
+  </div>
+</body>
+</html>

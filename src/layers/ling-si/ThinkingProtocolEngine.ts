@@ -3,6 +3,8 @@
  * 
  * 核心组件：强制在每次交互前执行思考过程
  * 基于 Thinking Claude 的 anthropic_thinking_protocol
+ * 
+ * v2.0.0 更新：集成所有优化模块
  */
 
 import {
@@ -26,19 +28,68 @@ import {
   allThinkingSteps,
 } from "./ThinkingSteps";
 
+// v2.0.0 新增优化模块
+import { AdvancedThinkingTechniquesEngine, ThinkingTechnique } from "./AdvancedThinkingTechniques";
+import { NaturalLanguageInjector, PhraseCategory } from "./NaturalLanguageInjector";
+import { AuthenticThoughtFlowSimulator, ThoughtFlowFeature } from "./AuthenticThoughtFlow";
+import { DomainIntegrator, Domain } from "./DomainIntegrator";
+import { ProgressiveUnderstandingTracker, UnderstandingPhase } from "./ProgressiveUnderstandingTracker";
+
+/**
+ * 思考协议引擎配置（v2.0.0 扩展）
+ */
+export interface ThinkingProtocolConfig extends ThinkingConfig {
+  /** 是否启用高级思维技术 */
+  enableAdvancedTechniques?: boolean;
+  /** 是否启用自然语言注入 */
+  enableNaturalLanguage?: boolean;
+  /** 是否启用真实思维流 */
+  enableAuthenticFlow?: boolean;
+  /** 是否启用领域集成 */
+  enableDomainIntegration?: boolean;
+  /** 是否启用渐进式理解 */
+  enableProgressiveUnderstanding?: boolean;
+}
+
+/**
+ * 默认扩展配置
+ */
+const DEFAULT_EXTENDED_CONFIG: ThinkingProtocolConfig = {
+  ...DEFAULT_THINKING_CONFIG,
+  enableAdvancedTechniques: true,
+  enableNaturalLanguage: true,
+  enableAuthenticFlow: true,
+  enableDomainIntegration: true,
+  enableProgressiveUnderstanding: true,
+};
+
 /**
  * 思考协议引擎
  */
 export class ThinkingProtocolEngine {
   private depthController: AdaptiveDepthController;
   private hypothesisManager: MultiHypothesisManager;
-  private config: ThinkingConfig;
+  private config: ThinkingProtocolConfig;
   private thinkingHistory: ThinkingResult[] = [];
 
-  constructor(config?: Partial<ThinkingConfig>) {
-    this.config = { ...DEFAULT_THINKING_CONFIG, ...config };
+  // v2.0.0 新增优化模块
+  private techniquesEngine: AdvancedThinkingTechniquesEngine;
+  private languageInjector: NaturalLanguageInjector;
+  private thoughtFlowSimulator: AuthenticThoughtFlowSimulator;
+  private domainIntegrator: DomainIntegrator;
+  private understandingTracker: ProgressiveUnderstandingTracker;
+
+  constructor(config?: Partial<ThinkingProtocolConfig>) {
+    this.config = { ...DEFAULT_EXTENDED_CONFIG, ...config };
     this.depthController = new AdaptiveDepthController();
     this.hypothesisManager = new MultiHypothesisManager();
+    
+    // 初始化优化模块
+    this.techniquesEngine = new AdvancedThinkingTechniquesEngine();
+    this.languageInjector = new NaturalLanguageInjector();
+    this.thoughtFlowSimulator = new AuthenticThoughtFlowSimulator();
+    this.domainIntegrator = new DomainIntegrator();
+    this.understandingTracker = new ProgressiveUnderstandingTracker();
   }
 
   /**
@@ -47,6 +98,11 @@ export class ThinkingProtocolEngine {
   async execute(message: HumanMessage): Promise<ThinkingResult> {
     const startTime = Date.now();
     const thinkingId = this.generateThinkingId();
+
+    // 重置优化模块状态
+    this.languageInjector.reset();
+    this.thoughtFlowSimulator.reset();
+    this.understandingTracker.reset();
 
     // 1. 评估思考深度
     const depthAssessment = this.depthController.assessDepth(message);
@@ -65,6 +121,22 @@ export class ThinkingProtocolEngine {
       tokensUsed: 0,
     };
 
+    // 2.5 v2.0.0: 领域检测（如果启用）
+    let detectedDomains: Domain[] = [];
+    if (this.config.enableDomainIntegration) {
+      const domainResult = this.domainIntegrator.detectDomains(context);
+      detectedDomains = domainResult.detectedDomains.map(d => d.domain);
+      context.establishedFacts.push(`检测到领域: ${detectedDomains.join(", ")}`);
+    }
+
+    // 2.6 v2.0.0: 初始化渐进式理解（如果启用）
+    if (this.config.enableProgressiveUnderstanding) {
+      const initialObservations = [
+        `用户问题: ${message.content.substring(0, 100)}`,
+      ];
+      this.understandingTracker.recordInitialObservations(initialObservations, context);
+    }
+
     // 3. 根据深度选择步骤
     const steps = this.selectSteps(depth);
 
@@ -81,6 +153,15 @@ export class ThinkingProtocolEngine {
 
       // 执行步骤
       const result = await step.execute(context);
+      
+      // v2.0.0: 自然语言注入（如果启用）
+      if (this.config.enableNaturalLanguage && result.thoughts.length > 0) {
+        const category = this.mapStepToPhraseCategory(stepName);
+        result.thoughts = result.thoughts.map(t => 
+          this.languageInjector.inject(t, category)
+        );
+      }
+
       stepResults.push(result);
 
       // 更新上下文
@@ -105,13 +186,44 @@ export class ThinkingProtocolEngine {
       if (result.issues) {
         context.openQuestions.push(...result.issues);
       }
+
+      // v2.0.0: 更新渐进式理解
+      if (this.config.enableProgressiveUnderstanding) {
+        this.understandingTracker.buildUnderstanding(
+          result.thoughts,
+          context
+        );
+      }
     }
 
     // 5. 合成思考内容
-    const content = this.synthesizeThinkingContent(stepResults);
+    let content = this.synthesizeThinkingContent(stepResults);
+
+    // 5.5 v2.0.0: 应用高级思维技术（如果启用）
+    if (this.config.enableAdvancedTechniques && detectedDomains.length > 0) {
+      // 应用模式识别
+      const patterns = this.techniquesEngine.patternRecognition(message.content);
+      if (patterns.length > 0) {
+        content += `\n\n[模式识别] 发现 ${patterns.length} 个相关模式`;
+      }
+
+      // 应用优先级评估
+      if (context.openQuestions.length > 1) {
+        const priority = this.techniquesEngine.priorityAssessment(context.openQuestions);
+        content += `\n\n[优先级] 最高优先问题: ${priority.ranking[0]}`;
+      }
+    }
 
     // 6. 提取洞察
     const insights = this.extractInsights(stepResults);
+
+    // 6.5 v2.0.0: 添加渐进式理解洞察
+    if (this.config.enableProgressiveUnderstanding) {
+      const understandingState = this.understandingTracker.getState();
+      if (understandingState.totalInsights > 0) {
+        insights.push(`渐进式理解: ${understandingState.totalInsights} 个洞察`);
+      }
+    }
 
     // 7. 确定是否需要工具调用
     const { requiresToolUse, recommendedTools } = this.analyzeToolNeeds(context);
@@ -140,6 +252,22 @@ export class ThinkingProtocolEngine {
     this.thinkingHistory.push(result);
 
     return result;
+  }
+
+  /**
+   * 映射思考步骤到自然语言短语类别
+   */
+  private mapStepToPhraseCategory(step: ThinkingStepName): PhraseCategory | undefined {
+    const mapping: Partial<Record<ThinkingStepName, PhraseCategory>> = {
+      [ThinkingStepName.INITIAL_ENGAGEMENT]: PhraseCategory.HESITATION,
+      [ThinkingStepName.MULTIPLE_HYPOTHESES]: PhraseCategory.UNCERTAINTY,
+      [ThinkingStepName.NATURAL_DISCOVERY]: PhraseCategory.DISCOVERY,
+      [ThinkingStepName.TESTING_VERIFICATION]: PhraseCategory.QUESTIONING,
+      [ThinkingStepName.ERROR_CORRECTION]: PhraseCategory.CORRECTION,
+      [ThinkingStepName.KNOWLEDGE_SYNTHESIS]: PhraseCategory.SYNTHESIS,
+      [ThinkingStepName.PATTERN_RECOGNITION]: PhraseCategory.CONNECTION,
+    };
+    return mapping[step];
   }
 
   /**
