@@ -19,5 +19,5 @@
     "sourceMap": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src/__tests__/**", "**/*.test.ts", "src/_deprecated/**"]
+  "exclude": ["node_modules", "dist", "src/__tests__/**", "**/*.test.ts", "src/_deprecated/**", "src/test-*.ts", "src/cli.ts"]
 }

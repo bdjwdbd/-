@@ -181,6 +181,8 @@ export class LaneScheduler {
   markLanePinged(lane: Lane): void {
     this.pingedLanes = mergeLanes(this.pingedLanes, lane);
     this.suspendedLanes = removeLane(this.suspendedLanes, lane);
+    // 唤醒时也需要将 Lane 重新加入待处理队列
+    this.pendingLanes = mergeLanes(this.pendingLanes, lane);
   }
 
   /**
@@ -313,11 +315,22 @@ export class PriorityTaskQueue {
     const laneTasks = this.tasks.get(nextLane);
     
     if (!laneTasks || laneTasks.length === 0) {
+      // 清理空的任务列表
+      this.tasks.delete(nextLane);
       this.scheduler.clearLane(nextLane);
-      return null;
+      // 尝试获取下一个 Lane
+      return this.dequeue();
     }
     
-    return laneTasks.shift() || null;
+    const task = laneTasks.shift();
+    
+    // 如果该 Lane 没有更多任务，清理
+    if (laneTasks.length === 0) {
+      this.tasks.delete(nextLane);
+      this.scheduler.clearLane(nextLane);
+    }
+    
+    return task || null;
   }
 
   /**

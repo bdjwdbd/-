@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mem-1776408515333-5z1dymd6y",
+    "layer": 1,
+    "content": "这是第三条记忆：实现了记忆持久化",
+    "metadata": {
+      "type": "memory"
+    },
+    "createdAt": 1776408515333,
+    "updatedAt": 1776408515333,
+    "accessCount": 1,
+    "lastAccessedAt": 1776408515333
+  },
+  {
+    "id": "mem-1776408515332-tm48l7enm",
+    "layer": 1,
+    "content": "这是第一条记忆：元灵系统 v6.0 启动成功",
+    "metadata": {
+      "type": "system"
+    },
+    "createdAt": 1776408515332,
+    "updatedAt": 1776408515336,
+    "accessCount": 1,
+    "lastAccessedAt": 1776408515333
+  }
+]

@@ -13,6 +13,80 @@ import { StateManager, StateCategory } from '../state-manager';
 import { TraceCollector, Layer, SpanStatus } from '../trace-system';
 import { HarnessSystem } from '../index';
 
+// ============ Jest 测试包装 ============
+
+describe('Harness Engineering', () => {
+  describe('StateManager', () => {
+    it('应该正确设置和获取状态', async () => {
+      const manager = new StateManager({
+        workspaceRoot: '/tmp/harness-test',
+        enablePersistence: true,
+        enableAudit: true,
+      });
+
+      await manager.initialize();
+
+      const setResult = await manager.set('test_key', { value: 'test_value' }, StateCategory.SESSION);
+      expect(setResult.success).toBe(true);
+
+      const getResult = await manager.get('test_key');
+      expect(getResult.success).toBe(true);
+      expect((getResult.data as any)?.value).toBe('test_value');
+
+      await manager.close();
+    });
+  });
+
+  describe('TraceCollector', () => {
+    it('应该正确管理追踪生命周期', async () => {
+      const collector = new TraceCollector({
+        workspaceRoot: '/tmp/harness-test',
+        enabled: true,
+        sampleRate: 1.0,
+        enableDecisionAudit: true,
+      });
+
+      await collector.initialize();
+
+      const traceContext = collector.startTrace('test_trace', { test: true });
+      expect(traceContext.traceId).toBeDefined();
+
+      const l0Span = collector.startSpan('L0_思考', Layer.L0, traceContext);
+      expect(l0Span.spanId).toBeDefined();
+
+      collector.endSpan(l0Span.spanId);
+      collector.endTrace(traceContext.traceId);
+
+      const trace = collector.getTrace(traceContext.traceId);
+      expect(trace?.status).toBe(SpanStatus.COMPLETED);
+
+      await collector.close();
+    });
+  });
+
+  describe('HarnessSystem', () => {
+    it('应该正确集成状态管理和追踪', async () => {
+      const harness = new HarnessSystem({
+        workspaceRoot: '/tmp/harness-test',
+        enableStateManager: true,
+        enableTracing: true,
+        enableAudit: true,
+      });
+
+      await harness.initialize();
+
+      await harness.setState('test', { value: 123 }, StateCategory.SESSION);
+      const state = await harness.getState('test');
+      expect((state as any)?.value).toBe(123);
+
+      const status = harness.getStatus();
+      expect(status.initialized).toBe(true);
+
+      await harness.close();
+    });
+  });
+});
+
 // ============ 测试工具 ============
 
 function assert(condition: boolean, message: string): void {

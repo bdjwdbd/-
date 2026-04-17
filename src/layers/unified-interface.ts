@@ -11,12 +11,12 @@
 /**
  * 层级标识
  */
-export type LayerId = 'L0' | 'L1' | 'L2' | 'L3' | 'L4' | 'L5' | 'L6';
+export type LayerId = 'L0' | 'L1' | 'L2' | 'L3' | 'L4' | 'L5' | 'L6' | 'L7';
 
 /**
  * 层级名称
  */
-export type LayerName = 'ling-si' | 'ling-shu' | 'ling-mai' | 'ling-qu' | 'ling-dun' | 'ling-yun' | 'ling-shi';
+export type LayerName = 'ling-si' | 'ling-shu' | 'ling-mai' | 'ling-qu' | 'ling-dun' | 'ling-yun' | 'ling-shi' | 'ling-sha';
 
 /**
  * 层级配置基类
@@ -297,7 +297,7 @@ export class LayerManager {
    */
   async executeSequential(context: LayerContext): Promise<Map<LayerId, LayerResult>> {
     const results = new Map<LayerId, LayerResult>();
-    const order: LayerId[] = ['L6', 'L0', 'L1', 'L2', 'L3', 'L4', 'L5'];
+    const order: LayerId[] = ['L6', 'L0', 'L1', 'L2', 'L7', 'L3', 'L4', 'L5'];
     
     let currentContext = context;
     

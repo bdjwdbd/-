@@ -1390,11 +1390,17 @@ export class YuanLingSystem {
   
   // ============ 性能监控 ============
   
+  // 请求计数器
+  private _totalRequests: number = 0;
+  private _totalLatency: number = 0;
+  
   /**
    * 记录模块操作
    */
   recordModuleOperation(module: string, latency: number, success: boolean = true): void {
     this.performanceMonitor.recordModuleOperation(module, latency, success);
+    this._totalRequests++;
+    this._totalLatency += latency;
   }
   
   /**
@@ -1413,7 +1419,23 @@ export class YuanLingSystem {
    * 获取完整性能报告
    */
   getPerformanceReport(): string {
-    return this.performanceMonitor.getFullReport();
+    const lines: string[] = ['性能报告', '='.repeat(50)];
+    
+    // 系统级指标
+    lines.push('\n系统级指标:');
+    lines.push(`  总请求数: ${this._totalRequests}`);
+    lines.push(`  平均延迟: ${this._totalRequests > 0 ? (this._totalLatency / this._totalRequests).toFixed(2) : 0}ms`);
+    
+    // 层级延迟
+    lines.push('\n层级延迟:');
+    const fullReport = this.performanceMonitor.getFullReport();
+    // 提取层级延迟部分
+    const layerLatencyMatch = fullReport.match(/层级延迟:[\s\S]*$/);
+    if (layerLatencyMatch) {
+      lines.push(layerLatencyMatch[0].replace('层级延迟:\n', ''));
+    }
+    
+    return lines.join('\n');
   }
   
   // ============ 错误处理 ============
@@ -2001,6 +2023,9 @@ export class YuanLingSystem {
       }
       
       this.performanceMonitor.recordLayerLatency('L0-记忆-并行', Date.now() - parallelStart);
+      
+      // 记录请求
+      this.recordModuleOperation('processWithExternalExecutor', Date.now() - startTime);
 
       // ========== P0-2：L1 决策（串行，利用 L0 结果）==========
       const l1Start = Date.now();
@@ -2555,10 +2580,10 @@ export class YuanLingSystem {
       introspectionEnabled: this.config.enableIntrospection,
       performance: {
         health: 1 - memUsage,
-        avgLatency: 0,
+        avgLatency: this._totalRequests > 0 ? this._totalLatency / this._totalRequests : 0,
         cacheHitRate: 0,
         successRate: 1,
-        totalRequests: 0,
+        totalRequests: this._totalRequests,
       },
     };
   }

@@ -102,6 +102,25 @@ export class IntegratedSystem {
     this.performanceMonitor = monitor;
   }
   
+  /** 获取 PerformanceMonitor */
+  getPerformanceMonitor(): any {
+    return this.performanceMonitor;
+  }
+  
+  /** 记录缓存命中 */
+  recordCacheHit(): void {
+    if (this.performanceMonitor && typeof this.performanceMonitor.record === 'function') {
+      this.performanceMonitor.record('cache_hit', 1);
+    }
+  }
+  
+  /** 记录缓存未命中 */
+  recordCacheMiss(): void {
+    if (this.performanceMonitor && typeof this.performanceMonitor.record === 'function') {
+      this.performanceMonitor.record('cache_miss', 1);
+    }
+  }
+  
   /** 获取在线学习器实例 */
   get onlineLearner(): OnlineLearner {
     return this._onlineLearner;
@@ -234,10 +253,10 @@ export class IntegratedSystem {
     const cacheKey = `search:${query}:${JSON.stringify(options)}`;
     const cached = this.getFromCache(cacheKey);
     if (cached) {
-      this.performanceMonitor?.recordCacheHit();
+      this.recordCacheHit();
       return cached;
     }
-    this.performanceMonitor?.recordCacheMiss();
+    this.recordCacheMiss();
     
     // 文本搜索
     const textResults = await this.memoryStore.search(query, options as any);

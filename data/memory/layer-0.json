@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mem-1776410233037-jcadboixg",
+    "layer": 0,
+    "content": "{\"message\":\"你好，元灵系统\",\"output\":\"元灵系统已处理您的请求。思考深度: standard, 决策类型: direct_reply\",\"decision\":\"direct_reply\",\"timestamp\":1776410233037}",
+    "metadata": {
+      "sessionId": "session-1776410233035-7kioels47"
+    },
+    "createdAt": 1776410233037,
+    "updatedAt": 1776410233037,
+    "accessCount": 0,
+    "lastAccessedAt": 1776410233037
+  },
+  {
+    "id": "mem-1776410233044-0c45uawl6",
+    "layer": 0,
+    "content": "{\"message\":\"请读取 package.json 文件\",\"output\":\"执行完成\",\"decision\":\"tool_call\",\"timestamp\":1776410233044}",
+    "metadata": {
+      "sessionId": "session-1776410233037-gz3vo7la8"
+    },
+    "createdAt": 1776410233044,
+    "updatedAt": 1776410233044,
+    "accessCount": 0,
+    "lastAccessedAt": 1776410233044
+  },
+  {
+    "id": "mem-1776410233062-7nmgk6teb",
+    "layer": 0,
+    "content": "{\"message\":\"请执行 echo \\\"Hello YuanLing\\\" 命令\",\"output\":\"执行完成\",\"decision\":\"tool_call\",\"timestamp\":1776410233062}",
+    "metadata": {
+      "sessionId": "session-1776410233045-rzrian5k0"
+    },
+    "createdAt": 1776410233062,
+    "updatedAt": 1776410233062,
+    "accessCount": 0,
+    "lastAccessedAt": 1776410233062
+  },
+  {
+    "id": "mem-1776410233063-6um0v6jkm",
+    "layer": 0,
+    "content": "{\"message\":\"测试桥接层\",\"output\":\"桥接层响应: [L0] 思考深度: standard, 复杂度: 0.01, 记忆命中: 0\\n\\n[L1] 决策=d...\",\"decision\":\"direct_reply\",\"timestamp\":1776410233063}",
+    "metadata": {
+      "sessionId": "session-1776410233063-68pvmazg1"
+    },
+    "createdAt": 1776410233063,
+    "updatedAt": 1776410233063,
+    "accessCount": 0,
+    "lastAccessedAt": 1776410233063
+  }
+]
